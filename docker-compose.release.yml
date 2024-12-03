@@ -53,10 +53,27 @@ services:
   csengofrontend:
     container_name: csengo-frontend
     image: ghcr.io/tgyakos/csengo-ts-client/app:latest
+    restart: always
     depends_on:
       - csengobackend
     ports:
       - "8080:80"
+    networks:
+      - csengo
+
+  csengopgadmin:
+    container_name: csengopgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@4o1x5.dev
+      PGADMIN_DEFAULT_USERNAME: admin
+      PGADMIN_DEFAULT_PASSWORD: t678ogryeilrgep89y35y8o9wb896yp4*^&Ygsdfe
+      PGADMIN_CONFIG_WTF_CSRF_ENABLED: "False"
+    volumes:
+      - csengo_pgadmin:/var/lib/pgadmin
     networks:
       - csengo
 
@@ -66,3 +83,4 @@ networks:
 volumes:
   csengo_db:
   csengo_sounds:
+  csengo_pgadmin:
