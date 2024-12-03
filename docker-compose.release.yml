@@ -35,7 +35,7 @@ services:
     volumes:
       - csengo_sounds:/usr/app/data
     ports:
-      - "3300:3300"
+      - "7666:3300"
     depends_on:
       - sessionstore
       - csengopostgres
@@ -57,7 +57,7 @@ services:
     depends_on:
       - csengobackend
     ports:
-      - "8080:80"
+      - "7665:80"
     networks:
       - csengo
 
@@ -66,7 +66,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - "8081:80"
+      - "7667:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@4o1x5.dev
       PGADMIN_DEFAULT_USERNAME: admin
