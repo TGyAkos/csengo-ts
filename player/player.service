@@ -1,0 +1,11 @@
+[Unit]
+Description=My test service
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+#ExecStart=/usr/bin/python3 /home/csengo/csengo/player/play_sound.py
+ExecStart=/usr/bin/python /home/pear/code/github/csengo/player/play_sound.py
+[Install]
+WantedBy=multi-user.target

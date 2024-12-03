@@ -1,0 +1,6 @@
+[submodule "csengo-ts-client"]
+	path = csengo-ts-client
+	url = https://github.com/TGyAkos/csengo-ts-client
+[submodule "csengo-ts-server"]
+	path = csengo-ts-server
+	url = https://github.com/TGyAkos/csengo-ts-server
