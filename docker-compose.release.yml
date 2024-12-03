@@ -1,0 +1,68 @@
+# Compose2nix command
+# compose2nix -inputs sonarqube.yml -output sonarqube.nix -runtime docker -project=sonarqube
+
+# DONT FORGET TO BUILD THE IMAGES FIRST! AND MAKE SURE THEIR ALIASES ARE SET (hldup/csengoserver)
+# Todo add values from .env file via ${}
+
+services:
+  sessionstore:
+    container_name: csengosessionstore
+    image: redis:latest
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass HIebSbfqyzPL5pI4dY5d4Ilpju1WSRP6YlbCkm6GK
+    networks:
+      - csengo
+
+  csengopostgres:
+    container_name: csengopostgres
+    image: postgres:latest
+    restart: always
+    hostname: csengopostgres
+    environment:
+      POSTGRES_USER: pollakCSengodhCuCV82ihd
+      POSTGRES_PASSWORD: FfjDcdosdis92Fh3d
+      POSTGRES_DB: csengo
+    volumes:
+      - csengo_db:/var/lib/postgresql/data
+    networks:
+      - csengo
+
+  csengobackend:
+    container_name: csengo-backend
+    image: ghcr.io/tgyakos/csengo-ts-server/app:latest
+    restart: always
+    hostname: csengobackend
+    volumes:
+      - csengo_sounds:/usr/app/data
+    ports:
+      - "3300:3300"
+    depends_on:
+      - sessionstore
+      - csengopostgres
+    networks:
+      - csengo
+    environment:
+      PORT: 3300
+      DATABASE_URL: "postgresql://pollakCSengodhCuCV82ihd:FfjDcdosdis92Fh3d@csengopostgres:5432/csengo?schema=public"
+      UPLOAD_PATH: "./data/audio"
+      TOKEN_SECRET: " Xpoollak!@aCsDdCVpdjd88269037190zbcGIOcv6ioVIgs"
+      SESSION_STORE_PASSWORD: "HIebSbfqyzPL5pI4dY5d4Ilpju1WSRP6YlbCkm6GK"
+      SESSION_STORE_HOST: "csengosessionstore"
+      SESSION_STORE_PORT: 6379
+
+  csengofrontend:
+    container_name: csengo-frontend
+    image: ghcr.io/tgyakos/csengo-ts-client/app:latest
+    depends_on:
+      - csengobackend
+    ports:
+      - "8080:80"
+    networks:
+      - csengo
+
+networks:
+  csengo:
+
+volumes:
+  csengo_db:
+  csengo_sounds:
