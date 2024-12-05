@@ -52,6 +52,7 @@ services:
       SESSION_STORE_PASSWORD: "HIebSbfqyzPL5pI4dY5d4Ilpju1WSRP6YlbCkm6GK"
       SESSION_STORE_HOST: "csengosessionstore"
       SESSION_STORE_PORT: 6379
+      CORS_ORIGIN: "https://csengo.pollak.info"
 
   csengofrontend:
     container_name: csengofrontend
