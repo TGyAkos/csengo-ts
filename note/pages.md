@@ -1,50 +1,47 @@
-# Pages:
-
 ## Login
-- A login page.
-- Fields:
-  - Username
-  - Password
+
+- Endpoints:
+  - POST: auth/login
 
 ## Register
-- A registration page.
-- Fields:
-  - Username
-  - Email
-  - OM
-  - Password
+
+- Endpoints:
+  - POST: auth/register
 
 ## Home
-- A list of votable songs with the following functions:
-  - Play
-  - Vote
-- OR, a title indicating there is no voting session at the moment.
-- A diagram showing the current voting status OR a title indicating no voting session is active.
-- A button to upload a song:
-  - Function: Max 30 seconds of audio.
-  - The song is placed in a table containing songs awaiting approval.
 
-## Admin
-- A responsive sidebar to navigate between different MainComponents.
+- Endpoints:
+  - GET: user/get-real-name
+  - GET: songs/get-all-in-session
+  - GET: votes/get-summary-in-session
+  - POST: votes/vote-up
+  - POST: votes/vote-down
+  - POST: songs/upload
 
-### MainComponents:
-- **MainComponent 1**: 
-  - A list showing all songs with the following functions:
-    - Play
-    - Rename
-    - Delete
-    - Upload new song by admin
-- **MainComponent 2**: 
-  - A list showing uploaded songs awaiting approval with the following functions:
-    - Play
-    - Approve
-    - Disapprove
-- **MainComponent 3**: 
-  - A list of all voting sessions with the following functions:
-    - Add new session
-    - Delete session
-    - View ended sessions (show duration, song names included in the session, and the winning song)
-    - View current/future sessions (change duration, add/remove songs, view votes)
+## AllSongs component
+
+- Endpoints:
+  - GET: songs/get-all
+  - POST: songs/upload-direct
+  - PUT: songs/rename
+  - DELETE: songs/delete
+
+## YetToBeApprovedSongs component
+
+- Endpoints:
+  - GET: pending-songs/get-all
+  - POST: pending-songs/approve
+  - DELETE: pending-songs/disapprove
+
+## VotingSessions component
+
+- Endpoints:
+  - GET: voting-sessions/get-all
+  - POST: voting-sessions/add
+  - PUT: voting-sessions/update
+  - DELETE: voting-sessions/delete
 
 ## TV Diagram
-- A diagram to show the current status of the voting session.
+
+- Endpoints:
+  - /get-summary-of-votes-in-session
