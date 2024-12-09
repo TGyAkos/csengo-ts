@@ -3,6 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/csengo-ts-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/csengo-ts-client-v2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/csengo-ts-server" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/csengo-ts-server-v2" vcs="Git" />
   </component>
 </project>

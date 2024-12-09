@@ -10,3 +10,6 @@
 [submodule "csengo-ts-server-v2"]
 	path = csengo-ts-server-v2
 	url = https://github.com/TGyAkos/csengo-ts-server-v2
+[submodule "csengo-client-plans"]
+	path = csengo-client-plans
+	url = https://github.com/OHOKs/csengo-client-plans
