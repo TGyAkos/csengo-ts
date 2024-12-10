@@ -51,7 +51,7 @@ services:
       CORS_ORIGIN: ".*[a-z0-9]*.pollak.info"
       CORS_DOMAIN: "pollak.info"
       DEV: "false"
-      
+
   csengo-ts-client-v2:
     container_name: csengo-ts-client-v2
     image: ghcr.io/tgyakos/csengo-ts-client-v2/app:latest
