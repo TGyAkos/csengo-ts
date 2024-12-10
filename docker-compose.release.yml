@@ -1,9 +1,3 @@
-# Compose2nix command
-# compose2nix -inputs sonarqube.yml -output sonarqube.nix -runtime docker -project=sonarqube
-
-# DONT FORGET TO BUILD THE IMAGES FIRST! AND MAKE SURE THEIR ALIASES ARE SET (hldup/csengoserver)
-# Todo add values from .env file via ${}
-
 services:
   csengosessionstore:
     container_name: csengosessionstore
@@ -54,7 +48,7 @@ services:
       SESSION_STORE_PORT: 6379
       CORS_ORIGIN: ".*[a-z0-9]*.pollak.info"
       CORS_DOMAIN: "pollak.info"
-      
+
   csengofrontend:
     container_name: csengofrontend
     image: ghcr.io/tgyakos/csengo-ts-client/app:latest
