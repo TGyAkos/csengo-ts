@@ -31,7 +31,7 @@ services:
     image: ghcr.io/tgyakos/csengo-ts-server-v2/app:latest
     restart: always
     volumes:
-      - csengo-v2_sounds:/usr/app/data
+      - csengo-v2_sounds:/data
     ports:
       - "7666:3300"
     depends_on:
