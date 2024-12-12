@@ -40,13 +40,17 @@ song = "song.mp3"
 
 sio = socketio.Client()
 
+retry_connection = False
+
 # --- Functions ------------------------------
 
 def on_connect():
     print("Socket.IO connection established")
 
 def on_disconnect():
-    print("Socket.IO connection closed")
+    print("Socket.IO connection closed. Retrying in 5 seconds...")
+    time.sleep(5)
+    connect_to_socketio()
 
 def on_message(data):
     print(f"Received message: {data}")
@@ -57,19 +61,49 @@ def on_updateAudioOnServer(data):
     # sio.emit('updateAudioOnServer', {"status": "error", "message": "Error getting winning song"})
     get_winning_song()
 
-def connect_to_socketio():
-    sio.on('connect', on_connect)
-    sio.on('disconnect', on_disconnect)
-    sio.on('message', on_message)
-    sio.on('updateAudioOnServer', on_updateAudioOnServer)
+def on_connect():
+    global retry_connection
+    print("Socket.IO connection established")
+    retry_connection = False
 
-    sio.connect(url=wsUrl, headers=myobj, socketio_path=wsHandshakePath)
-    sio.wait()
+def on_disconnect():
+    global retry_connection
+    print("Socket.IO connection closed. Retrying every 5 seconds...")
+    retry_connection = True
+
+def on_message(data):
+    print(f"Received message: {data}")
+
+def on_updateAudioOnServer(data):
+    print(f"Received message: {data}")
+    get_winning_song()
+
+def connect_to_socketio():
+    global retry_connection
+    while True:
+        try:
+            sio.on('connect', on_connect)
+            sio.on('disconnect', on_disconnect)
+            sio.on('message', on_message)
+            sio.on('updateAudioOnServer', on_updateAudioOnServer)
+
+            sio.connect(url=wsUrl, headers=myobj, socketio_path=wsHandshakePath)
+            sio.wait()
+        except Exception as e:
+            print(f"Connection failed: {e}. Retrying in 5 seconds...")
+            time.sleep(5)
+        if retry_connection:
+            print(f"Connection failed after disconnect. Retrying in 5 seconds...")
+            retry_connection = False
+            continue
 
 def start_socketio_listener():
     socketio_thread = threading.Thread(target=connect_to_socketio)
     socketio_thread.daemon = True
     socketio_thread.start()
+
+def get_csengo_times():
+    print("Getting csengo times")
 
 def get_csengo_times():
     print("Getting csengo times")
