@@ -45,23 +45,6 @@ retry_connection = False
 # --- Functions ------------------------------
 
 def on_connect():
-    print("Socket.IO connection established")
-
-def on_disconnect():
-    print("Socket.IO connection closed. Retrying in 5 seconds...")
-    time.sleep(5)
-    connect_to_socketio()
-
-def on_message(data):
-    print(f"Received message: {data}")
-
-def on_updateAudioOnServer(data):
-    print(f"Received message: {data}")
-    # sio.emit('message', "Update message acknowledged returning message")
-    # sio.emit('updateAudioOnServer', {"status": "error", "message": "Error getting winning song"})
-    get_winning_song()
-
-def on_connect():
     global retry_connection
     print("Socket.IO connection established")
     retry_connection = False
