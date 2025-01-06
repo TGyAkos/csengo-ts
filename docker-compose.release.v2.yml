@@ -51,6 +51,7 @@ services:
       CORS_ORIGIN: ".*[a-z0-9]*.pollak.info"
       CORS_DOMAIN: "pollak.info"
       DEV: "false"
+      WS_API_KEY: "lofasz"
 
   csengo-ts-client-v2:
     container_name: csengo-ts-client-v2
