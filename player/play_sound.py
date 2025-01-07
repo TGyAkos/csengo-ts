@@ -18,9 +18,9 @@ import threading
 
 csengo_times = [
     '08:00', '08:45',
-    '08:55', '09:25',
-    '09:50', '10:20',
-    '10:45', '11:15',
+    '08:55', '09:40',
+    '09:50', '10:35',
+    '10:45', '11:30',
     '11:40', '12:25',
     '12:35', '13:20',
     '13:25', '14:10',
@@ -157,7 +157,7 @@ def csengo():
 # --- Init -----------------------------------
 
 mixer.init()
-mixer.music.set_volume(.10) # preventing earrape
+mixer.music.set_volume(.80) # preventing earrape
 
 # Start WebSocket listener
 start_socketio_listener()
