@@ -61,6 +61,15 @@ def on_updateAudioOnServer(data):
     print(f"Received message: {data}")
     get_winning_song()
 
+
+def on_startAudioOnServer(data):
+    print(f"Received message: {data}")
+    start_audio()
+
+def on_stopAudioOnServer(data):
+    print(f"Received message: {data}")
+    stop_audio()
+
 def connect_to_socketio():
     global retry_connection
     while True:
@@ -69,6 +78,8 @@ def connect_to_socketio():
             sio.on('disconnect', on_disconnect)
             sio.on('message', on_message)
             sio.on('updateAudioOnServer', on_updateAudioOnServer)
+            sio.on('startAudioOnServer', on_startAudioOnServer)
+            sio.on('stopAudioOnServer', on_stopAudioOnServer)
 
             sio.connect(url=wsUrl, headers=myobj, socketio_path=wsHandshakePath)
             sio.wait()
@@ -148,6 +159,22 @@ def play_song(filename):
     while mixer.music.get_busy():  # Wait for music to finish playing
         time.sleep(1)
     mixer.music.unload()
+
+def start_audio():
+    try:
+        mixer.music.set_volume(.80)
+        sio.emit('startAudioOnServer', {"status": "success", "message": "Successfully started audio"})
+    except Exception as e:
+        print(f"Failed to set volume: {e}")
+        sio.emit('startAudioOnServer', {"status": "error", "message": f"Failed to start audio: {e}"})
+
+def stop_audio():
+    try:
+        mixer.music.set_volume(0)
+        sio.emit('stopAudioOnServer', {"status": "success", "message": "Successfully stopped audio"})
+    except Exception as e:
+        print(f"Failed to set volume: {e}")
+        sio.emit('stopAudioOnServer', {"status": "error", "message": f"Failed to stop audio: {e}"})
 
 
 def csengo():
