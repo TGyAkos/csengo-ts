@@ -74,6 +74,10 @@ def connect_to_socketio():
     global retry_connection
     while True:
         try:
+            if sio.connected:
+                sio.disconnect()
+                print("Disconnected from previous connection")
+
             sio.on('connect', on_connect)
             sio.on('disconnect', on_disconnect)
             sio.on('message', on_message)
