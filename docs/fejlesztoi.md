@@ -413,3 +413,187 @@ A frontend strukturális felépítése a következő:
    - *login.spec.ts*: Bejelentkezési oldal tesztje.
    - *register.spec.ts*: Regisztrációs oldal tesztje.
    - *tsconfig.json*: Teszt konfiguráció.
+
+- *.browserslistrc*: A böngészők támogatásának konfigurációs fájlja.
+- *.dockerignore*: A Docker által figyelmen kívül hagyandó fájlok listája.
+- *.editorconfig*: Kódformázási szabályok különböző szerkesztők és IDE-k számára.
+- *.env copy.example*: Példa környezeti változók fájlra.
+- *.eslintrc-auto-import.json*: ESLint konfigurációs fájl automatikus importáláshoz.
+- *.gitignore*: A Git által figyelmen kívül hagyandó fájlok listája.
+- *.prettierrc*: Prettier kódformázó eszköz konfigurációs fájlja.
+- *docker-compose.dev.yml*: Docker Compose konfiguráció fejlesztési környezethez.
+- *docker-compose.release.yml*: Docker Compose konfiguráció kiadási környezethez.
+- *Dockerfile*: Docker kép építéséhez szükséges utasításokat tartalmazó fájl.
+- *env.d.ts*: TypeScript típusdefiníciók környezeti változókhoz.
+- *eslint.config.js*: ESLint konfigurációs fájl.
+- *flake.lock*: Nix flake zárolási fájl.
+- *flake.nix*: Nix flake konfigurációs fájl.
+- *index.html*: Az alkalmazás belépési pontja HTML formátumban.
+- *kerdesek.md*: Kérdéseket tartalmazó Markdown fájl.
+- *package-lock.json*: A projekt függőségeinek pontos verzióit rögzítő fájl.
+- *package.json*: A projekt függőségeit és szkripteket tartalmazó fájl.
+- *playwright.config.ts*: Playwright tesztelési keretrendszer konfigurációs fájlja.
+- *README.md*: A projekt leírását és használati útmutatóját tartalmazó fájl.
+- *sonar-project.properties*: SonarQube projekt konfigurációs fájl.
+- *tsconfig.app.json*: TypeScript konfigurációs fájl az alkalmazás számára.
+- *tsconfig.json*: A TypeScript projekt alapértelmezett konfigurációs fájlja.
+- *tsconfig.node.json*: TypeScript konfigurációs fájl Node.js projektekhez.
+- *tsconfig.vitest.json*: TypeScript konfigurációs fájl Vitest tesztelési keretrendszerhez.
+- *vite.config.mts*: Vite konfigurációs fájl.
+### Backend
+
+A Pollák Csengő backend alkalmazásának metodológiája a következő: a backend alkalmazás moduláris felépítésű, a különböző funkciókat külön modulokba szervezi. A modulok egymással kommunikálnak a NestJS Dependency Injection segítségével, és a különböző modulok közötti navigáció a NestJS Router segítségével történik. Minden lekérdezés egy Prisma ORM segítségével történik, hogy a modulok egyszerű és konzisztens adatbázis hozzáférést tarthassanak. A modulok a NestJS keretrendszer segítségével vannak összeállítva és futtatva.
+
+- **.github**
+   - *workflows*: Tartalmazza a GitHub Actions munkafolyamatokat.
+      - *ci.yml*: A folyamatos integrációs munkafolyamat konfigurációja.
+
+- **.idea**
+   - *codeStyles*: Kódstílus beállítások.
+      - *codeStyleConfig.xml*: Kódstílus konfiguráció.
+      - *Project.xml*: Projekt szintű kódstílus beállítások.
+   - *inspectionProfiles*: Ellenőrzési profilok.
+      - *Project_Default.xml*: Alapértelmezett ellenőrzési profil.
+   - *runConfigurations*: Futtatási konfigurációk.
+      - *docker_compose_dev_yml_csengo_v2_postgres_dev__Compose_Deployment.xml*: Docker Compose futtatási konfiguráció.
+      - *prisma_update.xml*: Prisma frissítési konfiguráció.
+      - *start_dev.xml*: Fejlesztési futtatási konfiguráció.
+      - *test_cov.xml*: Teszt lefedettségi konfiguráció.
+      - *test_e2e.xml*: Végpontok közötti teszt konfiguráció.
+   - *csengo-ts-server-v2.iml*: Projekt fájl.
+   - *discord.xml*: Discord integrációs beállítások.
+   - *git_toolbox_blame.xml*: Git blame eszköz beállításai.
+   - *git_toolbox_prj.xml*: Git projekt eszköz beállításai.
+   - *modules.xml*: Modulok konfigurációja.
+   - *prettier.xml*: Prettier beállítások.
+   - *vcs.xml*: Verziókezelő rendszer beállításai.
+
+- **config**
+   - *certificate.pem*: SSL tanúsítvány.
+   - *localhost-key.pem*: Helyi fejlesztési SSL kulcs.
+   - *localhost.pem*: Helyi fejlesztési SSL tanúsítvány.
+   - *private.pem*: Privát kulcs.
+
+- **db**
+   - *create_default_user.sql*: Alapértelmezett felhasználó létrehozására szolgáló SQL script.
+
+- **endpoints**
+   - *required-endpoints.md*: Szükséges végpontok listája.
+   - *requirements.md*: Követelmények dokumentációja.
+
+- **prisma**
+   - *schema.prisma*: Prisma séma fájl.
+   - **migrations**: Adatbázis migrációk.
+      - *migration_lock.toml*: Migrációs zárolási fájl.
+      - *20241210185133_prod*: Migrációs mappa.
+         - *migration.sql*: SQL migrációs fájl.
+      - *20250117190305_prod*: Migrációs mappa.
+         - *migration.sql*: SQL migrációs fájl.
+
+- **src**
+   - *main.ts*: Az alkalmazás belépési pontja.
+   - **config**: Konfigurációs szolgáltatások.
+      - *aws.s3.client.config.service.ts*: AWS S3 kliens konfigurációs szolgáltatás.
+      - *aws.s3.storage.config.service.ts*: AWS S3 tároló konfigurációs szolgáltatás.
+      - *config.local.module.ts*: Helyi konfigurációs modul.
+      - *multer.config.service.ts*: Multer konfigurációs szolgáltatás.
+      - *prisma.config.service.ts*: Prisma konfigurációs szolgáltatás.
+      - *storage.local.config.service.ts*: Helyi tároló konfigurációs szolgáltatás.
+   - **filter**: Szűrők.
+      - *delete.file.on.error.filter.ts*: Fájl törlése hiba esetén szűrő.
+      - *filter.module.ts*: Szűrő modul.
+   - **module**: Modulok.
+      - *app.module.ts*: Alkalmazás modul.
+      - **app**: Alkalmazás modul komponensei.
+         - *app.controller.spec.ts*: Alkalmazás vezérlő tesztje.
+         - *app.controller.ts*: Alkalmazás vezérlő.
+         - *app.service.spec.ts*: Alkalmazás szolgáltatás tesztje.
+         - *app.service.ts*: Alkalmazás szolgáltatás.
+      - **auth**: Hitelesítési modul.
+         - *auth.controller.spec.ts*: Hitelesítési vezérlő tesztje.
+         - *auth.controller.ts*: Hitelesítési vezérlő.
+         - *auth.decorator.ts*: Hitelesítési dekorátor.
+         - *auth.guard.ts*: Hitelesítési őr.
+         - *auth.module.ts*: Hitelesítési modul.
+         - *auth.service.ts*: Hitelesítési szolgáltatás.
+         - **dto**: Adatátviteli objektumok.
+            - *login.dto.ts*: Bejelentkezési DTO.
+            - *register.dto.ts*: Regisztrációs DTO.
+      - **pendingSongs**: Függő zenék modul.
+         - *pending.songs.controller.spec.ts*: Függő zenék vezérlő tesztje.
+         - *pending.songs.controller.ts*: Függő zenék vezérlő.
+         - *pending.songs.module.ts*: Függő zenék modul.
+         - *pending.songs.service.ts*: Függő zenék szolgáltatás.
+      - **role**: Szerepkör modul.
+         - *role.decorator.ts*: Szerepkör dekorátor.
+         - *role.enum.ts*: Szerepkör enum.
+         - *role.guard.ts*: Szerepkör őr.
+      - **songs**: Zenék modul.
+         - *songs.controller.spec.ts*: Zenék vezérlő tesztje.
+         - *songs.controller.ts*: Zenék vezérlő.
+         - *songs.module.ts*: Zenék modul.
+         - *songs.service.ts*: Zenék szolgáltatás.
+         - **dto**: Adatátviteli objektumok.
+            - *create.song.dto.ts*: Zene létrehozási DTO.
+      - **tv**: TV modul.
+         - *tv.controller.spec.ts*: TV vezérlő tesztje.
+         - *tv.controller.ts*: TV vezérlő.
+         - *tv.module.ts*: TV modul.
+         - *tv.service.spec.ts*: TV szolgáltatás tesztje.
+         - *tv.service.ts*: TV szolgáltatás.
+      - **user**: Felhasználó modul.
+         - *user.controller.spec.ts*: Felhasználó vezérlő tesztje.
+         - *user.controller.ts*: Felhasználó vezérlő.
+         - *user.module.ts*: Felhasználó modul.
+         - *user.service.spec.ts*: Felhasználó szolgáltatás tesztje.
+         - *user.service.ts*: Felhasználó szolgáltatás.
+         - **dto**: Adatátviteli objektumok.
+            - *update.pass.dto.ts*: Jelszó frissítési DTO.
+            - *update.role.dto.ts*: Szerepkör frissítési DTO.
+      - **votes**: Szavazatok modul.
+         - *votes.controller.spec.ts*: Szavazatok vezérlő tesztje.
+         - *votes.controller.ts*: Szavazatok vezérlő.
+         - *votes.module.ts*: Szavazatok modul.
+         - *votes.service.ts*: Szavazatok szolgáltatás.
+      - **votingSessions**: Szavazási szekciók modul.
+         - *voting.sessions.controller.spec.ts*: Szavazási szekciók vezérlő tesztje.
+         - *voting.sessions.controller.ts*: Szavazási szekciók vezérlő.
+         - *voting.sessions.module.ts*: Szavazási szekciók modul.
+         - *voting.sessions.service.ts*: Szavazási szekciók szolgáltatás.
+         - **dto**: Adatátviteli objektumok.
+            - *voting.session.dto.ts*: Szavazási szekció DTO.
+      - **websocket**: Websocket modul.
+         - *websocket.exception.filter.ts*: Websocket kivétel szűrő.
+         - *websocket.gateway.ts*: Websocket átjáró.
+         - *websocket.guard.ts*: Websocket őr.
+         - *websocket.module.ts*: Websocket modul.
+   - **pipe**: Pipe-ok.
+      - *audio.length.validation.pipe.service.ts*: Audio hossz validációs pipe.
+      - *pipe.module.ts*: Pipe modul.
+   - **type**: Típusdefiníciók.
+      - *express.d.ts*: Express típusdefiníciók.
+      - *jwt.d.ts*: JWT típusdefiníciók.
+   - **util**: Segédfüggvények.
+      - *logger.custom.util.ts*: Egyedi naplózó segédfüggvény.
+
+- **test**
+   - *app.e2e-spec.ts*: Végpontok közötti teszt.
+   - *jest-e2e.json*: Jest végpontok közötti teszt konfiguráció.
+   - *test-docs.md*: Teszt dokumentáció.
+
+- *.dockerignore*: Ez a fájl tartalmazza azokat a fájlokat és könyvtárakat, amelyeket a Docker figyelmen kívül hagy a build folyamat során.
+- *.env.example*: Példa környezeti változókat tartalmazó fájl, amely segít a fejlesztőknek a saját `.env` fájljaik létrehozásában.
+- *.eslintrc.js*: Az ESLint konfigurációs fájlja, amely meghatározza a kódminőségi szabályokat és beállításokat.
+- *.gitignore*: Ez a fájl tartalmazza azokat a fájlokat és könyvtárakat, amelyeket a Git figyelmen kívül hagy a verziókezelés során.
+- *.prettierrc*: A Prettier konfigurációs fájlja, amely meghatározza a kódformázási szabályokat és beállításokat.
+- *docker-compose.dev.yml*: Docker Compose konfigurációs fájl, amely a fejlesztési környezethez szükséges szolgáltatásokat és beállításokat tartalmazza.
+- *docker-compose.release.yml*: Docker Compose konfigurációs fájl, amely a kiadási környezethez szükséges szolgáltatásokat és beállításokat tartalmazza.
+- *Dockerfile*: A Docker image létrehozásához szükséges utasításokat tartalmazó fájl.
+- *init-s3.py*: Python szkript, amely az S3 szolgáltatás inicializálásához szükséges.
+- *nest-cli.json*: A NestJS CLI konfigurációs fájlja, amely a projekt beállításait tartalmazza.
+- *package-lock.json*: A Node.js csomagok pontos verzióit rögzítő fájl, amely biztosítja a reprodukálható build folyamatot.
+- *package.json*: A Node.js projekt konfigurációs fájlja, amely tartalmazza a projekt függőségeit és szkripteket.
+- *README.md*: A projekt leírását és használati útmutatóját tartalmazó fájl.
+- *sonar-project.properties*: A SonarQube konfigurációs fájlja, amely a kódminőség elemzéséhez szükséges beállításokat tartalmazza.
+- *tsconfig.build.json*: A TypeScript build konfigurációs fájlja, amely meghatározza a build folyamat során használt beállításokat.
+- *tsconfig.json*: A TypeScript projekt alapértelmezett konfigurációs fájlja, amely meghatározza a fordító beállításait.
