@@ -175,3 +175,241 @@ A következő módon lehet az adatbázisban tárolt táblákat megtekinteni:
 
 ![pgadmin-tables](./fejlesztoikepek/pgadmin-list-tables.png)
 
+# Fejlesztői dokumentáció
+
+## Konkurenciak
+
+A Pollák Csengő alkalmazás egyik vetélytársa a [Bella-Iskolacsengő](https://www.bella-iskolacsengo.hu/), amely egy hasonló szolgáltatást nyújt az iskolák számára. A Bella-Iskolacsengő egy online platform, amely lehetővé teszi az iskolák számára, hogy saját csengőhangot válasszanak, és a diákok számára lehetőséget biztosítanak a szavazásra. Az alkalmazás egyedi és személyre szabott csengőhangokat kínál, amelyeket a diákok kedvenc dalai alapján választhatnak ki. A Bella-Iskolacsengő egy modern és interaktív megoldás, amely segíti az iskolákat a diákok bevonásában és a közösségi élmény erősítésében.
+
+A Bella-Iskolacsengő alkalmazás egy előnnyel rendelkezik, az egyedi csengőhangok és a személyre szabott választások lehetőségével. Az alkalmazás felhasználóbarát felülettel rendelkezik, amely egyszerű és intuitív használatot biztosít a diákok és az iskolai személyzet számára.
+
+A Pollák Csengő alkalmazás és a Bella-Iskolacsengő közötti különbség az, hogy a Pollák Csengő egy dinamikus és interaktív platformot kínál, amely lehetővé teszi a diákok számára, hogy szavazzanak kedvenc dalaikra, és meghatározzák a "Hónap Csengőhangját". Az alkalmazás egyedi és változatos csengőhangokat kínál, amelyek napi szinten friss és élvezetes hallási élményt nyújtanak a diákoknak.
+
+Egy másik vetélytárs a [Gipen Iskolacsengő](https://iskolacsengo.gipen.hu/) mely kevesebb funkcionalitást nyújt mint a Pollák Csengő. Az Iskolacsengő egy modern és minimalista megoldás, amely lehetővé teszi az iskolák számára, hogy saját csengőhangot válasszanak, és a diákok számára lehetőséget biztosítanak a szavazásra. Az alkalmazás egyszerű és letisztult felülettel rendelkezik, amely gyors és hatékony használatot biztosít a diákok és az iskolai személyzet számára.
+
+Más vetélytárs a térben hasonló funkcionalitással, mint alkalmazásunk, jelenleg a piacon nem elérhető. Ez miatt a Pollák Csengő egyedi és innovatív megoldásnak számít, amely különleges és élvezetes hallási élményt nyújt a diákoknak.
+
+## Fejlesztői környezet
+
+A Pollák Csengő alkalmazás fejlesztéséhez különböző fejlesztőeszközöket használunk, amelyek segítenek a fejlesztésben és az adatok kezelésében.
+
+- **WebStorm** mely a JetBrains által fejlesztett, mély integrációjáról ismert a JavaScript keretrendszerekkel, intelligens kódkiegészítéssel és robusztus hibakeresési képességekkel. Kiválóan alkalmas összetett projektekhez, különösen azokhoz, amelyek TypeScript-et és modern JavaScript keretrendszereket, mint például a React, Angular és Vue használnak. Beépített eszközei a verziókezeléshez, teszteléshez és refaktoráláshoz átfogó IDE-vé teszik. Versenytársaihoz, mint például a Sublime Text, képest a WebStorm fejlettebb funkciókat és jobb integrációt kínál a fejlesztési munkafolyamatokkal, bár magasabb költséggel jár.
+
+- **Visual Studio Code** (VS Code) egy ingyenes, nyílt forráskódú kódszerkesztő, amely sokoldalúsága és kiterjedt bővítmény-ökoszisztémája miatt nagy népszerűségre tett szert. Számos programozási nyelvet és keretrendszert támogat, így sok fejlesztő kedvenc választása. A VS Code könnyű természete, valamint olyan erőteljes funkciók, mint az IntelliSense, beépített Git támogatás és beépített terminál, rendkívül hatékony fejlesztési környezetet biztosítanak. Az Atomhoz, egy másik népszerű szerkesztőhöz képest a VS Code gyorsabb teljesítményt és aktívabb közösséget kínál, ami gazdagabb bővítménykészletet és gyakori frissítéseket eredményez.
+
+- **Docker** és **Docker-compose** a konténerizációhoz és a konzisztens fejlesztési környezetekhez: A Docker lehetővé teszi az alkalmazások konténerizálását, ami biztosítja a fejlesztési és futtatási környezetek konzisztenciáját. A Docker-compose segítségével egyszerűen definiálhatjuk és kezelhetjük a többkonténeres alkalmazásokat. Versenytársai, mint például a Vagrant, nem nyújtanak olyan könnyű és gyors konténerizációs megoldást, mint a Docker.
+
+- **Pgadmin** az adatbázis kezeléséhez: A Pgadmin egy erőteljes és felhasználóbarát eszköz a PostgreSQL adatbázisok kezeléséhez. Lehetővé teszi az adatbázisok egyszerű adminisztrációját és karbantartását. Versenytársai, mint például a DBeaver, szintén jó alternatívák, de a Pgadmin kifejezetten a PostgreSQL-re optimalizált, ami előnyt jelent a specifikus funkciók és teljesítmény szempontjából.
+
+- **nginx** a frontend kiszolgálásához: Az nginx egy nagy teljesítményű és könnyen konfigurálható webszerver, amely kiválóan alkalmas a statikus fájlok kiszolgálására és a terheléselosztásra. Versenytársai, mint például az Apache, szintén népszerűek, de az nginx alacsonyabb erőforrásigénye és nagyobb teljesítménye miatt előnyösebb választás a modern webalkalmazások számára.
+
+- **Postgres 16.6** a backend adatbázishoz: A PostgreSQL egy nyílt forráskódú, robusztus és skálázható adatbázis-kezelő rendszer, amely számos fejlett funkcióval rendelkezik, mint például a tranzakciókezelés és a replikáció. Versenytársai, mint például a MySQL, szintén népszerűek, de a PostgreSQL fejlettebb funkciói és rugalmassága miatt gyakran előnyösebb választás a komplex alkalmazások számára.
+
+## Felhasznált technológiák
+
+A Pollák Csengő alkalmazásban hasznosított technológiák és eszközök a következők:
+
+- **TypeScript**: A TypeScript egy statikusan típusos JavaScript kiterjesztés, amely opcionális statikus típusokat ad a nyelvhez. Segít a fejlesztőknek korán észlelni a hibákat a típusellenőrzés révén, és javítja a kód karbantarthatóságát és olvashatóságát. A JavaScripthez képest a TypeScript jobb eszköztámogatást és skálázhatóságot kínál nagy kódbázisokhoz. Modern keretrendszerekkel, mint az Angular és a React való integrációja miatt előnyös választás mind a frontend, mind a backend fejlesztéshez.
+
+- **HTML**: A HTML (HyperText Markup Language) a weboldalak létrehozásának szabványos jelölőnyelve. Strukturálja a webes tartalmat, és elengedhetetlen bármilyen webalkalmazás építéséhez. Más jelölőnyelvekhez képest a HTML-t minden böngésző támogatja, és hatalmas eszköz- és erőforrás-ökoszisztémával rendelkezik, ami nélkülözhetetlenné teszi a frontend fejlesztéshez.
+
+- **CSS**: A CSS (Cascading Style Sheets) a weboldalak stílusának és elrendezésének meghatározására szolgál. Lehetővé teszi a fejlesztők számára, hogy elválasszák a tartalmat a dizájntól, megkönnyítve ezzel a weboldal megjelenésének és érzésének karbantartását és frissítését. Az inline stílusokhoz vagy JavaScript-alapú stílusmegoldásokhoz képest a CSS hatékonyabb és skálázhatóbb módot kínál a stílusok kezelésére nagy projektek esetén.
+
+- **Sass**: A Sass (Syntactically Awesome Style Sheets) egy előfeldolgozó szkriptnyelv, amelyet CSS-re fordítanak vagy értelmeznek. Kiterjeszti a CSS-t olyan funkciókkal, mint a változók, beágyazott szabályok és mixinek, így a stíluslap karbantarthatóbb és újrahasználhatóbb lesz. A sima CSS-hez képest a Sass erősebb és rugalmasabb szintaxist kínál, amely jelentősen felgyorsíthatja a fejlesztési folyamatot.
+
+- **SCSS**: Az SCSS (Sassy CSS) a Sass egy szintaxisa, amely teljesen kompatibilis a CSS-sel. Kombinálja a Sass erejét a CSS ismerős szintaxisával, lehetővé téve a fejlesztők számára, hogy a Sass összes funkcióját használják, miközben CSS-szerű szintaxisban írnak. Más CSS előfeldolgozókhoz képest az SCSS zökkenőmentesebb átmenetet kínál a CSS-t már ismerő fejlesztők számára.
+
+- **SQL**: Az SQL (Structured Query Language) a relációs adatbázisok kezelésének és manipulálásának szabványos nyelve. Lehetővé teszi a fejlesztők számára, hogy különféle műveleteket hajtsanak végre, például lekérdezéseket, frissítéseket és adatkezelést. A NoSQL adatbázisokhoz képest az SQL adatbázisok erős konzisztenciát és összetett lekérdezések támogatását biztosítják, így alkalmasak megbízható tranzakciókat és adatintegritást igénylő alkalmazásokhoz.
+
+- **NestJS** a backend keretrendszerhez: A NestJS egy progresszív Node.js keretrendszer, amely a TypeScript nyelvet használja, és moduláris architektúrát kínál. Lehetővé teszi a skálázható és könnyen karbantartható backend alkalmazások fejlesztését. Versenytársai, mint például az Express.js, szintén népszerűek, de a NestJS strukturáltabb megközelítése és beépített támogatása a modern fejlesztési mintákhoz (mint például a Dependency Injection) miatt előnyösebb választás lehet.
+
+- **Jest**: A Jest egy JavaScript tesztelési keretrendszer, amelyet a Facebook tart fenn, és amely a JavaScript kódbázisok helyességének biztosítására szolgál. Kiváló fejlesztői élményt nyújt olyan funkciókkal, mint a pillanatkép-tesztelés, egy erőteljes mock könyvtár és beépített kódlefedettségi jelentések. Más tesztelési keretrendszerekhez, például a Mocha vagy a Jasmine-hez képest a Jest integráltabb és felhasználóbarátabb élményt kínál, különösen a React alkalmazások esetében.
+
+- **Vue**: A Vue.js egy progresszív JavaScript keretrendszer felhasználói felületek építéséhez. Úgy tervezték, hogy fokozatosan bevezethető legyen, ami azt jelenti, hogy annyit vagy keveset használhat a Vue-ból, amennyire szüksége van. A Vue reaktivitási rendszere és komponens alapú architektúrája megkönnyíti az összetett alkalmazások építését. Az olyan keretrendszerekhez képest, mint az Angular vagy a React, a Vue egyszerűbb és rugalmasabb API-t kínál, amely könnyebben megtanulható és integrálható a meglévő projektekbe.
+
+- **Pinia**: A Pinia egy állapotkezelő könyvtár a Vue.js számára, amelyet a Vuex helyettesítésére terveztek. Egyszerűbb és intuitívabb API-t kínál, megkönnyítve és hatékonyabbá téve az állapotkezelést. A Vuex-hez képest a Pinia jobb TypeScript támogatást és modulárisabb architektúrát biztosít, ami tisztább és karbantarthatóbb kódot eredményezhet.
+
+- **Vuetify**: A Vuetify egy Material Design komponens keretrendszer a Vue.js számára. Széles körű előre tervezett komponenseket biztosít, amelyek követik a Google Material Design irányelveit, megkönnyítve a vizuálisan vonzó és konzisztens felhasználói felületek létrehozását. Más UI keretrendszerekhez, például a Bootstrap vagy a Bulma-hoz képest a Vuetify mélyebb integrációt kínál a Vue-val és átfogóbb komponenskészletet.
+
+- **Playwright**: A Playwright egy végponttól végpontig terjedő tesztelési keretrendszer, amelyet a Microsoft fejlesztett ki. Lehetővé teszi a fejlesztők számára, hogy olyan teszteket írjanak, amelyek szimulálják a felhasználói interakciókat a webalkalmazásokkal, biztosítva, hogy az alkalmazás a vártnak megfelelően viselkedjen. A Seleniumhoz képest a Playwright jobb teljesítményt, megbízhatóbb automatizálást és támogatást kínál a modern webes funkciókhoz, mint például a WebSockets és a szolgáltatási munkavállalók.
+
+- **Vite**: A Vite egy új generációs frontend build eszköz, amely gyors és optimalizált fejlesztési élményeket kínál. Natív ES modulokat és modern böngészőfunkciókat használ, hogy azonnali hot module replacement-et és villámgyors build-eket biztosítson. A hagyományos bundlerekhez, például a Webpack-hoz képest a Vite jelentősen gyorsabb fejlesztési és build időket kínál, így ideális a modern webfejlesztéshez.
+
+- **Prisma**: A Prisma egy nyílt forráskódú ORM (Object-Relational Mapping) eszköz a Node.js és a TypeScript számára. Egyszerűsíti az adatbázis-hozzáférést és -kezelést egy típusbiztos lekérdező építővel és egy intuitív adatmodellezési nyelvvel. A hagyományos ORM-ekhez, például a Sequelize-hez képest a Prisma jobb TypeScript támogatást, automatikus migrációkat és modernebb API-t kínál, megkönnyítve ezzel az adatbázisok típusbiztos módon történő kezelését.
+
+- **MDI icons**: A Material Design Icons (MDI) egy átfogó ikonkönyvtár, amely a Google Material Design irányelveit követve készült. Széles körű, kiváló minőségű ikonokat biztosít, amelyek könnyen integrálhatók a webalkalmazásokba. Más ikonkönyvtárakhoz, például a Font Awesome-hoz képest az MDI konzisztens és vizuálisan vonzóbb ikonokat kínál, amelyek megfelelnek a modern tervezési elveknek.
+
+## Strukturális felépítés
+
+### Frontend
+
+A Pollák Csengő frontend alkalmazásának metodológiája a következő: minden komponens egyedi felelősségű, és egyedi funkcionalitással rendelkezik. A komponensek egymásra épülnek, és a kisebb komponensek nagyobb komponensekbe vannak beágyazva. A komponensek egymással kommunikálnak a Pinia állapotkezelő segítségével, valamint egy egyedi event busz használatával, és a komponensek közötti navigáció a Vue Router segítségével történik. Minden lekérdezés egy Pinia store-ban történik, hogy a komponensek egyszerű és konzisztens állapotot tarthassanak. A komponensek a Vuetify keretrendszer segítségével vannak stilizálva, és a Vite build eszköz segítségével kerülnek összeállításra.
+A frontend strukturális felépítése a következő:
+
+- **.github**
+   - *workflows*: Tartalmazza a GitHub Actions munkafolyamatokat.
+      - *ci.yml*: A folyamatos integrációs munkafolyamat konfigurációja.
+
+- **.idea**
+   - *codeStyles*: Kódstílus beállítások.
+      - *codeStyleConfig.xml*: Kódstílus konfiguráció.
+      - *Project.xml*: Projekt szintű kódstílus beállítások.
+   - *inspectionProfiles*: Ellenőrzési profilok.
+      - *Project_Default.xml*: Alapértelmezett ellenőrzési profil.
+   - *runConfigurations*: Futtatási konfigurációk.
+      - *All_Tests.xml*: Összes teszt futtatási konfigurációja.
+      - *dev.xml*: Fejlesztési futtatási konfiguráció.
+   - *csengo-ts-client-v2.iml*: Projekt fájl.
+   - *discord.xml*: Discord integrációs beállítások.
+   - *git_toolbox_blame.xml*: Git blame eszköz beállításai.
+   - *git_toolbox_prj.xml*: Git projekt eszköz beállításai.
+   - *modules.xml*: Modulok konfigurációja.
+   - *vcs.xml*: Verziókezelő rendszer beállításai.
+   - *watcherTasks.xml*: Felügyeleti feladatok beállításai.
+
+- **.vscode**
+   - *extensions.json*: Ajánlott kiterjesztések listája.
+   - *settings.json*: VSCode beállítások.
+
+- **config**
+   - *nginx.conf*: Nginx konfigurációs fájl.
+
+- **public**
+   - *favicon.ico*: Weboldal ikon fájl.
+
+- **src**
+   - *App.vue*: Az alkalmazás fő komponense.
+   - *auto-imports.d.ts*: Automatikus importok típusdefiníciói.
+   - *components.d.ts*: Komponensek típusdefiníciói.
+   - *main.ts*: Az alkalmazás belépési pontja.
+   - *typed-router.d.ts*: Típusdefiníciók a routerhez.
+   - **assets**: Statikus fájlok és képek.
+      - *asd2.jpg*: Háttérkép.
+      - *bg2.png*: Háttérkép.
+      - *logo.png*: Logó kép.
+      - *logo.svg*: Logó SVG formátumban.
+   - **components**: Az alkalmazás különböző komponensei.
+      - *LoginCard.vue*: Bejelentkezési kártya komponens.
+      - *README.md*: Komponensek dokumentációja.
+      - *RegisterCard.vue*: Regisztrációs kártya komponens.
+      - **admin**: Adminisztrációs felület komponensei.
+         - *Download.vue*: Letöltési komponens.
+         - **pending-song**: Függő zenék kezelése.
+            - *PendingSong.vue*: Függő zene komponens.
+            - *PendingSongList.vue*: Függő zenék listája.
+         - **session**: Szavazási szekciók kezelése.
+            - *CreateSessionPopup.vue*: Szavazási szekció létrehozása.
+            - *Session.vue*: Szavazási szekció komponens.
+            - *SessionList.vue*: Szavazási szekciók listája.
+            - *UpdateSessionPopup.vue*: Szavazási szekció frissítése.
+            - *ViewSessionSongsPopup.vue*: Szavazási szekció zenéinek megtekintése.
+         - **song**: Zenék kezelése.
+            - *CreateSongPopup.vue*: Zene létrehozása.
+            - *Song.vue*: Zene komponens.
+            - *SongList.vue*: Zenék listája.
+            - *UpdateSongPopup.vue*: Zene frissítése.
+         - **user**: Felhasználók kezelése.
+            - *UpdateUserPopup.vue*: Felhasználó frissítése.
+            - *User.vue*: Felhasználó komponens.
+            - *UserList.vue*: Felhasználók listája.
+      - **common**: Közös komponensek.
+         - *Toast.vue*: Értesítési komponens.
+      - **dashboard**: Felhasználói irányítópult komponensei.
+         - *WelcomeSign.vue*: Üdvözlő jelzés.
+         - **left-card**: Bal oldali kártya komponensei.
+            - *LeftLandingCard.vue*: Bal oldali kártya fő komponense.
+            - *SongUpload.vue*: Zene feltöltése.
+            - *SongVote.vue*: Zene szavazás.
+            - *SongVoteList.vue*: Szavazási zenék listája.
+            - *UploadInput.vue*: Feltöltési bemenet.
+         - **right-card**: Jobb oldali kártya komponensei.
+            - *PreviousWinner.vue*: Előző nyertes.
+            - *RightLandingCard.vue*: Jobb oldali kártya fő komponense.
+            - *SongSelectionList.vue*: Zene kiválasztási lista.
+            - **song-selection**: Zene kiválasztási komponensek.
+               - *PlaySong.vue*: Zene lejátszása.
+               - *SongSelection.vue*: Zene kiválasztása.
+               - *VoteSong.vue*: Zene szavazása.
+      - **__tests__**: Teszt komponensek.
+         - *HelloWorld.spec.ts*: HelloWorld komponens tesztje.
+         - *LoginCard.spec.ts*: LoginCard komponens tesztje.
+   - **layouts**: Oldal elrendezések.
+      - *auth.vue*: Hitelesítési elrendezés.
+      - *default.vue*: Alapértelmezett elrendezés.
+      - *landing.vue*: Kezdőoldal elrendezés.
+      - *logged-in.vue*: Bejelentkezett felhasználói elrendezés.
+      - *README.md*: Elrendezések dokumentációja.
+      - *user.vue*: Felhasználói elrendezés.
+   - **pages**: Oldalak.
+      - *forbidden.vue*: Tiltott oldal.
+      - *index.vue*: Főoldal.
+      - *login.vue*: Bejelentkezési oldal.
+      - *README.md*: Oldalak dokumentációja.
+      - *register.vue*: Regisztrációs oldal.
+      - *required-pages-components.md*: Szükséges oldalak és komponensek listája.
+      - *test.vue*: Teszt oldal.
+      - *tv.vue*: TV oldal.
+      - *[...slug].vue*: Dinamikus útvonalak kezelése.
+      - **admin**: Adminisztrációs oldalak.
+         - *index.vue*: Adminisztrációs főoldal.
+   - **plugins**: Bővítmények.
+      - *index.ts*: Bővítmények regisztrálása.
+      - *README.md*: Bővítmények dokumentációja.
+      - *vuetify.ts*: Vuetify bővítmény konfiguráció.
+   - **router**: Útvonalak kezelése.
+      - *index.ts*: Útvonalak konfigurációja.
+   - **stores**: Állapotkezelők.
+      - *index.ts*: Állapotkezelők regisztrálása.
+      - *README.md*: Állapotkezelők dokumentációja.
+      - *tv.ts*: TV állapotkezelő.
+      - **admin**: Adminisztrációs állapotkezelők.
+         - **pending-song**: Függő zenék állapotkezelői.
+            - *pendingSong.ts*: Függő zene állapotkezelő.
+            - *pendingSongList.ts*: Függő zenék listájának állapotkezelője.
+         - **session**: Szavazási szekciók állapotkezelői.
+            - *createSessionPopup.ts*: Szavazási szekció létrehozása állapotkezelő.
+            - *session.ts*: Szavazási szekció állapotkezelő.
+            - *sessionList.ts*: Szavazási szekciók listájának állapotkezelője.
+            - *updateSessionPopup.ts*: Szavazási szekció frissítése állapotkezelő.
+         - **song**: Zenék állapotkezelői.
+            - *createSongPopup.ts*: Zene létrehozása állapotkezelő.
+            - *song.ts*: Zene állapotkezelő.
+            - *songList.ts*: Zenék listájának állapotkezelője.
+            - *updateSongPopup.ts*: Zene frissítése állapotkezelő.
+         - **user**: Felhasználók állapotkezelői.
+            - *updateUserPopup.ts*: Felhasználó frissítése állapotkezelő.
+            - *user.ts*: Felhasználó állapotkezelő.
+      - **dashboard**: Felhasználói irányítópult állapotkezelői.
+         - *welcomeSign.ts*: Üdvözlő jelzés állapotkezelő.
+         - **left-card**: Bal oldali kártya állapotkezelői.
+            - *songVoteList.ts*: Szavazási zenék listájának állapotkezelője.
+            - *uploadInput.ts*: Feltöltési bemenet állapotkezelő.
+         - **right-card**: Jobb oldali kártya állapotkezelői.
+            - *previousWinner.ts*: Előző nyertes állapotkezelő.
+            - *songSelectionList.ts*: Zene kiválasztási lista állapotkezelő.
+            - **song-selection**: Zene kiválasztási állapotkezelők.
+               - *playSong.ts*: Zene lejátszása állapotkezelő.
+               - *voteSong.ts*: Zene szavazása állapotkezelő.
+   - **styles**: Stílusok.
+      - *login.scss*: Bejelentkezési oldal stílusai.
+      - *README.md*: Stílusok dokumentációja.
+      - *register.scss*: Regisztrációs oldal stílusai.
+      - *settings.scss*: Beállítások stílusai.
+   - **types**: Típusdefiníciók.
+      - *jwt.d.ts*: JWT típusdefiníciók.
+      - *role.enum.d.ts*: Szerepkörök típusdefiníciói.
+      - *session.ts*: Szavazási szekció típusdefiníciók.
+      - *toast.enum.ts*: Értesítési típusok.
+   - **utils**: Segédfüggvények.
+      - *eventBus.util.ts*: Eseménybusz segédfüggvény.
+      - *logger.custom.util.ts*: Egyedi naplózó segédfüggvény.
+
+- **tests**
+   - *admin.spec.ts*: Adminisztrációs tesztek.
+   - *demo-todo-app.spec.demo.ts*: Demo todo alkalmazás tesztje.
+   - *example.spec.ts*: Példa teszt.
+   - *forbidden.spec.ts*: Tiltott oldal tesztje.
+   - *index.spec.ts*: Főoldal tesztje.
+   - *login.spec.ts*: Bejelentkezési oldal tesztje.
+   - *register.spec.ts*: Regisztrációs oldal tesztje.
+   - *tsconfig.json*: Teszt konfiguráció.
