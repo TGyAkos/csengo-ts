@@ -174,3 +174,4 @@ A következő adatokat kell megadni a kapcsolódáshoz a következő módon:
 A következő módon lehet az adatbázisban tárolt táblákat megtekinteni:
 
 ![pgadmin-tables](./fejlesztoikepek/pgadmin-list-tables.png)
+
