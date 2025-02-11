@@ -440,6 +440,93 @@ A frontend strukturális felépítése a következő:
 - *tsconfig.node.json*: TypeScript konfigurációs fájl Node.js projektekhez.
 - *tsconfig.vitest.json*: TypeScript konfigurációs fájl Vitest tesztelési keretrendszerhez.
 - *vite.config.mts*: Vite konfigurációs fájl.
+
+#### Frontend Tesztelés
+
+A frontend tesztelési folyamatok a következők:
+
+##### `admin.spec.ts`
+
+- **should display the admin page**: Ellenőrzi, hogy az admin oldal megjelenik-e.
+- **should display home button**: Ellenőrzi, hogy a kezdőlap gomb megjelenik-e.
+- **should display dropdown menu**: Ellenőrzi, hogy a legördülő menü megjelenik-e.
+- **should display logout option when dropdown menu is pressed**: Ellenőrzi, hogy a kijelentkezés opció megjelenik-e, ha a legördülő menüt megnyomják.
+- **should go to pending song when pending song is pressed**: Ellenőrzi, hogy a függőben lévő zenék oldalra navigál-e a felhasználó, ha a megfelelő gombot megnyomják.
+- **should go to votes when votes is pressed**: Ellenőrzi, hogy a szavazások oldalra navigál-e a felhasználó, ha a megfelelő gombot megnyomják.
+- **should go to miscellaneous when miscellaneous is pressed**: Ellenőrzi, hogy az egyebek oldalra navigál-e a felhasználó, ha a megfelelő gombot megnyomják.
+- **should display no data on song page when no data is present**: Ellenőrzi, hogy a zenék oldalon nincs adat megjelenik-e, ha nincs adat.
+- **should display no data on pending song page when no data is present**: Ellenőrzi, hogy a függőben lévő zenék oldalon nincs adat megjelenik-e, ha nincs adat.
+- **should display no data on votes page when no data is present**: Ellenőrzi, hogy a szavazások oldalon nincs adat megjelenik-e, ha nincs adat.
+- **should display correct data on song page when its present**: Ellenőrzi, hogy a zenék oldalon helyesen jelenik-e meg az adat, ha van adat.
+- **should starting playing audio on song page when play button is pressed**: Ellenőrzi, hogy a zenék oldalon elindul-e a lejátszás, ha a lejátszás gombot megnyomják.
+- **should stop playing audio on song page when play button is pressed twice**: Ellenőrzi, hogy a zenék oldalon leáll-e a lejátszás, ha a lejátszás gombot kétszer megnyomják.
+- **should upload new song on song page when upload button is pressed**: Ellenőrzi, hogy a zenék oldalon feltölthető-e egy új zene, ha a feltöltés gombot megnyomják.
+- **should rename song on song page when rename button is pressed**: Ellenőrzi, hogy a zenék oldalon átnevezhető-e egy zene, ha az átnevezés gombot megnyomják.
+- **should delete song on song page when delete button is pressed**: Ellenőrzi, hogy a zenék oldalon törölhető-e egy zene, ha a törlés gombot megnyomják.
+- **should go to pending song page when pending song button is pressed**: Ellenőrzi, hogy a függőben lévő zenék oldalra navigál-e a felhasználó, ha a megfelelő gombot megnyomják.
+- **should display correct data on pending song page when its present**: Ellenőrzi, hogy a függőben lévő zenék oldalon helyesen jelenik-e meg az adat, ha van adat.
+- **should play audio on pending song page when play button is pressed**: Ellenőrzi, hogy a függőben lévő zenék oldalon elindul-e a lejátszás, ha a lejátszás gombot megnyomják.
+- **should stop playing audio on pending song page when play button is pressed twice**: Ellenőrzi, hogy a függőben lévő zenék oldalon leáll-e a lejátszás, ha a lejátszás gombot kétszer megnyomják.
+- **should approve song on pending song page when approve button is pressed**: Ellenőrzi, hogy a függőben lévő zenék oldalon engedélyezhető-e egy zene, ha az engedélyezés gombot megnyomják.
+- **should disapprove song on pending song page when disapprove button is pressed**: Ellenőrzi, hogy a függőben lévő zenék oldalon elutasítható-e egy zene, ha az elutasítás gombot megnyomják.
+- **should go to votes page when votes button is pressed**: Ellenőrzi, hogy a szavazások oldalra navigál-e a felhasználó, ha a megfelelő gombot megnyomják.
+- **should display correct data on votes page when its present**: Ellenőrzi, hogy a szavazások oldalon helyesen jelenik-e meg az adat, ha van adat.
+- **should display all part taking songs when view button is pressed**: Ellenőrzi, hogy a szavazások oldalon megjelenik-e az összes résztvevő zene, ha a megtekintés gombot megnyomják.
+- **should edit all data when edit button is pressed**: Ellenőrzi, hogy a szavazások oldalon szerkeszthető-e az összes adat, ha a szerkesztés gombot megnyomják.
+- **should delete voting session on votes page when delete button is pressed**: Ellenőrzi, hogy a szavazások oldalon törölhető-e egy szavazási szakasz, ha a törlés gombot megnyomják.
+- **should create new voting session on votes page when create button is pressed**: Ellenőrzi, hogy a szavazások oldalon létrehozható-e egy új szavazási szakasz, ha a létrehozás gombot megnyomják.
+- **should go to users page when users button is pressed**: Ellenőrzi, hogy a felhasználó a felhasználók oldalra navigál-e, ha a megfelelő gombot megnyomja.
+- **should display correct data on users page when its present**: Ellenőrzi, hogy a felhasználók oldalon helyesen jelenik-e meg az adat, ha van adat.
+- **should edit user's password on users page when edit button is pressed and only password is filled**: Ellenőrzi, hogy a felhasználók oldalon szerkeszthető-e a felhasználó jelszava, ha csak a jelszó mezőt töltik ki és a szerkesztés gombot megnyomják.
+- **should edit user's role on users page when edit button is pressed and only role is filled**: Ellenőrzi, hogy a felhasználók oldalon szerkeszthető-e a felhasználó szerepköre, ha csak a szerepkör mezőt töltik ki és a szerkesztés gombot megnyomják.
+- **should edit user's role and password on users page when edit button is pressed and both are filled**: Ellenőrzi, hogy a felhasználók oldalon szerkeszthető-e a felhasználó szerepköre és jelszava, ha mindkét mezőt kitöltik és a szerkesztés gombot megnyomják.
+- **should display all buttons on miscellaneous page**: Ellenőrzi, hogy az egyebek oldalon megjelenik-e az összes gomb.
+- **should start csengo on miscellaneous page when start button is pressed**: Ellenőrzi, hogy az egyebek oldalon elindul-e a csengő, ha az indítás gombot megnyomják.
+- **should stop csengo on miscellaneous page when stop button is pressed**: Ellenőrzi, hogy az egyebek oldalon leáll-e a csengő, ha a leállítás gombot megnyomják.
+- **should download songs in voting on miscellaneous page when download button is pressed**: Ellenőrzi, hogy az egyebek oldalon letölthetők-e a szavazásban lévő zenék, ha a letöltés gombot megnyomják.
+- **should download winner song on miscellaneous page when download button is pressed**: Ellenőrzi, hogy az egyebek oldalon letölthető-e a nyertes zene, ha a letöltés gombot megnyomják.
+- **should update winner song on server on miscellaneous page when update button is pressed**: Ellenőrzi, hogy az egyebek oldalon frissíthető-e a nyertes zene a szerveren, ha a frissítés gombot megnyomják.
+
+##### `forbidden.spec.ts`
+
+- **should stay on forbidden page**: Ellenőrzi, hogy az oldal a tiltott oldalon marad-e.
+- **should display the forbidden page with home button on large screens**: Ellenőrzi, hogy a tiltott oldal megjelenik-e a kezdőlap gombbal nagy képernyőkön.
+- **should display the message on small screens**: Ellenőrzi, hogy a tiltott oldal üzenetet jelenít-e meg kis képernyőkön.
+- **should navigate to home page when home button is clicked**: Ellenőrzi, hogy a kezdőlap gombra kattintva a felhasználó a kezdőlapra navigál-e.
+
+##### `index.spec.ts`
+
+- **should display the home page**: Ellenőrzi, hogy a kezdőlap megjelenik-e.
+- **should display the navigation bar**: Ellenőrzi, hogy a navigációs sáv megjelenik-e.
+- **should navigate to about page when about link is clicked**: Ellenőrzi, hogy az "About" linkre kattintva a felhasználó az "About" oldalra navigál-e.
+- **should display the footer**: Ellenőrzi, hogy a lábléc megjelenik-e.
+- **should display the correct title**: Ellenőrzi, hogy a helyes cím megjelenik-e a kezdőlapon.
+- **should display featured articles**: Ellenőrzi, hogy a kiemelt cikkek megjelennek-e a kezdőlapon.
+- **should navigate to article page when article is clicked**: Ellenőrzi, hogy egy cikkre kattintva a felhasználó a cikk oldalára navigál-e.
+- **should display the search bar**: Ellenőrzi, hogy a keresősáv megjelenik-e.
+- **should show search results when a query is entered**: Ellenőrzi, hogy a keresési eredmények megjelennek-e, ha egy lekérdezést beírnak.
+- **should display the login button**: Ellenőrzi, hogy a bejelentkezés gomb megjelenik-e.
+- **should navigate to login page when login button is clicked**: Ellenőrzi, hogy a bejelentkezés gombra kattintva a felhasználó a bejelentkezési oldalra navigál-e.
+- **should display the register button**: Ellenőrzi, hogy a regisztráció gomb megjelenik-e.
+- **should navigate to register page when register button is clicked**: Ellenőrzi, hogy a regisztráció gombra kattintva a felhasználó a regisztrációs oldalra navigál-e.
+
+##### `login.spec.ts`
+
+- **should render login page correctly**: Ellenőrzi, hogy a bejelentkezési oldal helyesen jelenik-e meg.
+- **should show validation errors if fields are empty**: Ellenőrzi, hogy a mezők üresen hagyása esetén megjelennek-e az érvényesítési hibák.
+- **should handle login with correct credentials**: Ellenőrzi, hogy a bejelentkezés helyesen történik-e a megfelelő hitelesítő adatokkal.
+- **should show error message on failed login**: Ellenőrzi, hogy hibás bejelentkezés esetén megjelenik-e a hibaüzenet.
+- **should navigate to register page**: Ellenőrzi, hogy a regisztrációs oldalra navigál-e a felhasználó, ha a megfelelő linkre kattint.
+
+##### `register.spec.ts`
+
+- **should display the registration form**: Ellenőrzi, hogy a regisztrációs űrlap megjelenik-e.
+- **should have all input fields**: Ellenőrzi, hogy az összes bemeneti mező megjelenik-e.
+- **should display labels for input fields**: Ellenőrzi, hogy a bemeneti mezők címkéi megjelennek-e.
+- **should navigate to login page when link is clicked**: Ellenőrzi, hogy a bejelentkezési oldalra navigál-e a felhasználó, ha a megfelelő linkre kattint.
+- **should register a new user**: Ellenőrzi, hogy egy új felhasználó regisztrálható-e.
+- **should show error message on registration failure**: Ellenőrzi, hogy regisztrációs hiba esetén megjelenik-e a hibaüzenet.
+
 ### Backend
 
 A Pollák Csengő backend alkalmazásának metodológiája a következő: a backend alkalmazás moduláris felépítésű, a különböző funkciókat külön modulokba szervezi. A modulok egymással kommunikálnak a NestJS Dependency Injection segítségével, és a különböző modulok közötti navigáció a NestJS Router segítségével történik. Minden lekérdezés egy Prisma ORM segítségével történik, hogy a modulok egyszerű és konzisztens adatbázis hozzáférést tarthassanak. A modulok a NestJS keretrendszer segítségével vannak összeállítva és futtatva.
