@@ -45,26 +45,10 @@ A Pollák Csengő webalkamazás viszonylag mérsékelt hardverigényekkel rendel
 - Minimum: 600x600 \
 - Ajánlott: 1920x1080 (Full HD) vagy magasabb
 
-**Operációs rendszer:**
-
-- Minimum: Windows 10, macOS Mojave (10.14) vagy újabb, Linux (Ubuntu 20.04 vagy újabb), iOS 14 vagy Android 10 \
-- Ajánlott: Windows 11, macOS Monterey (12.0) vagy újabb, legújabb Linux disztribúciók, iOS 16 vagy Android 13
-
-**Webböngészők:**
-
-- Minimum: Google Chrome 85+, Mozilla Firefox 80+, Microsoft Edge 85+, Safari 13+ \
-- Ajánlott: Google Chrome 110+, Mozilla Firefox 100+, Microsoft Edge 110+, Safari 14+
-
-**Internetkapcsolat:** 
-
-- Minimum: 2 Mbps letöltési és 1 Mbps feltöltési sebesség \
-- Ajánlott: 10 Mbps letöltési és 5 Mbps feltöltési sebesség a zökkenőmentes böngészéshez és videóhívásokhoz
-
 **Mobil eszközök (okostelefonok és táblagépek):**
 
-- Minimum: iPhone 8 vagy újabb, Android 8.0 (Oreo) vagy újabb \
-- Ajánlott: iPhone 12 vagy újabb, Android 12 vagy újabb
-
+- Minimum: iPhone 8 vagy újabb (IOS 14), Android 8.0 (Oreo) vagy újabb \
+- Ajánlott: iPhone 12 vagy újabb (IOS 14 vagy újabb), Android 12 vagy újabb
 
 ## Szoftver szükséglet
 
@@ -85,7 +69,7 @@ A Pollák Csengő webalkalmazás optimális működéséhez a következő szoftv
 - Linux: Ubuntu 20.04 vagy újabb verzió
 - Mobil eszközök: iOS 14 vagy Android 10 és újabb verziók
 
-**JavaScript és HTML5 Támogatás:*
+**JavaScript és HTML5 Támogatás:**
 
 A Pollák Csengő alkalmazás a JavaScript és az HTML5 technológiákat használja a dinamikus funkciók és az interaktív elemek biztosításához. A böngészőknek támogatniuk kell a JavaScript futtatását, valamint az HTML5 szabványokat a helyes működéshez.
 
@@ -100,6 +84,6 @@ A webalkalmazás zenék feltöltésére, meghallgatására és szavazásra is le
 
 A Pollák Csengő alkalmazás biztonságos használata érdekében javasoljuk a következő biztonsági intézkedések betartását:
 
-HTTPS: Az alkalmazás minden adatátvitele titkosított HTTPS kapcsolaton keresztül történik. Győződjön meg arról, hogy böngészője támogatja az SSL/TLS titkosítást.
-Cookie-k: Az alkalmazás használatának részeként a böngészőnek támogatnia kell a cookie-kat, hogy a felhasználói élmény zökkenőmentes legyen (pl. a bejelentkezett állapot tárolása).
-Adblocker: Az alkalmazás nem igényel hirdetéseket, de egyes felhasználók számára hasznos lehet adblocker használata a nem kívánt hirdetések és nyomkövetők blokkolására.
+- HTTPS: Az alkalmazás minden adatátvitele titkosított HTTPS kapcsolaton keresztül történik. Győződjön meg arról, hogy böngészője támogatja az SSL/TLS titkosítást.
+- Cookie-k: Az alkalmazás használatának részeként a böngészőnek támogatnia kell a cookie-kat, hogy a felhasználói élmény zökkenőmentes legyen (pl. a bejelentkezett állapot tárolása).
+- Adblocker: Az alkalmazás nem igényel hirdetéseket, de egyes felhasználók számára hasznos lehet adblocker használata a nem kívánt hirdetések és nyomkövetők blokkolására.
