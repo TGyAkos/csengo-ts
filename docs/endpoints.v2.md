@@ -13,31 +13,36 @@ To make the endpoints more RESTful, we need to follow REST principles, which inc
     - `/api/pending-songs/audio` (GET for `get-audio`)
 
 4. **SongsController**:
-    - `/api/songs` (GET for `get-all`, POST for `upload`, DELETE for `delete`)
-    - `/api/songs/session` (GET for `get-all-in-session`, GET for `get-all-audio-in-session`)
-    - `/api/songs/winner` (GET for `get-winner`, GET for `get-winner-audio`)
-    - `/api/songs/audio` (GET for `get-audio`, PUT for `update-audio`, POST for `start-audio`, DELETE for `stop-audio`)
-    - `/api/songs/upload-direct` (POST for `upload-direct`)
-    - `/api/songs/rename` (PUT for `rename`)
+    - `/api/songs` (GET for `get-all`, PUT for `rename`, DELETE for `delete`)
+    - `/api/songs/session` (GET for `get-all-in-session`)
+    - `/api/songs/session/audio` (GET for `get-all-audio-in-session`)
+    - `/api/songs/winner` (GET for `get-winner`)
+    - `/api/songs/winner/audio` (GET for `get-winner-audio`)
+    - `/api/songs/audio` (GET for `get-audio`, POST for `upload`)
+    - `/api/songs/audio/direct` (POST for `upload-direct`)
+    - `/api/songs/server/update` (GET for `update-audio`)
+    - `/api/songs/server/start` (GET for `start-audio`)
+    - `/api/songs/server/stop` (GET for `stop-audio`)
 
 5. **TvController**:
-    - `/api/tv/summary` (GET for `get-summary-of-votes-in-session`)
+    - `/api/tv/session` (GET for `get-summary-of-votes-in-session`)
 
 6. **UserController**:
-    - `/api/users` (GET for `get-all`, PUT for `update-user-pass`, PUT for `update-user-role`)
+    - `/api/users` (GET for `get-all`, PUT for `update-user-pass`)
+    - `/api/users/roles` (PUT for `update-user-role`)
     - `/api/users/real-name` (GET for `get-real-name`)
 
 7. **VotesController**:
     - `/api/votes/session` (GET for `get-summary-in-session`)
-    - `/api/votes/user/{userId}/songs` (GET for `get-voted-songs-by-user-id`)
+    - `/api/votes/current-user` (GET for `get-voted-songs-by-user-id`)
     - `/api/votes` (POST for `vote-up`, DELETE for `vote-down`)
 
 8. **VotingSessionController**:
     - `/api/voting-sessions` (GET for `get-all`, POST for `create`, PUT for `update`, DELETE for `delete`)
 
 9. **ViewController**:
-    - `/api/view/tv` (GET for `view/tv`)
-    - `/api/view/pending-songs` (GET for `view/pending-songs`)
+    - `/view/tv` (unchanged)
+    - `/view/pending-songs` (unchanged)
 
 Here is an example of how to update the `PendingSongsController`:
 
