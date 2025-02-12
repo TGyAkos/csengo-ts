@@ -16,7 +16,7 @@ Köszönjük, hogy a Pollák Csengőt választotta! Élvezze a zenét és a szav
 Üdvözlettel,
 Pollák Csengő csapata
 
-## Harver szükséglet
+## Harver szükséglet átlagos felhasználónak
 
 A Pollák Csengő webalkamazás viszonylag mérsékelt hardverigényekkel rendelkezik amely hasonló a napjainkba használt modern oldalkhoz mint például a Facebook, de a jobb felhasználói élmény érdekében az alábbi minimum és ajánlott konfigurációk figyelembevételével kell biztosítani a megfelelő eszközöket:
 
@@ -45,7 +45,7 @@ A Pollák Csengő webalkamazás viszonylag mérsékelt hardverigényekkel rendel
 - Minimum: 600x600 
 - Ajánlott: 1920x1080 (Full HD) vagy magasabb
 
-## Szoftver szükséglet
+## Szoftver szükséglet átlagos felhasználónak
 
 A Pollák Csengő webalkalmazás optimális működéséhez a következő szoftverek és technológiai környezetek szükségesek:
 
@@ -81,3 +81,15 @@ A Pollák Csengő alkalmazás biztonságos használata érdekében javasoljuk a 
 
 - HTTPS: Az alkalmazás minden adatátvitele titkosított HTTPS kapcsolaton keresztül történik. Győződjön meg arról, hogy böngészője támogatja az SSL/TLS titkosítást.
 - Cookie-k: Az alkalmazás használatának részeként a böngészőnek támogatnia kell a cookie-kat, hogy a felhasználói élmény zökkenőmentes legyen (pl. a bejelentkezett állapot tárolása).
+
+## Hardver szükséglet a futtatáshoz
+
+GYULA
+
+## Szoftver szükséglet a futtatáshoz
+
+GYULA
+
+## Letöltés, Telepítés és Elindítás
+
+GYULA
