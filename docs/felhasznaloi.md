@@ -22,33 +22,28 @@ A Pollák Csengő webalkamazás viszonylag mérsékelt hardverigényekkel rendel
 
 **Processzor (CPU):**
 
-- Minimum: 1.6 GHz-es kétmagos processzor (Intel Core i3, AMD Ryzen 3) \
+- Minimum: 1.6 GHz-es kétmagos processzor (Intel Core i3, AMD Ryzen 3) 
 - Ajánlott: 2.5 GHz vagy gyorsabb négymagos processzor (Intel Core i5 / i7, AMD Ryzen 5)
 
 **Memória (RAM):**
 
-- Minimum: 4 GB RAM \
+- Minimum: 4 GB RAM 
 - Ajánlott: 8 GB RAM vagy több
 
 **Videokártya (GPU):**
  
-- Minimum: Integrált videokártya (Intel HD Graphics, AMD Vega) \
+- Minimum: Integrált videokártya (Intel HD Graphics, AMD Vega) 
 - Ajánlott: Dedikált videokártya (NVIDIA GeForce GTX Széria, AMD Radeon RX Széria)
 
 **Tárhely:**
 
-- Minimum: 20 GB szabad hely a rendszer és az alkalmazások számára \
+- Minimum: 20 GB szabad hely a rendszer és az alkalmazások számára 
 - Ajánlott: SSD meghajtó, 256 GB vagy több
 
 **Képernyőfelbontás:**
 
-- Minimum: 600x600 \
+- Minimum: 600x600 
 - Ajánlott: 1920x1080 (Full HD) vagy magasabb
-
-**Mobil eszközök (okostelefonok és táblagépek):**
-
-- Minimum: iPhone 8 vagy újabb (IOS 14), Android 8.0 (Oreo) vagy újabb \
-- Ajánlott: iPhone 12 vagy újabb (IOS 14 vagy újabb), Android 12 vagy újabb
 
 ## Szoftver szükséglet
 
@@ -69,16 +64,16 @@ A Pollák Csengő webalkalmazás optimális működéséhez a következő szoftv
 - Linux: Ubuntu 20.04 vagy újabb verzió
 - Mobil eszközök: iOS 14 vagy Android 10 és újabb verziók
 
-**JavaScript és HTML5 Támogatás:**
+**JavaScript, TypeScript és HTML5 Támogatás:**
 
-A Pollák Csengő alkalmazás a JavaScript és az HTML5 technológiákat használja a dinamikus funkciók és az interaktív elemek biztosításához. A böngészőknek támogatniuk kell a JavaScript futtatását, valamint az HTML5 szabványokat a helyes működéshez.
+A Pollák Csengő alkalmazás a Vue.js, JavaScript/TypeScript és HTML5 technológiákat használ a dinamikus funkciók és interaktív elemek biztosításához. A böngészőknek támogatniuk kell a JavaScript/TypeScript futtatását, valamint az HTML5 szabványokat a helyes működéshez.
 
 **Multimédia Támogatás:**
 
 A webalkalmazás zenék feltöltésére, meghallgatására és szavazásra is lehetőséget biztosít. Az alábbi multimédia formátumok és technológiák szükségesek:
 
 - HTML5 Audio: Az alkalmazás audio fájlokat használ a zenék lejátszásához, így a böngészőnek támogatnia kell az HTML5 Audio API-t.
-- MP3, WAV: Az elfogadott zenei formátumok közé tartozik az MP3 és WAV.
+- MP3: Az elfogadott zenei formátumok közé tartozik az MP3.
   
 **Biztonság és Adatvédelem:**
 
@@ -86,4 +81,3 @@ A Pollák Csengő alkalmazás biztonságos használata érdekében javasoljuk a 
 
 - HTTPS: Az alkalmazás minden adatátvitele titkosított HTTPS kapcsolaton keresztül történik. Győződjön meg arról, hogy böngészője támogatja az SSL/TLS titkosítást.
 - Cookie-k: Az alkalmazás használatának részeként a böngészőnek támogatnia kell a cookie-kat, hogy a felhasználói élmény zökkenőmentes legyen (pl. a bejelentkezett állapot tárolása).
-- Adblocker: Az alkalmazás nem igényel hirdetéseket, de egyes felhasználók számára hasznos lehet adblocker használata a nem kívánt hirdetések és nyomkövetők blokkolására.
