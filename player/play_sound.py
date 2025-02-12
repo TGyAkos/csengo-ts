@@ -125,7 +125,7 @@ def get_songs():
 
 def get_winning_song():
     print("Getting winning song")
-    winning_song_url = os.getenv("API_URL") + "/api/songs/get-winner-audio"
+    winning_song_url = os.getenv("API_URL") + "/api/songs/winner/audio"
 
     try:
         response = requests.get(winning_song_url)
