@@ -285,7 +285,7 @@ A frontend strukturális felépítése a következő:
    - *typed-router.d.ts*: Típusdefiníciók a routerhez.
    - **assets**: Statikus fájlok és képek.
       - *asd2.jpg*: Háttérkép.
-      - *bg2.png*: Háttérkép.
+      - *pollakLogo.png*: Logó kép.
       - *logo.png*: Logó kép.
       - *logo.svg*: Logó SVG formátumban.
    - **components**: Az alkalmazás különböző komponensei.
