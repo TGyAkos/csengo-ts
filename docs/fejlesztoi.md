@@ -379,6 +379,7 @@ A frontend strukturális felépítése a következő:
          - **user**: Felhasználók állapotkezelői.
             - *updateUserPopup.ts*: Felhasználó frissítése állapotkezelő.
             - *user.ts*: Felhasználó állapotkezelő.
+         - *download.ts*: Letöltés állapotkezelő.
       - **dashboard**: Felhasználói irányítópult állapotkezelői.
          - *welcomeSign.ts*: Üdvözlő jelzés állapotkezelő.
          - **left-card**: Bal oldali kártya állapotkezelői.
@@ -526,6 +527,13 @@ A frontend tesztelési folyamatok a következők:
 - **should navigate to login page when link is clicked**: Ellenőrzi, hogy a bejelentkezési oldalra navigál-e a felhasználó, ha a megfelelő linkre kattint.
 - **should register a new user**: Ellenőrzi, hogy egy új felhasználó regisztrálható-e.
 - **should show error message on registration failure**: Ellenőrzi, hogy regisztrációs hiba esetén megjelenik-e a hibaüzenet.
+
+##### `tv.spec.ts`
+
+- **should navigate to tv page**: Ellenőrzi, hogy a TV oldal megjelenik-e.
+- **should navigate to index page when logged in**: Ellenőrzi, hogy ha a felhasználó be van jelentkezve, akkor a kezdőoldalra navigál-e.
+- **should display call to action when no session is active**: Ellenőrzi, hogy ha nincs aktív szavazási szekció, akkor megjelenik-e a cselekvési hívás.
+- **should display correct data when a session is active**: Ellenőrzi, hogy ha aktív szavazási szekció van, akkor helyesen jelenik-e meg az adat.
 
 ### Backend
 
