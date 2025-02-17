@@ -41,7 +41,7 @@ Ezeket a fejlesztőeszközöket választottuk, mert tanultunk velük, és ismerj
 
 # Fejlesztői dokumentáció
 
-## Konkurenciak
+## Konkurenciák
 
 A Pollák Csengő alkalmazás egyik vetélytársa a [Bella-Iskolacsengő](https://www.bella-iskolacsengo.hu/), amely egy hasonló szolgáltatást nyújt az iskolák számára. A Bella-Iskolacsengő egy online platform, amely lehetővé teszi az iskolák számára, hogy saját csengőhangot válasszanak, és a diákok számára lehetőséget biztosítanak a szavazásra. Az alkalmazás egyedi és személyre szabott csengőhangokat kínál, amelyeket a diákok kedvenc dalai alapján választhatnak ki. A Bella-Iskolacsengő egy modern és interaktív megoldás, amely segíti az iskolákat a diákok bevonásában és a közösségi élmény erősítésében.
 
@@ -238,6 +238,26 @@ A következő adatokat kell megadni a kapcsolódáshoz a következő módon:
 A következő módon lehet az adatbázisban tárolt táblákat megtekinteni:
 
 ![pgadmin-tables](./fejlesztoikepek/pgadmin-list-tables.png)
+
+#### Portainer-en keresztüli konténer kezelés
+
+A Portainer egy könnyen használható, webes felülettel rendelkező konténerkezelő eszköz, amely lehetővé teszi a konténerek kezelését, figyelését és felügyeletét. A Portainer segítségével egyszerűen létrehozhat, indíthat, leállíthat és törölhet konténereket, valamint ellenőrizheti a konténerek állapotát és naplóit.
+
+Ez a dokumentáció feltételezi, hogy egy Portainer példány fut a localhost:9000 címen.
+
+1. Nyissa meg a böngészőt, és navigáljon a http://localhost:9000 címre.
+2. Jelentkezzen be a Portainerbe a felhasználónév és jelszó megadásával.
+3. Az ábra alapján válassza ki a számára megfelelő Docker környezetet.
+
+![portainer-login](./fejlesztoikepek/portainer-environments.png)
+
+4. Készítsen elő egy új Stack-et a Stacks fül alatt, majd másolja bele a docker-compose.dev.v2.yml fájl tartalmát. Valamint adja hozzá a megfelelő fájlokat, hogy a konténerek le tudjanak épülni.
+
+![portainer-stacks](./fejlesztoikepek/portainer-create-stack.png)
+
+5. Sikeres stack létrehozása után a konténerek automatikusan elindulnak, és a Portainer segítségével kezelheti őket.
+
+![portainer-success](./fejlesztoikepek/portainer-successful-deploy.png)
 
 ## Strukturális felépítés
 

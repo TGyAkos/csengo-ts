@@ -84,15 +84,47 @@ A Pollák Csengő alkalmazás biztonságos használata érdekében javasoljuk a 
 
 ## Hardver szükséglet a futtatáshoz
 
-GYULA
+GYULA -- ez nagyabol jonak nez ki amit felette irtal
 
 ## Szoftver szükséglet a futtatáshoz
 
-GYULA
+GYULA -- ez nagyabol jonak nez ki amit felette irtal
 
 ## Letöltés, Telepítés és Elindítás
 
-GYULA
+### Letöltés
+
+A Pollák Csengő webalkalmazás letölthető a GitHub repository-ból a következő linken: [Pollák Csengő GitHub Repository](https://github.com/Pollak-Projects/csengo-mono)
+
+A megfelelő letöltéshez futtassa a következő git parancsot egy mappában, ahol a projektet szeretné letölteni:
+
+```bash
+git clone https://github.com/Pollak-Projects/csengo-mono.git
+```
+
+### Elindítás Docker segítségével
+
+Windows-on, telepítse a `Docker-compose`-t és a `Docker Desktop` alkalmazást, majd indítsa el a `Docker Desktop` alkalmazást.
+
+Linux-on és macOS-en, telepítse a `Docker`-t és a `Docker-compose`-t, majd nyissa meg a terminált a `docker-compose` fájl mappájában.
+
+Nyisson meg egy parancssort git repository törzs mappájában, ahol a `docker-compose.dev.v2.yml` nevű fájl található.
+
+A `docker-compose` fájlban meghatározott szolgáltatásokat, hálózatokat és köteteket a következő paranccsal futtathatjuk:
+
+```bash
+docker-compose -f docker-compose.dev.v2.yml up -d
+```
+
+Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgáltatásokkal, hálózatokkal és kötetekkel. A `-d` kapcsolóval a konténerek háttérben futnak, és a parancs végrehajtása után visszatér a parancssorhoz.
+
+A Pollák Csengő alkalmazás futtatása után a következő URL-eken érhető el:
+- pgAdmin adatbázis kezelő: `http://localhost:8081`
+- Csengő szerver: `http://localhost:3300`
+- Csengő weboldal: `http://localhost:8080`
+
+Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
+
 
 ## Ismertetés
 
