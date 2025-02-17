@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/44405490-e994-432c-8766-196fbb5480dc)# Felhasználói
+# Felhasználói
 ## Rövid bemutatás
 
 Üdvözöllek!
