@@ -14,7 +14,7 @@ A Pollák Csengő alkalmazás számos modern technológiát használ annak érde
 A Pollák Csengő egy úttörő megoldás, amely kifejezetten az oktatási környezet javítására készült, elősegítve a kényelmesebb és vonzóbb légkört a diákok számára. Ez az innovatív alkalmazás egy sokoldalú webes platformot kínál, amely elérhető mind mobil eszközökön, mind számítógépeken, biztosítva a széles körű használhatóságot.
 
 A platform alapvető funkciója lehetővé teszi a diákok számára, hogy szavazzanak kedvenc dalaikra, végül meghatározva a "Hónap Csengőhangját". Ez a funkció dinamikus csengőhangok sorát vezeti be, amelyek az iskolai év során váltakoznak, napi szinten friss és élvezetes hallási élményt nyújtva a diákoknak.
-    
+
 A vidám és derűs légkör elősegítése mellett a Pollák Csengő egy könnyed és innovatív megközelítést kínál a diákok bevonására, pozitívan hozzájárulva általános jólétükhöz és napi iskolai életükhöz. Az alkalmazás zökkenőmentes integrációjával és felhasználóbarát felületével erősíti a közösségi érzést, miközben egy kis örömöt és újdonságot hoz az akadémiai környezetbe.
 
 ### Kinek és miért?
@@ -712,3 +712,86 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
 - *sonar-project.properties*: A SonarQube konfigurációs fájlja, amely a kódminőség elemzéséhez szükséges beállításokat tartalmazza.
 - *tsconfig.build.json*: A TypeScript build konfigurációs fájlja, amely meghatározza a build folyamat során használt beállításokat.
 - *tsconfig.json*: A TypeScript projekt alapértelmezett konfigurációs fájlja, amely meghatározza a fordító beállításait.
+
+# Adatbázis
+A PostgreSQL-t választottuk más adatbázisok, mint például a MySQL helyett számos előnye miatt. Először is, a PostgreSQL egy rendkívül robusztus és megbízható adatbázis-kezelő rendszer, amely hosszú évek óta bizonyítja megbízhatóságát és stabilitását. Az ACID (Atomicity, Consistency, Isolation, Durability) tulajdonságok támogatása garantálja az adatok integritását és konzisztenciáját.
+
+Továbbá, a PostgreSQL kiválóan támogatja a fejlett adatbázis-funkciókat, mint például a JSON, XML és hstore típusok kezelését, ami rendkívül hasznos a modern webes alkalmazások fejlesztésében. Ezen kívül támogatja a teljes szöveg keresést és az adattárolást komplex adatszerkezetekkel, ami lehetővé teszi az adatok rugalmasabb kezelését és lekérdezését.
+
+A PostgreSQL nyílt forráskódú, így teljesen ingyenesen használható és testreszabható az igényeinknek megfelelően. Az aktív közösségi támogatásnak köszönhetően gyors hibajavításokra és rendszeres frissítésekre számíthatunk. Emellett széles körben kompatibilis különböző operációs rendszerekkel és programozási nyelvekkel, így könnyen integrálható a meglévő rendszereinkkel.
+
+Végül, a PostgreSQL kiváló skálázhatósága és teljesítménye lehetővé teszi az adatok hatékony kezelését nagy terhelés mellett is. Ezek az előnyök mind hozzájárulnak ahhoz, hogy a PostgreSQL ideális választás legyen az adatbázis-kezelési feladatainkhoz.
+
+## ER-Diagram
+![](./fejlesztoikepek/mermaid-diagram.png)
+
+Az ER diagram (Entity-Relationship Diagram) egy grafikus ábrázolás, amely megjeleníti a valós világban létező entitások és azok közötti kapcsolatok kapcsolatát. Ezek a diagramok rendkívül hasznosak az adatbázis-tervezés során, mivel segítenek megérteni és dokumentálni az adatbázis struktúráját.
+
+Az ER diagramok három fő összetevőből állnak: entitásokból, attribútumokból és kapcsolatokból. Az entitások olyan objektumok, amelyek léteznek és egyedileg azonosíthatók, mint például egy "Felhasználó" az alkalmazásodban. Az attribútumok az entitások tulajdonságait jelentik, például egy "Felhasználó" esetében ez lehet a név, e-mail cím és jelszó. A kapcsolatok az entitások közötti kapcsolatokat jelentik, például egy "Rendelés" entitás kapcsolódhat egy "Felhasználó" entitáshoz.
+
+Az ER diagramok több szempontból is fontosak. Először is, segítenek az adatbázis-tervezőknek megérteni és modellezni az adatbázis struktúráját és logikáját. Emellett lehetővé teszik az adatbázis-tervezők és fejlesztők számára, hogy könnyebben kommunikáljanak az adatbázis szerkezetéről és a kapcsolatok működéséről. Az ER diagramok átlátható és strukturált dokumentációt biztosítanak, amely segíti az adatbázis karbantartását és bővítését. Végül, segítenek azonosítani és megoldani az adatbázissal kapcsolatos problémákat, mivel világosan ábrázolják az összes entitást és kapcsolatot.
+
+Az ER diagramok különböző típusai közé tartozik a koncepcionális, a logikai és a fizikai diagram. A koncepcionális diagram magas szintű ábrázolást nyújt az adatbázis főbb entitásairól és azok kapcsolatairól, és inkább az üzleti logikára összpontosít. A logikai diagram részletesen ábrázolja az entitások és kapcsolatok logikai struktúráját, de nem tartalmazza az adatbázis specifikus részleteit. A fizikai diagram a tényleges adatbázis szerkezetet ábrázolja, beleértve a táblákat, oszlopokat és indexeket.
+
+Az ER diagram készítésének lépései közé tartozik az entitások azonosítása, az entitásokhoz tartozó tulajdonságok meghatározása, az entitások közötti kapcsolatok azonosítása és ábrázolása, valamint az összes entitás, attribútum és kapcsolat grafikus ábrázolása.
+
+## Normalizálás
+A normalizálás lényege, hogy az adatbázisokat olyan formába hozzuk, amely minimalizálja az adat redundanciáját és maximalizálja az adat integritását. Alapvetően ez az eljárás az adatbázis szerkezetének javítására irányul, hogy elkerüljük a felesleges adatismétléseket és az inkonzisztenciákat.
+
+A saját vizsgaremekünknél a normalizálás nagy feladat volt, mivel sok különböző adatot kellett egy összetett struktúrába szervezni. Kezdetben az adatok több táblázatban voltak szétszórva, ami számos kihívást jelentett a redundancia és az adatintegritás szempontjából.
+
+A normalizálás folyamata során lépésről lépésre haladtunk előre. Először az első normálformát alkalmaztuk, amely az összes táblát úgy alakította át, hogy minden mező atomi legyen, azaz minden mezőben csak egy érték szerepeljen. Ezután a második normálformára léptünk át, amely biztosította, hogy minden nem kulcsmező függjön a teljes elsődleges kulcstól, nem csak annak egy részétől. Végül a harmadik normálformát alkalmaztuk, ahol kiküszöböltük az átmeneti függőségeket is, így minden nem kulcsmező közvetlenül az elsődleges kulcstól függött.
+
+Az eredmény egy tiszta, jól szervezett adatbázis lett, amelyben minimális volt az adat redundancia, és maximális az adatintegritás. A legmagasabb normalizálási szint elérése nemcsak hogy könnyebbé teszi az adatkezelést, hanem javítja  a rendszer teljesítményét és megbízhatóságát is.
+
+# Táblák
+
+### Kreta tábla
+A `Kreta` tábla egy olyan entitást reprezentál, amely felhasználókhoz kapcsolódik. Minden rekord egyedi és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. Az `om` mező egy egyedi BigInt érték, amely valószínűleg jelentős azonosítóként szolgál minden Kreta entitás számára. A `name` mező a Kreta entitás nevét tárolja, legfeljebb 255 karakter hosszúságú szövegként.
+
+A `user` mező egy egy-egy lehetséges kapcsolatot alakít ki a `User` táblával, jelezve, hogy minden Kreta entitás egyetlen felhasználóhoz kapcsolható. A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a Kreta entitást. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
+
+## User
+A `User` tábla a felhasználókat reprezentálja. Minden felhasználó egyedi és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `username`, `password` és `email` mezők a felhasználónevet, jelszót és e-mail címet tárolják, mindhárom mező legfeljebb 255 karakter hosszúságú szövegként.
+
+A `kreta` mező egy egy-egy kapcsolatot hoz létre a `Kreta` táblával, jelezve, hogy minden felhasználóhoz tartozhat egy Kreta entitás. A `roles` mező a felhasználó szerepeit tárolja, több szereppel való kapcsolattal. A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a felhasználói rekordot. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
+
+A `Vote` mező a felhasználó által leadott szavazatokat, a `songs` mező a felhasználó által feltöltött dalokat, míg a `pendingSongs` mező az elbírálásra váró dalokat tárolja. A `kretaId` mező az adott felhasználóhoz tartozó Kreta entitás azonosítója.
+
+## Song tábla
+A `Song` tábla a dalokat reprezentálja. Minden dal egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `title` mező a dal címét tárolja, legfeljebb 255 karakter hosszúságú szövegként. A `songBucket` mező egy kapcsolatot hoz létre a `SongBucket` táblával, jelezve, hogy minden dalhoz tartozik egy dal csomag.
+
+A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a dalt. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában. Az `uploadedBy` mező egy kapcsolatot hoz létre a `User` táblával, jelezve, hogy ki töltötte fel a dalt.
+
+A `songBucketId` és az `uploadedById` mezők az adott dalhoz tartozó dal csomag és a feltöltő felhasználó azonosítói. A `votingSession` és a `Vote` mezők a dalhoz kapcsolódó szavazási üléseket és szavazatokat tárolják.
+
+## PendingSong tábla
+A `PendingSong` tábla az elbírálásra váró dalokat tartalmazza. Minden elbírálásra váró dal egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `title` mező a dal címét tárolja, legfeljebb 255 karakter hosszúságú szövegként. A `songBucket` mező egy kapcsolatot hoz létre a `SongBucket` táblával, jelezve, hogy minden elbírálásra váró dalhoz tartozik egy dal csomag.
+
+A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára az elbírálásra váró dalt. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában. Az `uploadedBy` mező egy kapcsolatot hoz létre a `User` táblával, jelezve, hogy ki töltötte fel az elbírálásra váró dalt.
+
+A `songBucketId` és az `uploadedById` mezők az adott elbírálásra váró dalhoz tartozó dal csomag és a feltöltő felhasználó azonosítói.
+
+## SongBucket tábla
+A `SongBucket` tábla a dal csomagokat tartalmazza. Minden dal csomag egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `path` mező a dal csomag útvonalát tárolja, legfeljebb 500 karakter hosszúságú szövegként. A `song` és a `pendingSong` mezők kapcsolódnak a `Song` és a `PendingSong` táblákhoz, jelezve, hogy minden dal csomaghoz tartozhat egy dal vagy egy elbírálásra váró dal.
+
+A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a dal csomagot. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
+
+## Vote tábla
+A `Vote` tábla a szavazatokat reprezentálja. Minden szavazat egyedi, és az `id` mezővel van azonosítva, amely egy automatikusan növekvő egész szám (Int). A `userId`, `songId`, és `sessionId` mezők az adott szavazathoz tartozó felhasználó, dal és szavazási ülés azonosítói, amelyek UUID-ként vannak megadva.
+
+A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a szavazatot. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
+
+A `Sound`, `User`, és `Session` mezők kapcsolatok a `Song`, `User`, és `VotingSession` táblákhoz, jelezve, hogy minden szavazat egy dalhoz, egy felhasználóhoz és egy szavazási üléshez tartozik. Ezek a mezők gondoskodnak arról, hogy a szavazatok törlődjenek, ha a kapcsolódó dal, felhasználó vagy szavazási ülés törlésre kerül.
+
+## VotingSession tábla
+A `VotingSession` tábla a szavazási üléseket reprezentálja. Minden szavazási ülés egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `songs` mező a szavazási üléshez kapcsolódó dalokat tárolja, míg a `songNames` mező a dalok neveit tartalmazza szövegként.
+
+A `start` és `end` mezők az adott szavazási ülés kezdetét és végét rögzítik, időbélyegekkel. A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a szavazási ülést. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
+
+A `Vote` mező kapcsolódik a `Vote` táblához, jelezve, hogy minden szavazási üléshez tartoznak szavazatok.
+
+## Role tábla
+A `Role` tábla a felhasználói szerepeket tárolja. Minden szerep egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `role` mező egy egyedi szöveges érték, amely magát a szerepkört jelöli.
+
+A `users` mező kapcsolódik a `User` táblához, jelezve, hogy minden szerephez tartozhatnak felhasználók.
