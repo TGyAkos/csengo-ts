@@ -2,7 +2,7 @@
 
 ## § 0. General information 
 
-Any and all content uploaded to this repository [github.com/TGyakos/csengo-ts] or to any of its submodules constitutes an integral part of this software. As such, all terms and conditions outlined in this license apply to these components. Additionally, each submodule associated with this software is accompanied by a LICENSE file indicating its inclusion as part of this software.
+Any and all content uploaded to this repository [[github.com/TGyakos/csengo-ts](https://github.com/TGyAkos/csengo-ts)] or to any of its submodules constitutes an integral part of this software. As such, all terms and conditions outlined in this license apply to these components. Additionally, each submodule associated with this software is accompanied by a LICENSE file indicating its inclusion as part of this software.
 
 Furthermore, every copy of the software, whether in whole or in part, must contain a LICENSE that explicitly states that it is a copy of this software, and is therefore subject to the terms and conditions of this agreement.
 
@@ -10,6 +10,7 @@ There may be copies of this software that are distributed under the MIT License.
 
 Any modification to this License that is not made by the developers with a **verified commit does not** count as an official change.
 
+Similarly, any modification to the Licenses in the submodules that is not made by the developers with a verified commit does not count as an official change.
 ## § 1. Authorized Users
 
 This software is exclusively licensed for use by the following individuals or organizations:
@@ -64,12 +65,6 @@ For licensing inquiries, permissions, or clarifications, please contact:
 - [janipatrik138@gmail.com]
 - [t.gyula.akos@gmail.com]
 - [barnaamatee@gmail.com]
-
-**Discord:**
-
-- [validss]
-- [tgyakos]
-- [berryes]
 
 ## § 7. Developers
 
