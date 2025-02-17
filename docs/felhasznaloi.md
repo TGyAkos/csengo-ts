@@ -97,17 +97,47 @@ GYULA
 ## Ismertetés
 
 A webalkalmazás lebontása:
-- Regisztráció oldal
-- Bejelentkezés oldal
-- Dashboard oldal
-- Admin oldal
- - Zenék menűpont
- - Elfogadásra váró zenék menűpont
- - Felhasználók menűpont
- - Sessions menűpont
- - Egyebek menűpont
+- Toast [Értesítési ablak]
+- Regisztráció [Oldal]
+- Bejelentkezés [Oldal]
+- Kezdőlap [Oldal]
+- Admin [Oldal]
+ - - Zenék [Menűpont]
+ - - Elfogadásra váró zenék [Menűpont]
+ - - Felhasználók [Menűpont]
+ - - Sessions [Menűpont]
+ - - Egyebek [Menűpont]
 
-### Regisztráció
+### Toast értesítési ablak
 
-Ez az oldal szolgál a regisztrációra. Ennek az oldalnak a megnyitásával a felhasználók látni fognak 
+A Toast menü biztosítja a felhasználó étesültségét a háttérben történő dolgokrol. Minden esetben a kijelző jobb alsó sakéban ugrik fel. Ha siekres akkor zöld, ha csak figyelmeztetés akkor sárga és ha pobléma tötént akkor prios szinben jelenik meg. Minden esteben tartalmazza a pontos üzenetet arról, hogy mi történt.
+
+### Regisztrációs oldal
+
+A regisztrációs oldal biztosítja a gyors és egyszerű regisztrációs folyamatot. Az oldal a következő útvonalon érhető el: [/register].
+
+Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely 4 beviteli mezőt és 1 gombot tartalmaz. A beviteli mezők a következő adatokat és kikötéseket kérik a felhasználótól:
+
+- **Felhasználónév**
+- - Nem lehet üres
+- - Minimum 5 karakter hosszú
+- - Maximum 30 karakter hosszú
+  
+- **Email cím**
+- - Nem lehet üres
+- - Csak érvényes email cím lehet
+  
+- **OM azonosító**
+- - Nem lehet üres
+- - Csak szám lehet
+- - Csak érvényes, adatbázisban feljegyett azonosító lehet
+  
+- **Jelszó**
+- - Nem lehet üres
+- - Minimum 6 karakter hosszú
+- - Maximum 20 karakter hosszú 
+
+Minden mező felett látható a szükséges adat megnevezése.
+
+A regisztrációs űrlap kitöltését követően, ha a felhasználó rákattint a Regisztráció gombra, sikeres regisztráció esetén a felhasználó átirányításra kerül a főoldalra. Ha a regisztráció nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
    
