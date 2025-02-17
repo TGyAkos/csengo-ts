@@ -84,4 +84,5 @@ The following individuals are the official developers of this software and hold 
 
 By using this software, authorized users agree to abide by the terms set forth in this agreement. Unauthorized use, reproduction, or distribution of this software **may result in legal action**.
 
+**Not knowing the terms of this license does not excuse non-compliance.**
 **All rights reserved.**
