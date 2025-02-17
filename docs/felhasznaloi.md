@@ -146,6 +146,8 @@ Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet 
 Minden mező felett látható a szükséges adat megnevezése.
 
 A regisztrációs űrlap kitöltését követően, ha a felhasználó rákattint a Regisztráció gombra, sikeres regisztráció esetén a felhasználó átirányításra kerül a főoldalra. Ha a regisztráció nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
+
+Regisztrált fiók nélkül a felhasználó nemtudja elérni az oldal többi funkcionalitását, csakis a bejelentkezési felületet.
    
 ### Bejelentkezési oldal
 
