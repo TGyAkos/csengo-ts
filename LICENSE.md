@@ -8,6 +8,8 @@ Furthermore, every copy of the software, whether in whole or in part, must conta
 
 There may be copies of this software that are distributed under the MIT License. These specific copies are permitted to be used under the rules of the MIT License without the requirement to state it is a part of the original software, but such use is limited to the specific copy of the software licensed under the MIT License and does not extend to other versions or copies of the software. Copies of the software distributed under the MIT License are enumerated in § 8. Only those listed in this section, along with their corresponding GitHub repository links, are deemed legitimate.
 
+Any modification to this License that is not made by the developers with a **verified commit does not** count as an official change.
+
 ## § 1. Authorized Users
 
 This software is exclusively licensed for use by the following individuals or organizations:
