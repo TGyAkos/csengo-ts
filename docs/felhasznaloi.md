@@ -93,3 +93,21 @@ GYULA
 ## Letöltés, Telepítés és Elindítás
 
 GYULA
+
+## Ismertetés
+
+A webalkalmazás lebontása:
+- Regisztráció oldal
+- Bejelentkezés oldal
+- Dashboard oldal
+- Admin oldal
+ - Zenék menűpont
+ - Elfogadásra váró zenék menűpont
+ - Felhasználók menűpont
+ - Sessions menűpont
+ - Egyebek menűpont
+
+### Regisztráció
+
+Ez az oldal szolgál a regisztrációra. Ennek az oldalnak a megnyitásával a felhasználók látni fognak 
+   
