@@ -76,11 +76,11 @@ The following individuals are the official developers of this software and hold 
 
 ---
 
-### § 8. Copies with MIT License
+## § 8. Copies with MIT License
 
 There are no such copies as of now.
 
-### § 9. Legal Notice
+## § 9. Legal Notice
 
 By using this software, authorized users agree to abide by the terms set forth in this agreement. Unauthorized use, reproduction, or distribution of this software **may result in legal action**.
 
