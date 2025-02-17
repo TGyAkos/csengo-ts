@@ -15,7 +15,7 @@ Similarly, any modification to the Licenses in the submodules that is not made b
 
 This software is exclusively licensed for use by the following individuals or organizations:
 
-- **Hódmezővásárhelyi SZC Szentesi Pollák Antal Technikum**
+**There are no such entities as of now.**
 
 Any use of this software by unauthorized individuals, organizations, or entities is strictly prohibited unless prior written permission is obtained from the developers. Only the developers listed in § 7 have the authority to grant such permissions.
 
@@ -78,7 +78,7 @@ The following individuals are the official developers of this software and hold 
 
 ## § 8. Copies with MIT License
 
-There are no such copies as of now.
+**There are no such copies as of now.**
 
 ## § 9. Legal Notice
 
