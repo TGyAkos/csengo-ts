@@ -147,6 +147,8 @@ Minden mező felett látható a szükséges adat megnevezése.
 
 A regisztrációs űrlap kitöltését követően, ha a felhasználó rákattint a Regisztráció gombra, sikeres regisztráció esetén a felhasználó átirányításra kerül a főoldalra. Ha a regisztráció nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
 
+A gomb alatt látható egy hiperhivatkozás is amely biztosítja az egyerű átlépést a bejelentkezési oldalra. Ezt a "Regisztrálj itt" szövegre kattintva tudja a felhasználó elérni.
+
 Regisztrált fiók nélkül a felhasználó nemtudja elérni az oldal többi funkcionalitását, csakis a bejelentkezési felületet.
    
 ### Bejelentkezési oldal
@@ -166,6 +168,8 @@ Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet 
 - - Minden mező felett látható a szükséges adat megnevezése.
 
 A bejelentkezési űrlap kitöltését követően, ha a felhasználó rákattint a Bejelentkezés gombra, sikeres bejelentkezés esetén a felhasználó átirányításra kerül a főoldalra. Ha a bejelentkezés nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
+
+A gomb alatt látható egy hiperhivatkozás is amely biztosítja az egyerű átlépést a regisztrációs oldalra. Ezt a "Lépj be itt" szövegre kattintva tudja a felhasználó elérni.
 
 ### Kezdőlap 
 
