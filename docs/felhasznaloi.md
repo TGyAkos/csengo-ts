@@ -1,4 +1,4 @@
-# Felhasználói
+![image](https://github.com/user-attachments/assets/44405490-e994-432c-8766-196fbb5480dc)# Felhasználói
 ## Rövid bemutatás
 
 Üdvözöllek!
@@ -110,7 +110,13 @@ A webalkalmazás lebontása:
 
 ### Toast értesítési ablak
 
-A Toast menü biztosítja a felhasználó étesültségét a háttérben történő dolgokrol. Minden esetben a kijelző jobb alsó sakéban ugrik fel. Ha siekres akkor zöld, ha csak figyelmeztetés akkor sárga és ha pobléma tötént akkor prios szinben jelenik meg. Minden esteben tartalmazza a pontos üzenetet arról, hogy mi történt.
+A **Toast menü** a háttérben zajló eseményekről tájékoztatja a felhasználót. Minden értesítés a képernyő jobb alsó sarkában jelenik meg. A színek a következő módon jelzik az értesítés típusát:
+
+- **Zöld**: Sikeres művelet, amely megerősíti, hogy a felhasználó által végrehajtott művelet sikeresen befejeződött.
+- **Sárga**: Figyelmeztetés, amely jelzi, hogy bár a művelet végrehajtása megtörtént, valamilyen kisebb probléma merült fel.
+- **Piros**: Hiba, amely arra utal, hogy valamilyen probléma történt, és a művelet nem sikerült.
+  
+Minden értesítés tartalmazza a pontos üzenetet, amely leírja a történt eseményt vagy hibát. A felugró menü mindig 3 másopercig látható, azután automatikusan eltűnik.
 
 ### Regisztrációs oldal
 
@@ -141,3 +147,50 @@ Minden mező felett látható a szükséges adat megnevezése.
 
 A regisztrációs űrlap kitöltését követően, ha a felhasználó rákattint a Regisztráció gombra, sikeres regisztráció esetén a felhasználó átirányításra kerül a főoldalra. Ha a regisztráció nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
    
+### Bejelentkezési oldal
+
+A bejelentkezési oldal biztosítja a gyors és egyszerű hozzáférést az oldal többi funkciójához. Az oldal a következő útvonalon érhető el: [/login].
+
+Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely 2 beviteli mezőt és 1 gombot tartalmaz. A beviteli mezők a következő adatokat kérik a felhasználótól:
+
+- **Felhasználónév**
+- - Nem lehet üres
+- - Minimum 5 karakter hosszú
+- - Maximum 30 karakter hosszú
+- **Jelszó**
+- - Nem lehet üres
+- - Minimum 6 karakter hosszú
+- - Maximum 20 karakter hosszú
+- - Minden mező felett látható a szükséges adat megnevezése.
+
+A bejelentkezési űrlap kitöltését követően, ha a felhasználó rákattint a Bejelentkezés gombra, sikeres bejelentkezés esetén a felhasználó átirányításra kerül a főoldalra. Ha a bejelentkezés nem sikerül, egy hibaüzenet jelenik meg egy toast értesítés formájában a képernyő jobb alsó sarkában, amely tartalmazza a hiba okát.
+
+### Kezdőlap 
+
+A kezdőlap biztosítja a kezelőfelületet a felhasználók számára ahol zenéket tölthetnek fel, szavazatnak és megtekinthetik az előző győztes zenét. 
+
+A kezdőlap megnyitásakor a felhasználó az alábbi elemeket látja:
+
+A **bal felső** sarokban egy köszöntő üzenet jelenik meg a felhasználó valódi nevével, amelyet az adatbázisból kap meg az OM azonosító alapján.
+
+A **jobb felső** sarokban található egy felhasználói ikon. Erre kattintva két lehetőség jelenik meg:
+
+- **Admin**: Ez a gomb csak akkor látható, ha a felhasználó admin ranggal rendelkezik. Rákattintva az admin felületre navigálhat.
+- **Kijelentkezés**: Ez a gomb mindig elérhető, és segítségével a felhasználó kijelentkezhet az oldalról.
+  
+A **képernyő középső részén** két kiemelt felület található, amelyek a következőket tartalmazzák:
+
+- **Bal oldali felület**:
+
+- - Zene feltöltés: A felhasználó ide töltheti fel a zenéjét, a fájl típusának és hosszának követelményeivel. A feltöltéshez szükséges gomb is itt található, és a zenét az adminok később jóváhagyhatják.
+- - Szavazatok: Itt jelennek meg a legutóbbi szavazásban részt vevő zenék. Az első három zene és a rájuk leadott szavazatok száma látható. Ha jelenleg nincs szavazás, akkor egy „Jelenleg nincsen szavazás” üzenet jelenik meg.
+
+- **Jobb oldali felület**:
+
+- - Zenék: A zenék listája, amelyet görgethető formában lehet megtekinteni. Minden zenére egy színnel elválasztott, kerekített téglalap formájú elem van, amely a következőket tartalmazza:
+- - - Bal oldalon egy lejátszás/megállítás ikon található, amely a zene lejátszását vagy megállítását szolgálja.
+- - - Középen a zene címe.
+- - - Jobb oldalon egy like ikon, amely üres vagy teli lehet. Ha üres, a felhasználó még nem szavazott a zenére, ha teli, akkor már leadta a szavazatát. A felhasználó bármennyi zenére szavazhat, és szavazatát visszavonhatja. Ha jelenleg nincs szavazás, akkor a „Jelenleg nincsen szavazás” felirat jelenik meg.
+- - Előző győztes: Itt található az előző szavazás győztesének címe. Ha még nem volt győztes, akkor „Jelenleg nincs korábbi győztes” felirat jelenik meg.
+
+A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a 2 fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
