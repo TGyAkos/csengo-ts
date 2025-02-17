@@ -2,7 +2,11 @@
 
 ## § 0. The softwares description
 
-Evereything that is uploaded into this repository [github.com/TGyakos/csengo-ts] or into any of the submodules are scrictly a part of this software, therefore every part of the license applies on them.
+Any and all content uploaded to this repository [github.com/TGyakos/csengo-ts] or to any of its submodules constitutes an integral part of this software. As such, all terms and conditions outlined in this license apply to these components. Additionally, each submodule associated with this software is accompanied by a LICENSE file indicating its inclusion as part of this software.
+
+Furthermore, every copy of the software, whether in whole or in part, must contain a LICENSE that explicitly states that it is a copy of this software, and is therefore subject to the terms and conditions of this agreement.
+
+There may be copies of this software that are distributed under the MIT License. These specific copies are permitted to be used under the rules of the MIT License without the requirement to state it is a part of the original software, but such use is limited to the specific copy of the software licensed under the MIT License and does not extend to other versions or copies of the software. Copies of the software distributed under the MIT License are enumerated in § 8. Only those listed in this section, along with their corresponding GitHub repository links, are deemed legitimate.
 
 ## § 1. Authorized Users
 
@@ -75,7 +79,11 @@ The following individuals are the official developers of this software and hold 
 
 ---
 
-### § 8. Legal Notice
+### § 8. Copies with MIT License
+
+There are no such copies as of now.
+
+### § 9. Legal Notice
 
 By using this software, authorized users agree to abide by the terms set forth in this agreement. Unauthorized use, reproduction, or distribution of this software **may result in legal action**.
 
