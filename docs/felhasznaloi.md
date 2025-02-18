@@ -84,11 +84,41 @@ A Pollák Csengő alkalmazás biztonságos használata érdekében javasoljuk a 
 
 ## Hardver szükséglet a futtatáshoz
 
-GYULA -- ez nagyabol jonak nez ki amit felette irtal
+A Pollák Csengő webalkalmazás futtatásához a következő hardverek és eszközök szükségesek:
+
+- Számítógép vagy Laptop (Ajánlott: )
+  - **Processor**: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 2592 Mhz, 6 Core(s), 12 Logical Processor(s)
+  - **Time Zone**: Central Europe Standard Time
+  - **Installed Physical Memory (RAM)**: 16.0 GB
+  - **Hyper-V - VM Monitor Mode Extensions**: Yes
+
+- Mobil eszközök (Ajánlott: )
+  - **Operációs rendszer**: iOS 15 vagy Android 12
+  - **Processzor**: Apple A15 Bionic vagy Qualcomm Snapdragon 888
+  - **Memória**: 8 GB RAM vagy több
+  - **Tárhely**: 128 GB vagy több
+
+- Internetkapcsolat (Ajánlott: 10 Mbps vagy gyorsabb)
+
+Bizonyosodjon meg róla, hogy a szükséges hardverek és eszközök rendelkezésre állnak a Pollák Csengő alkalmazás futtatásához. 
+Bármely más hardver vagy eszköz használata a Pollák Csengő alkalmazás futtatása során nem garantált, és problémákhoz vezethetnek.
 
 ## Szoftver szükséglet a futtatáshoz
 
-GYULA -- ez nagyabol jonak nez ki amit felette irtal
+A Pollák Csengő alkalmazás futtatásához a következő szoftverek és technológiai környezetek szükségesek:
+
+- Microsoft Windows 11 Pro 10.0.26100 Build 26100
+- Node.js v22.12.0
+- npm 11.0.0
+- Firefox 134.0.2 (64-bit)
+- PowerShell 7.4.6
+- Docker version 24.0.5, build ced0996
+- Docker Compose version v2.20.2-desktop.1
+- Docker Images:
+    - postgres:16.6
+
+Bizonyosodjon meg róla, hogy a szükséges szoftverek és verziók telepítve vannak a rendszerén, mielőtt elkezdené a Pollák Csengő alkalmazás futtatását.
+Bármely más szoftver verzió használatával a Pollák Csengő alkalmazás futtatása nem garantált, és problémákhoz vezethet.
 
 ## Letöltés, Telepítés és Elindítás
 
