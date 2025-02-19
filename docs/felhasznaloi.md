@@ -272,7 +272,7 @@ Az oldal három fő elemet tartalmaz:
 
 - Grafikon: Dinamikusan generált vizuális elem, amely a jelenlegi szavazásban részt vevő zenékre leadott szavazatok számát ábrázolja.
 - Lista: Az adatok egyszerűbb és átláthatóbb megjelenítését biztosítja. Tartalmazza a grafikon oszlopainak megfelelő színeket, a zenék címét, valamint a hozzájuk tartozó szavazatok számát.
-- Visszaszámláló: A lista felett elhelyezkedő időzítő, amely a beállított időintervallum lejártakor automatikusan frissíti a grafikont és a listát.
+- Visszaszámláló: A lista felett elhelyezkedő időzítő, amely a beállított időintervallum lejártakor automatikusan frissíti a grafikont és a listát. Ezen időzítő alapállás szerint 2 perc.
   
 **Nincs aktív szavazás esetén** \
 Amennyiben nincs folyamatban lévő szavazás, az oldal fekete háttérrel jelenik meg. Ezen a felületen a Pollák Csengő logója és egy tájékoztató üzenet látható, amely informálja a diákokat arról, hogy jelenleg nincs aktív szavazás, és a tanári munkaközösség a zenék feltöltésére vár.
