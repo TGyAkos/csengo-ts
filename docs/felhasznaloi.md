@@ -163,6 +163,7 @@ A webalkalmazás lebontása:
 - Regisztráció [Oldal]
 - Bejelentkezés [Oldal]
 - Kezdőlap [Oldal]
+- Tv [Oldal]
 - Admin [Oldal]
  - - Zenék [Menűpont]
  - - Elfogadásra váró zenék [Menűpont]
@@ -262,3 +263,16 @@ A **képernyő középső részén** két kiemelt felület található, amelyek 
 - - Előző győztes: Itt található az előző szavazás győztesének címe. Ha még nem volt győztes, akkor „Jelenleg nincs korábbi győztes” felirat jelenik meg.
 
 A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a 2 fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
+
+### TV oldal
+A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére.
+
+**Funkciók és elemek** \
+Az oldal három fő elemet tartalmaz: 
+
+- Grafikon: Dinamikusan generált vizuális elem, amely a jelenlegi szavazásban részt vevő zenékre leadott szavazatok számát ábrázolja.
+- Lista: Az adatok egyszerűbb és átláthatóbb megjelenítését biztosítja. Tartalmazza a grafikon oszlopainak megfelelő színeket, a zenék címét, valamint a hozzájuk tartozó szavazatok számát.
+- Visszaszámláló: A lista felett elhelyezkedő időzítő, amely a beállított időintervallum lejártakor automatikusan frissíti a grafikont és a listát.
+  
+**Nincs aktív szavazás esetén** \
+Amennyiben nincs folyamatban lévő szavazás, az oldal fekete háttérrel jelenik meg. Ezen a felületen a Pollák Csengő logója és egy tájékoztató üzenet látható, amely informálja a diákokat arról, hogy jelenleg nincs aktív szavazás, és a tanári munkaközösség a zenék feltöltésére vár.
