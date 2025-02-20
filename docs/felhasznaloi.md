@@ -292,7 +292,7 @@ Ezeken a komponenseken felül található egy Otthon ikon a bal felső sarokban 
 
 ### Admin oldal - Zenék
 
-Ez a komponens szolgál az elfogadott zenék megjelenítésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve egy táblában. Egy sor, egy zenét reprezentál. Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
+Ez a komponens szolgál az elfogadott zenék kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve egy táblában. Egy sor, egy zenét reprezentál. Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
 
 - **Lejátszás / Megállítás:** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
 - **Szerkesztés:** Ez szolgál a zenék átnevezésére. Ezt a gombot megnyonva egy felugró ablak jelenik meg amelyben 1 beviteli mező és 2 gomb jelenik meg. A beviteli mezőben kell beírni a zene új címét és az alatta lévő "Megerősítés" gombbal lehet véglegesen megváltoztatni a zene címét. Amennyiben a felhasználó meggondolja magát az átnevezés során, a "Megerősítés" gomb alatt található "Mégse" gombbra kattintva bezárhatja a felugró ablakot, ezzel megszakítva a zene átnevezését. 
@@ -302,7 +302,7 @@ Ezenfelül található egy Kereső mező a táblázat felett amelybe a zene neve
 
 ### Admin oldal - Zenekérelmek
 
-Ez a komponens szolgál az elfogadásra váró zenék megjelenítésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve és elfogadásra vár egy táblában. Egy sor, egy zenét reprezentál. Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
+Ez a komponens szolgál az elfogadásra váró zenék kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve és elfogadásra vár egy táblában. Egy sor, egy zenét reprezentál. Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
 
 - **Lejátszás / Megállítás:** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
 - **Elfogadás:** Ez a gomb szolgál a zene elfogadására. Ezt a gombot megnyomva a zene elfogadásra kerül és áthelyezésre kerül a sima zenék listájába véglegesen.  
