@@ -11,6 +11,10 @@ A weboldalon történő belépést követően lehetősége van kedvenc zenéinek
 
 Amennyiben Admin jogosultsággal rendelkező fiókkal rendelkezik, a felhasználói ikonra kattintva megjelenik az „Admin” gomb, amely segítségével elérheti a kezelőpanelt. A kezelőpanel oldalán lehetősége nyílik az összes elfogadott zene megtekintésére és meghallgatására, valamint az elfogadásra váró zenék megtekintésére és meghallgatására. Ezen kívül lehetősége van a szavazások és a felhasználók kezelésére is.
 
+Az alábbiakban részletesen megismerheti a szoftver működési elveit, melyeket szemléltető képekkel is illusztráltunk.
+
+Ha bármilyen kérdése van az alkalmazással kapcsolatban, forduljon hozzánk bizalommal az alábbi e-mail címen: pollakcsengo@gmail.com.
+
 Köszönjük, hogy a Pollák Csengőt választotta! Élvezze a zenét és a szavazásokat, és hozza létre együtt a tökéletes iskola hangulatot!
 
 Üdvözlettel,
