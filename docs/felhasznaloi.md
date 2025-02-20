@@ -14,7 +14,7 @@ Amennyiben Admin jogosultsággal rendelkező fiókkal rendelkezik, a felhasznál
 Köszönjük, hogy a Pollák Csengőt választotta! Élvezze a zenét és a szavazásokat, és hozza létre együtt a tökéletes iskola hangulatot!
 
 Üdvözlettel,
-Pollák Csengő csapata
+Pollák Csengő csapata.
 
 ## Harver szükséglet átlagos felhasználónak
 
