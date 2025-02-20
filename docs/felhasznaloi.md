@@ -265,7 +265,7 @@ A **képernyő középső részén** két kiemelt felület található, amelyek 
 A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a 2 fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
 
 ### TV oldal
-A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére. Az oldal a következő útvonalon érhető el: [/tv].
+A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére. Az oldal csak kijelentkezve és a következő útvonalon érhető el: [/tv].
 
 **Funkciók és elemek** \
 Az oldal három fő elemet tartalmaz: 
@@ -276,3 +276,32 @@ Az oldal három fő elemet tartalmaz:
   
 **Nincs aktív szavazás esetén** \
 Amennyiben nincs folyamatban lévő szavazás, az oldal fekete háttérrel jelenik meg. Ezen a felületen a Pollák Csengő logója és egy tájékoztató üzenet látható, amely informálja a diákokat arról, hogy jelenleg nincs aktív szavazás, és a tanári munkaközösség a zenék feltöltésére vár.
+
+### Admin oldal
+
+Az admin oldal egy felületet biztosít a webalkalmazást üzemeltetők számára, hogy egyszerűen egy online felületen keresztül kezelni tudják a zenéket és a szavazásokat. Az oldalt elérni csakis Admin ranggal rendelkező felhasználók tudják a következő útvonalon: [/admin]
+
+Az oldal az alábbi **5** fő komponenst tartalmazza: 
+ - **Zenék** 
+ - **Elfogadásra váró zenék** 
+ - **Felhasználók**
+ - **Szavazások** 
+ - **Egyebek**
+
+Ezeken a komponenseken felül található egy Otthon ikon a bal felső sarokban amely a Kezdőlapra navigálja vissza a felhasználót és egy Felhasználói ikon a jobb felső sarokba amire rányomva megjelenik az opció a kijelentkezésre.
+
+### Admin oldal - Zenék
+
+Ez a komponens szolgál az elfogadott zenék megjelenítésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve egy táblában. Egy sor, egy zenét reprezentál. Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
+
+- **Lejátszás / Megállítás:** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
+- **Szerkesztés:** Ez szolgál a zenék átnevezésére. Ezt a gombot megnyonva egy felugró ablak jelenik meg amelyben 1 beviteli mező és 2 gomb jelenik meg. A beviteli mezőben kell beírni a zene új címét és az alatta lévő "Megerősítés" gombbal lehet véglegesen megváltoztatni a zene címét. Amennyiben a felhasználó meggondolja magát az átnevezés során, a "Megerősítés" gomb alatt található "Mégse" gombbra kattintva bezárhatja a felugró ablakot, ezzel megszakítva a zene átnevezését. 
+- **Törlés:** Ez a gomb szolgál a feltöltött zene kitörlésére. Ezt a gombot megnyova a zene törlődik a szerverről örökre.
+
+### Admin oldal - Zenekérelmek
+
+### Admin oldal - Szavazások
+
+### Admin oldal - Felhazsnálók
+
+### Admin oldal - Egyebek
