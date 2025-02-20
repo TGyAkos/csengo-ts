@@ -1,7 +1,7 @@
 # Felhasználói
 ## Rövid bemutatás
 
-Üdvözöllek!
+Üdvözölöm!
 
 A Pollák Csengő webalapú alkalmazást tartja a kezében, amely lehetőséget biztosít az iskolák számára online szavazások lebonyolítására. A diákok ezen szavazások segítségével hozzájárulhatnak egy kényelmesebb és vonzóbb iskola környezet kialakításához, folyamatosan változó csengőhangok választásával. 
 
