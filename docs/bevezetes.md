@@ -1,8 +1,8 @@
 # Bevezetes
 
-## Témaválasztás
+## Téma és Témaválasztás
 
-A weboldal ötlete a csapat egyik tagjától származik, aki javasolta, hogy készítsünk egy webalkalmazást, amely hozzájárulna az iskolai légkör élénkítéséhez. E javaslat nyomán született meg a Pollák Csengő alkalmazás amely napjainkig aktív használatban van.
+Vizsgadolgozatunk témájának egy olyan projektet szerettünk volna választani, amely kapcsolódik az oktatáshoz és kézzelfogható változást hozhat az iskolai mindennapokba. Az ötlet a csapat egyik tagjától származik, aki felvetette, hogy egy webalkalmazással tehetnénk élénkebbé az iskolai légkört. Ebből kiindulva született meg a Pollák Csengő ötlete, amelynek célja a hagyományos csengőhang lecserélése egy dinamikusabb, változatosabb megoldásra, hogy feldobja a szüneteket és megtörje az évek alatt megszokott egyhangúságot.
 
 ## A szoftver célja
 
