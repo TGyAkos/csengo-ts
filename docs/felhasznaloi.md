@@ -236,7 +236,7 @@ A gomb alatt látható egy hiperhivatkozás is amely biztosítja az egyerű átl
 
 ### Kezdőlap 
 
-A kezdőlap biztosítja a kezelőfelületet a felhasználók számára ahol zenéket tölthetnek fel, szavazatnak és megtekinthetik az előző győztes zenét. 
+A kezdőlap biztosítja a kezelőfelületet a felhasználók számára ahol zenéket tölthetnek fel, szavazatnak és megtekinthetik az előző győztes zenét. Az oldal a következő útvonalon érhető el: [/].
 
 A kezdőlap megnyitásakor a felhasználó az alábbi elemeket látja:
 
@@ -265,7 +265,7 @@ A **képernyő középső részén** két kiemelt felület található, amelyek 
 A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a 2 fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
 
 ### TV oldal
-A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére.
+A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére. Az oldal a következő útvonalon érhető el: [/tv].
 
 **Funkciók és elemek** \
 Az oldal három fő elemet tartalmaz: 
