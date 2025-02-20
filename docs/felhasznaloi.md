@@ -185,7 +185,7 @@ Minden értesítés tartalmazza a pontos üzenetet, amely leírja a történt es
 
 A regisztrációs oldal biztosítja a gyors és egyszerű regisztrációs folyamatot. Az oldal a következő útvonalon érhető el: [/register].
 
-Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely 4 beviteli mezőt és 1 gombot tartalmaz. A beviteli mezők a következő adatokat és kikötéseket kérik a felhasználótól:
+Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely négy beviteli mezőt és egy gombot tartalmaz. A beviteli mezők a következő adatokat és kikötéseket kérik a felhasználótól:
 
 - **Felhasználónév**
 - - Nem lehet üres
@@ -218,7 +218,7 @@ Regisztrált fiók nélkül a felhasználó nemtudja elérni az oldal többi fun
 
 A bejelentkezési oldal biztosítja a gyors és egyszerű hozzáférést az oldal többi funkciójához. Az oldal a következő útvonalon érhető el: [/login].
 
-Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely 2 beviteli mezőt és 1 gombot tartalmaz. A beviteli mezők a következő adatokat kérik a felhasználótól:
+Az oldal megnyitásakor a felhasználók egy központi elrendezésű felületet látnak, amely kettő beviteli mezőt és egy gombot tartalmaz. A beviteli mezők a következő adatokat kérik a felhasználótól:
 
 - **Felhasználónév**
 - - Nem lehet üres
@@ -262,7 +262,7 @@ A **képernyő középső részén** két kiemelt felület található, amelyek 
 - - - Jobb oldalon egy like ikon, amely üres vagy teli lehet. Ha üres, a felhasználó még nem szavazott a zenére, ha teli, akkor már leadta a szavazatát. A felhasználó bármennyi zenére szavazhat, és szavazatát visszavonhatja. Ha jelenleg nincs szavazás, akkor a „Jelenleg nincsen szavazás” felirat jelenik meg.
 - - Előző győztes: Itt található az előző szavazás győztesének címe. Ha még nem volt győztes, akkor „Jelenleg nincs korábbi győztes” felirat jelenik meg.
 
-A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a 2 fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
+A felosztás monitoros és telefonos használat során változik. Nagy kijelzőn a kettő fő elem egymás mellett helyezkedik el, azonban kicsi, telefonos kijelzőn egymás alatt az egyszerűbb használat érdekében. 
 
 ### TV oldal
 A TV oldal egy felületet biztosít azoknak az iskoláknak, amelyek használják a Pollák Csengő rendszert, lehetőséget adva a szavazás aktuális állásának megjelenítésére. Az oldal csak kijelentkezve és a következő útvonalon érhető el: [/tv].
@@ -279,57 +279,59 @@ Amennyiben nincs folyamatban lévő szavazás, az oldal fekete háttérrel jelen
 
 ### Admin oldal
 
-Az admin oldal egy felületet biztosít a webalkalmazást üzemeltetők számára, hogy egyszerűen egy online felületen keresztül kezelni tudják a zenéket és a szavazásokat. Az oldalt elérni csakis Admin ranggal rendelkező felhasználók tudják a következő útvonalon: [/admin]
+Az Admin oldal egy webes kezelőfelület, amely lehetőséget biztosít az adminisztrátorok számára a zenék és szavazások kezelésére. Az oldal kizárólag Admin jogosultsággal rendelkező felhasználók számára érhető el a következő útvonalon: [/admin].
 
-Az oldal az alábbi **5** fő komponenst tartalmazza: 
+Az oldal az alábbi **öt** fő komponenst tartalmazza: 
  - **Zenék** 
  - **Elfogadásra váró zenék** 
  - **Felhasználók**
  - **Szavazások** 
  - **Egyebek**
 
-Ezeken a komponenseken felül található egy Otthon ikon a bal felső sarokban amely a Kezdőlapra navigálja vissza a felhasználót és egy Felhasználói ikon a jobb felső sarokba amire rányomva megjelenik az opció a kijelentkezésre.
+Ezen komponenseket a navigációs sávban lehet elérni a leírt nevükkel megegyező menüpont alatt.
+
+Ezeken a komponenseken felül található egy Otthon ikon a navigációs sáv bal szélén amely a Kezdőlapra navigálja vissza a felhasználót és egy Felhasználói ikon a jobb szélén amire rányomva megjelenik az opció a kijelentkezésre.
 
 ### Admin oldal - Zenék
 
-Ez a komponens szolgál az elfogadott zenék megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve egy táblában. Egy sor, egy zenét reprezentál. A felhasználó láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
+Ez a komponens szolgál az elfogadott zenék megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve egy táblában. Egy sor, egy zenét reprezentál. A felhasználó láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és az alábbi három gombot melyek ikonokkal vannak jelezve: 
 
-- **Lejátszás / Megállítás:** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
-- **Szerkesztés:** Ez szolgál a zenék átnevezésére. Ezt a gombot megnyonva egy felugró ablak jelenik meg amelyben 1 beviteli mező és 2 gomb jelenik meg. A beviteli mezőben kell beírni a zene új címét és az alatta lévő "Megerősítés" gombbal lehet véglegesen megváltoztatni a zene címét. Amennyiben a felhasználó meggondolja magát az átnevezés során, a "Megerősítés" gomb alatt található "Mégse" gombbra kattintva bezárhatja a felugró ablakot, ezzel megszakítva a zene átnevezését. 
-- **Törlés:** Ez a gomb szolgál a feltöltött zene kitörlésére. Ezt a gombot megnyova a zene törlődik a szerverről örökre.
+- **Lejátszás / Megállítás (lejátszás/megállítás ikon):** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
+- **Szerkesztés (toll ikon):** Ez szolgál a zenék átnevezésére. Ezt a gombot megnyonva egy felugró ablak jelenik meg amelyben egy beviteli mező és kettő gomb jelenik meg. A beviteli mezőben kell beírni a zene új címét és az alatta lévő "Megerősítés" gombbal lehet véglegesen megváltoztatni a zene címét. Amennyiben a felhasználó meggondolja magát az átnevezés során, a "Megerősítés" gomb alatt található "Mégse" gombbra kattintva bezárhatja a felugró ablakot, ezzel megszakítva a műveletet. 
+- **Törlés (kuka ikon):** Ez a gomb szolgál a feltöltött zene kitörlésére. Ezt a gombot megnyova a zene véglegesen törlődik a szerverről.
 
-Ezenfelül található egy Kereső mező a táblázat felett amelybe a zene neve alapján lehet keresni a feltöltött zenék között.
+Ezenfelül található egy kereső mező a táblázat felett amelybe zene név alapján lehet keresni a feltöltött zenék között.
 
 ### Admin oldal - Zenekérelmek
 
-Ez a komponens szolgál az elfogadásra váró zenék megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve és elfogadásra vár egy táblában. Egy sor, egy zenét reprezentál. A felhasználó Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és 3 ikonnal jelzett gombot sorrendben amelyek az alábbiak: 
+Ez a komponens szolgál az elfogadásra váró zenék megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes zenét amely a weboldalra felvan töltve és elfogadásra vár, egy táblában. Egy sor, egy zenét reprezentál. A felhasználó Láthatja a zene nevét, a feltöltőjét és a feltöltés időpontját és az alábbi három gombot melyek ikonokkal vannak jelezve: 
 
-- **Lejátszás / Megállítás:** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghalgathatja egyesével a zenéket.
-- **Elfogadás:** Ez a gomb szolgál a zene elfogadására. Ezt a gombot megnyomva a zene elfogadásra kerül és áthelyezésre kerül a sima zenék listájába véglegesen.  
-- **Elutasítás:** Ez a gomb szolgál a zene elutasítására. Ezt a gombot megnyova a zene elutasításra kerül és törlődik a listában és a szerveren lévő fájlok közül is véglegesen.
+- **Lejátszás / Megállítás (lejátszás/megállítás ikon):** Ez szolgál a zene elindítására és megállítására amellyel a felhasználó meghallgathatja egyesével a zenéket.
+- **Elfogadás (pipa ikon):** Ez a gomb szolgál a zene elfogadására. Ezt a gombot megnyomva a zene elfogadásra kerül és áthelyezésre kerül a sima zenék listájába.  
+- **Elutasítás (X ikon):** Ez a gomb szolgál a zene elutasítására. Ezt a gombot megnyova a zene elutasításra kerül és törlődik a listában és a szerveren lévő fájlok közül is véglegesen.
 
-Ezenfelül található egy Kereső mező a táblázat felett amelybe a zene neve alapján lehet keresni az elfogadásra váró zenék között.
+Ezenfelül található egy kereső mező a táblázat felett amelybe a zene neve alapján lehet keresni az elfogadásra váró zenék között.
 
 ### Admin oldal - Szavazások
 
-Ez a komponens szolgál a szavazati időszakok megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes szavazást ami már volt, éppen van vagy lesz. Ezenfelül a felasználó létrehozhat, szerkeszthet és törölhet is szavazásokat. Egy sor, egy szavazást reprezentál. A felhasználó láthatja a szavazás kezdetének időpontját, a szavazás végének időpontját és 3 gombot sorrendben amelyek az alábbiak: 
+Ez a komponens szolgál a szavazati időszakok megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes szavazást ami már volt, éppen van vagy lesz. Ezenfelül a felasználó létrehozhat, szerkeszthet és törölhet is szavazásokat. Egy sor, egy szavazást reprezentál. A felhasználó láthatja a szavazás kezdetének időpontját, a szavazás végének időpontját és az alábbi három gombot melyekből kettő ikonokkal van jelezve: 
 
 - **Megtekintés:** Ez a gomb szolgál a szavazásban lévő zenék megtekintésére. Ezt a gombot megnyomva felugrik egy ablak amelyben listába vannak szedve a szavazásban lévő zenéknek a címei. Az ablak alján található egy "Bezár" gomb amely ennek a felugró ablaknak a bezárására szolgál.
-- **Szerkesztés:** Ez a gomb szolgál a kiválasztott szavazásnak a szerkesztésére. Ezt a gombot megnyomva egy felugró ablak jelenik meg 2 dátum típusú beviteli mezővel és egy lenyíló menü, alatta egy "Módosítás" és "Mégse" gombbal. A felső dátum mezőbe kell megadni a szavazás kezdetének az időpontját és az alatta lévő, 2. dátum mezőben pedig a szavazás végének az időpontját. Ezen 2 mező alatt található egy "Zene kiválasztása" névvel ellátott gomb ami egy lenyíló menüt hoz fel benne az összes elfogadott zenével. Az itt kiválaszott zenék kerülnek bele a szavazásba mint megszavazható zenék. Amennyiben a felhasználó sikeresen beállította ezeket, a "Módosítás" gomb megnyomásával véglegesítheti a módosításait. Ha a felhasználó mégsem szeretne változtatás végrehajtani, a "Mégse" gomb megnyomásával bezárhatja az ablakot és elvetheti a módosításokat. 
-- **Törlés:** Ez a gomb szolgál a szavazások törlésére. Ezt a gombott megnyomva a kiválaszott szavazást véglegesen törölheti a felhasználó.
+- **Szerkesztés (toll ikon):** Ez a gomb szolgál a kiválasztott szavazásnak a szerkesztésére. Ezt a gombot megnyomva egy felugró ablak jelenik meg kettő dátum típusú beviteli mezővel és egy lenyíló menüvel, alatta egy "Módosítás" és "Mégse" gombbal. A felső dátum mezőbe kell megadni a szavazás kezdetének az időpontját és az alatta lévő, második dátum mezőben pedig a szavazás végének az időpontját. Ezen kettő mező alatt található egy "Zene kiválasztása" névvel ellátott gomb ami egy lenyíló menüt hoz fel benne az összes elfogadott zenével. Az itt kiválaszott zenék kerülnek bele a szavazásba mint megszavazható zenék. Amennyiben a felhasználó sikeresen beállította ezeket, a "Módosítás" gomb megnyomásával véglegesítheti a módosításait. Ha a felhasználó mégsem szeretne változtatás végrehajtani, a "Mégse" gomb megnyomásával bezárhatja az ablakot és elvetheti a módosításokat. 
+- **Törlés (kuka ikon):** Ez a gomb szolgál a szavazások törlésére. Ezt a gombott megnyomva a kiválaszott szavazást véglegesen törölheti a felhasználó.
 
-A létrehozás gomb a táblázat alatt található, amelynek megnyomásával egy felugró ablak jelenik meg 2 dátum típusú beviteli mezővel és egy lenyíló menü, alatta egy "Létrehozás" és "Mégse" gombbal. A felső dátum mezőbe kell megadni a szavazás kezdetének az időpontját és az alatta lévő, 2. dátum mezőben pedig a szavazás végének az időpontját. Ezen 2 mező alatt található egy "Zene kiválasztása" névvel ellátott gomb ami egy lenyíló menüt hoz fel benne az összes elfogadott zenével. Az itt kiválaszott zenék kerülnek bele a szavazásba mint megszavazható zenék. Amennyiben a felhasználó sikeresen beállította ezeket, a "Létrehozás" gomb megnyomásával létrehozhatja a szavazást. Ha a felhasználó mégsem szeretne szavazást létrehozni, a "Mégse" gomb megnyomásával bezárhatja az ablakot. 
+A létrehozás gomb a táblázat alatt található, amelynek megnyomásával egy felugró ablak jelenik meg kettő dátum típusú beviteli mezővel és egy lenyíló menüvel, alatta egy "Létrehozás" és "Mégse" gombbal. A felső dátum mezőbe kell megadni a szavazás kezdetének az időpontját és az alatta lévő, második dátum mezőben pedig a szavazás végének az időpontját. Ezen kettő mező alatt található egy "Zene kiválasztása" névvel ellátott gomb ami egy lenyíló menüt hoz fel benne az összes elfogadott zenével. Az itt kiválaszott zenék kerülnek bele a szavazásba mint megszavazható zenék. Amennyiben a felhasználó sikeresen beállította ezeket, a "Létrehozás" gomb megnyomásával létrehozhatja a szavazást. Ha a felhasználó mégsem szeretne szavazást létrehozni, a "Mégse" gomb megnyomásával bezárhatja az ablakot elvetve a műveletet. 
 
 ### Admin oldal - Felhasználók
 
-Ez a komponens szolgál a rendszerbe regisztrált felhasználói fiókok megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes fiókot egy táblázatban. Egy sor, egy fiókot reprezentál. A felhasználó láthatja a többi fehasználó felhasználónevét, a krétába jegyzett valós nevét, az email címjét, az OM azonosítóját és rangját. Ezenfelül láthat egy szerkesztés gombot ikonnal jelölve amely használatával a felhasználó szerkesztheti más felhasználók rangját és jelszavát. 
+Ez a komponens szolgál a rendszerbe regisztrált felhasználói fiókok megjelenítésére, kezelésére. Itt a felhasználó láthatja az összes fiókot egy táblázatban. Egy sor, egy fiókot reprezentál. A felhasználó láthatja a többi fehasználó felhasználónevét, a krétába jegyzett valós nevét, az email címét, az OM azonosítóját és rangját. Ezenfelül láthat egy szerkesztés gombot toll ikonnal jelölve amely használatával a felhasználó szerkesztheti más felhasználók rangját és jelszavát. 
 
-Erre a szerkesztés gombra kattintva egy felugró ablak jelenik meg 1 beviteli mezővel, 1 lenyíló mezővel, 1 "Szereksztés" és egy "Mégse" gombbal. A beviteli mezőbe a felhasználó új jelszavát lehet beírni, míg a lenyíló menüben a rangot lehet kiválasztani. A szerkesztéshez nem muszály mind a kettőt változtatni, lehet külön-külön is. Amennyiben a felhasználó mindent beírt / kiválasztott amit szeretett volna, a "Szerkesztés" gombra kattintva véglegesítheti a változásokat. Amennyiben a felhasználó mégsem szeretne változtatni, a "Mégse" gombra kattinva bezárhatja az ablakot, ezzel megszakítva a szerkesztés.
+Erre a szerkesztés gombra kattintva egy felugró ablak jelenik meg egy beviteli mezővel, egy lenyíló mezővel, egy "Szereksztés" és egy "Mégse" gombbal. A beviteli mezőbe a felhasználó új jelszavát lehet beírni, amely megfelel a regisztrációnál is feljegyzett kritériumoknak, míg a lenyíló menüben a rangot lehet kiválasztani. A szerkesztéshez nem muszály mind a kettőt változtatni, lehet külön-külön is. Amennyiben a felhasználó mindent beírt / kiválasztott amit szeretett volna, a "Szerkesztés" gombra kattintva véglegesítheti a változásokat. Amennyiben a felhasználó mégsem szeretne változtatni, a "Mégse" gombra kattinva bezárhatja az ablakot, ezzel megszakítva a szerkesztés.
 
-Ezenfelül található egy Kereső mező a táblázat felett amelybe a felhasználó valós, krétába feljegyzett neve alapján lehet keresni a felhasználói fiókok között.
+Ezenfelül található egy kereső mező a táblázat felett amelybe a felhasználó valós, krétába feljegyzett neve alapján lehet keresni a felhasználói fiókok között.
 
 ### Admin oldal - Egyebek
 
-Ez az oldal szolgál az egyéb, egyszerűsítési funkciók megjelenítésére. Ezen az oldalon található az alábbi 2 gomb középre igazítva egymás alatt:
+Ez az oldal szolgál az egyéb, egyszerűsítési funkciók megjelenítésére. Ezen az oldalon található az alábbi kettő gomb középre igazítva egymás alatt:
 - **Szavazásban lévő zenék letöltése:** Ez a gomb szolgál a szavazásban lévő zenék letöltésére .zip formátumban szükséglet esetén. Ezt a gombot megnyomva felugrik egy fájlkezelő ablak ahol a felhasználó kiválaszthatja, hogy hova szeretné letölteni a zenéket.
-- **Nyertes zene letöltése:** Ez a gomb szolgál az utolsó szavazásban lévő nyertes zene letöltésére. Ezt a gombot megnyomva felugrik egy fájlkezelő ablak ahol a felhasználó kiválaszthatja, hogy hova szeretné letölteni a zenét. Ez a gomb létfontosságú a szoftver hasznosságának érdekében, ugyanis így 1 kattintásból letölthető a zene a megfelelő helyre, ahonnan már egyből működőképesen szólhat az új dallam az iskolacsengőbe.
+- **Nyertes zene letöltése:** Ez a gomb szolgál az utolsó szavazásban lévő nyertes zene letöltésére. Ezt a gombot megnyomva felugrik egy fájlkezelő ablak ahol a felhasználó kiválaszthatja, hogy hova szeretné letölteni a zenét. Ez a gomb létfontosságú a szoftver hasznosságának érdekében, ugyanis így egy kattintásból letölthető a zene a megfelelő helyre, ahonnan már egyből működőképesen szólhat az új szám az iskolacsengőbe.
