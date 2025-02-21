@@ -148,7 +148,7 @@ git clone https://github.com/Pollak-Projects/csengo-mono.git
 
 ### Elindítás Docker segítségével
 
-Windows-on, telepítse a `Docker-compose`-t és a `Docker Desktop` alkalmazást, majd indítsa el a `Docker Desktop` alkalmazást.
+Windows-on, telepítse a `Docker Desktop` alkalmazást, majd indítsa el az alkalmazást.
 
 Linux-on és macOS-en, telepítse a `Docker`-t és a `Docker-compose`-t, majd nyissa meg a terminált a `docker-compose` fájl mappájában.
 
