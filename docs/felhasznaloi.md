@@ -133,7 +133,7 @@ A Pollák Csengő webalkalmazás letölthető a GitHub repository-ból a követk
 A megfelelő letöltéshez futtassa a következő git parancsot egy mappában, ahol a projektet szeretné letölteni:
 
 [//]: # (TODO: REMOVE SECTION FOR FINAL)
-> JELENLEG EZ A JÓ COMMAND 
+> Jelenleg ez a jó command
 > ```bash
 > git clone --recursive https://github.com/TGyAkos/csengo-ts.git
 > ```
@@ -159,26 +159,26 @@ docker-compose -f docker-compose.dev.v2.yml up -d
 Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgáltatásokkal, hálózatokkal és kötetekkel. A `-d` kapcsolóval a konténerek háttérben futnak, és a parancs végrehajtása után visszatér a parancssorhoz.
 
 A Pollák Csengő alkalmazás futtatása után a következő URL-eken érhető el:
-- pgAdmin adatbázis kezelő: `http://localhost:8081`
-- Csengő szerver: `http://localhost:3300`
-- Csengő weboldal: `http://localhost:8080`
+- pgAdmin adatbázis kezelő: [http://localhost:8081](http://localhost:8081)
+- Csengő szerver: [http://localhost:3300](http://localhost:3300)
+- Csengő weboldal: [http://localhost:8080](http://localhost:8080)
 
 Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
 
 A következő felhasználói adatokkal tud belépni a Csengő weboldalra a tesztelés elvégzéséhez:
-- **Admin jogosultságú felhasználó:**
-  - **Felhasználónév**: admin
-  - **Jelszó**: admin
-- **Felhasználó jogosultságú felhasználók:**
-  - **Tamáskovits Gyula Ákos nevű felhasználó:**
-    - **Felhasználónév**: Tamaskovits
-    - **Jelszó**: tamaskovits
-  - **Jani Patrik nevű felhasználó:**
-    - **Felhasználónév**: Janipatrik
-    - **Jelszó**: janipatrik
-  - **Barna Máté nevű felhasználó:**
-    - **Felhasználónév**: Barnamate
-    - **Jelszó**: barnamate
+- Admin jogosultságú felhasználó:
+  - Felhasználónév: `admin`
+  - Jelszó: `admin`
+- Felhasználó jogosultságú felhasználók:
+  - Tamáskovits Gyula Ákos nevű felhasználó:
+    - Felhasználónév: `Tamaskovits`
+    - Jelszó: `tamaskovits`
+  - Jani Patrik nevű felhasználó:
+    - Felhasználónév: `Janipatrik`
+    - Jelszó: `janipatrik`
+  - Barna Máté nevű felhasználó:
+    - Felhasználónév: `Barnamate`
+    - Jelszó: `barnamate`
 
 A regisztráció teszteléséhez a következő adatokat tudja használni:
 
