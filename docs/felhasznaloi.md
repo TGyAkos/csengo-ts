@@ -159,6 +159,27 @@ A Pollák Csengő alkalmazás futtatása után a következő URL-eken érhető e
 
 Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
 
+A következő felhasználói adatokkal tud belépni a Csengő weboldalra a tesztelés elvégzéséhez:
+- **Admin jogosultságú felhasználó:**
+  - **Felhasználónév**: admin
+  - **Jelszó**: admin
+- **Felhasználó jogosultságú felhasználók:**
+  - **Tamáskovits Gyula Ákos nevű felhasználó:**
+    - **Felhasználónév**: Tamaskovits
+    - **Jelszó**: tamaskovits
+  - **Jani Patrik nevű felhasználó:**
+    - **Felhasználónév**: Janipatrik
+    - **Jelszó**: janipatrik
+  - **Barna Máté nevű felhasználó:**
+    - **Felhasználónév**: Barnamate
+    - **Jelszó**: barnamate
+
+A regisztráció teszteléséhez a következő adatokat tudja használni:
+
+- **Felhasználónév**: teszt
+- **Email cím**: teszt@csengo.dev
+- **OM azonosító**: 74444444444
+- **Jelszó**: teszt123456
 
 ## Ismertetés
 
