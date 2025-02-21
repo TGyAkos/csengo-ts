@@ -126,6 +126,10 @@ Bármely más szoftver verzió használatával a Pollák Csengő alkalmazás fut
 
 ## Letöltés, Telepítés és Elindítás
 
+### Futtatási szovftver követelmények
+
+- Docker Desktop
+
 ### Letöltés
 
 A Pollák Csengő webalkalmazás letölthető a GitHub repository-ból a következő linken: [Pollák Csengő GitHub Repository](https://github.com/Pollak-Projects/csengo-mono)
