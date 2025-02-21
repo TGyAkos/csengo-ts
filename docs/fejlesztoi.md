@@ -259,6 +259,53 @@ Ez a dokumentáció feltételezi, hogy egy Portainer példány fut a localhost:9
 
 ![portainer-success](./fejlesztoikepek/portainer-successful-deploy.png)
 
+#### Futtatás fejlesztői módban
+
+A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a következő lépéseket kell követni:
+
+##### Backend elindítása:
+
+1. Nyissa meg a terminált a `csengo-ts-server-v2` mappában.
+2. Windows operációs rendszeren futtassa a következő parancsot a szerver indításához:
+
+```bash
+docker-compose -f docker-compose.dev.yml up csengo-v2-postgres-dev
+copy .env.example .env
+npm install
+npm run prisma:update
+npm run start:dev
+```
+
+3. Amennyiben szükséges, változtassa meg a `.env` fájlban a megfelelő környezeti változókat, majd állítsa le a szervert a terminálban a `CTRL+C` billenyűkombinációval ezután indítsa újra a szervert a következő paranccsal:
+
+```bash
+npm run start:dev
+```
+
+4. A szerver elindítása után a következő URL-eken érhető el:
+   - Swagger dokumentáció: [http://localhost:3300/swagger](http://localhost:3300/swagger)
+   - REST API: [http://localhost:3300/api](http://localhost:3300/api)
+
+##### Frontend elindítása:
+
+1. Nyissa meg a terminált a `csengo-ts-client-v2` mappában.
+2. Windows operációs rendszeren futtassa a következő parancsot a kliens indításához:
+
+```bash
+copy .env.example .env
+npm install
+npm run dev
+```
+
+3. Amennyiben szükséges, változtassa meg a `.env` fájlban a megfelelő környezeti változókat, majd állítsa le a klienst a terminálban a `CTRL+C` billenyűkombinációval ezután indítsa újra a klienst a következő paranccsal:
+
+```bash
+npm run dev
+```
+
+4. A kliens elindítása után a következő URL-eken érhető el:
+   - Weboldal: [http://localhost:3300](http://localhost:3300)
+
 ## Strukturális felépítés
 
 ### Frontend
