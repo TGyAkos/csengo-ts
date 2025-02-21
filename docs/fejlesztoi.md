@@ -263,6 +263,8 @@ Ez a dokumentáció feltételezi, hogy egy Portainer példány fut a localhost:9
 
 A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a következő lépéseket kell követni:
 
+0. Telepítse a Docker Desktop nevű alkalmzást és a Docker-compose nevű alkalmazást a számítógépére, majd indítsa el a Docker Desktop alkalmazást.
+
 ##### Backend elindítása:
 
 1. Nyissa meg a terminált a `csengo-ts-server-v2` mappában.
