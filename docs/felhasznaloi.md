@@ -132,6 +132,12 @@ A Pollák Csengő webalkalmazás letölthető a GitHub repository-ból a követk
 
 A megfelelő letöltéshez futtassa a következő git parancsot egy mappában, ahol a projektet szeretné letölteni:
 
+[//]: # (TODO: REMOVE SECTION FOR FINAL)
+> JELENLEG EZ A JÓ COMMAND 
+> ```bash
+> git clone --recursive https://github.com/TGyAkos/csengo-ts.git
+> ```
+
 ```bash
 git clone https://github.com/Pollak-Projects/csengo-mono.git
 ```
