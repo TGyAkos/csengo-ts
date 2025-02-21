@@ -126,7 +126,7 @@ Bármely más szoftver verzió használatával a Pollák Csengő alkalmazás fut
 
 ## Letöltés, Telepítés és Elindítás
 
-### Futtatási szovftver követelmények
+### Futtatási szoftver követelmények
 
 - **Docker Desktop**
 
