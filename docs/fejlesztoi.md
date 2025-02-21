@@ -274,7 +274,7 @@ A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a követk
 docker-compose -f docker-compose.dev.yml up csengo-v2-postgres-dev -d
 copy .env.example .env
 npm install
-npm run prisma:update
+npm run prisma:update:prod
 npm run start:dev
 ```
 
