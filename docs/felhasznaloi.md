@@ -182,10 +182,10 @@ A következő felhasználói adatokkal tud belépni a Csengő weboldalra a teszt
 
 A regisztráció teszteléséhez a következő adatokat tudja használni:
 
-- **Felhasználónév**: teszt
-- **Email cím**: teszt@csengo.dev
-- **OM azonosító**: 74444444444
-- **Jelszó**: teszt123456
+- Felhasználónév: `teszt`
+- Email cím: `teszt@csengo.dev`
+- OM azonosító: `74444444444`
+- Jelszó: `teszt123456`
 
 ## Ismertetés
 
