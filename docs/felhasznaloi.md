@@ -128,7 +128,7 @@ Bármely más szoftver verzió használatával a Pollák Csengő alkalmazás fut
 
 ### Futtatási szovftver követelmények
 
-- Docker Desktop
+- **Docker Desktop**
 
 ### Letöltés
 
@@ -148,7 +148,7 @@ git clone https://github.com/Pollak-Projects/csengo-mono.git
 
 ### Elindítás Docker segítségével
 
-Windows-on, telepítse a `Docker Desktop` alkalmazást, majd indítsa el az alkalmazást.
+Windows-on, telepítse a `Docker Desktop` alkalmazást, majd indítsa el azt.
 
 Linux-on és macOS-en, telepítse a `Docker`-t és a `Docker-compose`-t, majd nyissa meg a terminált a `docker-compose` fájl mappájában.
 
