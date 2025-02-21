@@ -596,6 +596,7 @@ A frontend tesztelési folyamatok a következők:
 - **should navigate to login page when link is clicked**: Ellenőrzi, hogy a bejelentkezési oldalra navigál-e a felhasználó, ha a megfelelő linkre kattint.
 - **should register a new user**: Ellenőrzi, hogy egy új felhasználó regisztrálható-e.
 - **should show error message on registration failure**: Ellenőrzi, hogy regisztrációs hiba esetén megjelenik-e a hibaüzenet.
+- **should show error message on password mismatch**: Ellenőrzi, hogy jelszó nem egyezőség esetén megjelenik-e a hibaüzenet.
 
 ##### `tv.spec.ts`
 
