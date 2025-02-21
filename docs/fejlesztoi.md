@@ -268,10 +268,10 @@ A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a követk
 ##### Backend elindítása:
 
 1. Nyissa meg a terminált a `csengo-ts-server-v2` mappában.
-2. Windows operációs rendszeren futtassa a következő parancsot a szerver indításához:
+2. Windows operációs rendszeren futtassa a következő parancsokat a szerver indításához:
 
 ```bash
-docker-compose -f docker-compose.dev.yml up csengo-v2-postgres-dev
+docker-compose -f docker-compose.dev.yml up csengo-v2-postgres-dev -d
 copy .env.example .env
 npm install
 npm run prisma:update
@@ -291,7 +291,7 @@ npm run start:dev
 ##### Frontend elindítása:
 
 1. Nyissa meg a terminált a `csengo-ts-client-v2` mappában.
-2. Windows operációs rendszeren futtassa a következő parancsot a kliens indításához:
+2. Windows operációs rendszeren futtassa a következő parancsokat a kliens indításához:
 
 ```bash
 copy .env.example .env
@@ -306,7 +306,7 @@ npm run dev
 ```
 
 4. A kliens elindítása után a következő URL-eken érhető el:
-   - Weboldal: [http://localhost:3300](http://localhost:3300)
+   - Weboldal: [http://localhost:3000](http://localhost:3000)
 
 ## Strukturális felépítés
 
