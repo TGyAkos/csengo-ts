@@ -40,7 +40,7 @@ echo Connecting to the PostgreSQL database...
 psql -U %PGUSER% -d %PGDATABASE% -f assets\initdb_bat_local.sql
 
 echo Done setting up the database.
-endlocal
+endlocalK
 
 :: echo Starting the server...
 :: cd "./csengo-ts-server-v2"
@@ -56,7 +56,7 @@ endlocal
 start cmd /k "echo Starting the server... & cd /d \"./csengo-ts-server-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Migrating prisma schema... & call npm run prisma:update:prod & echo Starting the server... & npm run start:dev"
 
 :: echo Starting the client...
-:: cd "../csengo-ts-client-v2"
+:: cd "./csengo-ts-client-v2"
 :: echo Setting up .env file...
 :: copy .env.example .env
 :: echo Installing dependencies...
@@ -64,4 +64,4 @@ start cmd /k "echo Starting the server... & cd /d \"./csengo-ts-server-v2\" & ec
 :: echo Starting the client in dev mode...
 :: npm run dev
 
-start cmd /k "echo Starting the client... & cd /d \"../csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
+start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
