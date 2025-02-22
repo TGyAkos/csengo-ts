@@ -4668,13 +4668,6 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           false
           ```
 
-# Nevezetes Algoritmusok
-
-[//]: # (TODO: valamennyi algoritmus nem tudni meg mennyi kell)
-## TODO: valamennyi algoritmus
-
-
-
 # Adatbázis
 A PostgreSQL-t választottuk más adatbázisok, mint például a MySQL helyett számos előnye miatt. Először is, a PostgreSQL egy rendkívül robusztus és megbízható adatbázis-kezelő rendszer, amely hosszú évek óta bizonyítja megbízhatóságát és stabilitását. Az ACID (Atomicity, Consistency, Isolation, Durability) tulajdonságok támogatása garantálja az adatok integritását és konzisztenciáját.
 
