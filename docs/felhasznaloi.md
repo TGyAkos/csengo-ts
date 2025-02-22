@@ -152,7 +152,13 @@ Windows-on, telepítse a `Docker Desktop` alkalmazást, majd indítsa el azt.
 
 Linux-on és macOS-en, telepítse a `Docker`-t és a `Docker-compose`-t, majd nyissa meg a terminált a `docker-compose` fájl mappájában.
 
-Nyisson meg egy parancssort git repository törzs mappájában, ahol a `docker-compose.dev.v2.yml` nevű fájl található.
+Nyissa meg a `csengo-ts` mappát és indítsa el a `run.bat` fájlt.
+
+```bash
+./run.bat
+```
+
+Vagy nyisson meg egy parancssort git repository törzs mappájában, ahol a `docker-compose.dev.v2.yml` nevű fájl található.
 
 A `docker-compose` fájlban meghatározott szolgáltatásokat, hálózatokat és köteteket a következő paranccsal futtathatjuk:
 

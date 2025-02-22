@@ -265,7 +265,7 @@ A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a követk
 
 0. Telepítse a Docker Desktop nevű alkalmzást és a Docker-compose nevű alkalmazást a számítógépére, majd indítsa el a Docker Desktop alkalmazást.
 
-##### Backend elindítása:
+##### Backend elindítása Docker segítségével:
 
 1. Nyissa meg a terminált a `csengo-ts-server-v2` mappában.
 2. Windows operációs rendszeren futtassa a következő parancsokat a szerver indításához:
@@ -307,6 +307,30 @@ npm run dev
 
 4. A kliens elindítása után a következő URL-eken érhető el:
    - Weboldal: [http://localhost:3000](http://localhost:3000)
+
+#### Futtatás fejlesztői módban Docker segítsége nélkül:
+
+1. Nyissa meg a `csengo-ts` mappát.
+2. Futtassa a `run_dev.bat` nevű batch file-t a szerver és a klines elindításához.
+
+3. Töltse ki az alábbi adatokkal a megjelenő Postgres telepítőt:
+    - Location: `C:\Program Files\PostgreSQL\16`
+    - Port: `5582`
+    - Password: `csengo`
+    - Locale: `Default locale`
+    - Az utolsó ablakban kapcsolja ki a `Stack Builder` opciót.
+
+Az alábbi képeken láthatóak a Postgres telepítő ablakai, amelyeket a fenti adatokkal kell kitölteni:  
+![first-page](./fejlesztoikepek/postgres-install-1-first-page.png)  
+![location-page](./fejlesztoikepek/postgres-install-2-location.png)  
+![components-page](./fejlesztoikepek/postgres-install-3-components.png)  
+![data-directory-page](./fejlesztoikepek/postgres-install-4-data-directory.png)  
+![password-page](./fejlesztoikepek/postgres-install-5-password.png)  
+![port-page](./fejlesztoikepek/postgres-install-6-port.png)  
+![locale-page](./fejlesztoikepek/postgres-install-7-locale.png)  
+![summary-page](./fejlesztoikepek/postgres-install-8-summary.png)  
+![ready-page](./fejlesztoikepek/postgres-install-9-ready.png)  
+![last-page](./fejlesztoikepek/postgres-install-10-last-page.png)  
 
 ## Strukturális felépítés
 

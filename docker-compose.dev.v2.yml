@@ -9,7 +9,7 @@ services:
       POSTGRES_DB: csengo
     volumes:
       - csengo-v2_db:/var/lib/postgresql/data
-      - ./data/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./assets/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     networks:
       - csengo-v2
 
@@ -21,7 +21,7 @@ services:
     image: csengo-ts-server-v2
     restart: always
     volumes:
-      - ./data:/data
+      - ./assets:/data
     ports:
       - "3300:3300"
     depends_on:
