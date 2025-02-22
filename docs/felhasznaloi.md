@@ -190,18 +190,6 @@ Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Do
   - Locale: `Default locale`
   - Az utolsó ablakban kapcsolja ki a `Stack Builder` opciót.
 
-Amennyiben a batch fájl nem tudja letölteni a Postgres telepítőt, a következő lépéseket kell követni:
-1. Erről a weboldalról töltse le a Postgres 16.8-as verzióját: [https://www.enterprisedb.com/downloads/postgres-postgresql-downloads](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
-2. Nevezze át a letöltött fájlt `postgresql-16.8-1-windows-x64.exe`-re.
-3. Majd helyezze az átnevezett fájlt a `csengo-ts` mappába.
-4. Futtassa a `run_dev.bat` fájlt újra.
-
-Amennyiben a batch fálj nem tud csatlakozni az adatbázishoz, a következő lépéseket kell követni:
-1. Ha nem sikerült a Postgres telepítése, a `run_dev.bat` fájlal, telepítse azt manuális módon a `postgresql-16.8-1-windows-x64.exe` fájl segítségével, a fentebb lévő adatokkal.
-2. Nyissa meg a `pgAdmin 4` nevű alkalmazást, majd a már meglévő adatbázis kapcsolatra kattintva, nyisson egy `psql` konzolt, mely az imént telepített adatbázishoz kapcsolódik.
-3. Másolja be a `run_dev.bat` fájl által generált `csengo-ts/assets/initdb_bat_local.sql` fájl tartalmát a `psql` konzolba.
-
-
 Az alábbi képeken láthatóak a Postgres telepítő ablakai, amelyeket a fenti adatokkal kell kitölteni:  
 ![first-page](./fejlesztoikepek/postgres-install-1-first-page.png)  
 ![location-page](./fejlesztoikepek/postgres-install-2-location.png)  
@@ -213,6 +201,18 @@ Az alábbi képeken láthatóak a Postgres telepítő ablakai, amelyeket a fenti
 ![summary-page](./fejlesztoikepek/postgres-install-8-summary.png)  
 ![ready-page](./fejlesztoikepek/postgres-install-9-ready.png)  
 ![last-page](./fejlesztoikepek/postgres-install-10-last-page.png)
+
+Amennyiben a batch fájl nem tudja letölteni a Postgres telepítőt, a következő lépéseket kell követni:
+1. Erről a weboldalról töltse le a Postgres 16.8-as verzióját: [https://www.enterprisedb.com/downloads/postgres-postgresql-downloads](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+2. Nevezze át a letöltött fájlt `postgresql-16.8-1-windows-x64.exe`-re.
+3. Majd helyezze az átnevezett fájlt a `csengo-ts` mappába.
+4. Futtassa a `run_dev.bat` fájlt újra.
+
+Amennyiben a batch fálj nem tud csatlakozni az adatbázishoz, a következő lépéseket kell követni:
+1. Ha nem sikerült a Postgres telepítése, a `run_dev.bat` fájlal, telepítse azt manuális módon a `postgresql-16.8-1-windows-x64.exe` fájl segítségével, a fentebb lévő adatokkal.
+2. Nyissa meg a `pgAdmin 4` nevű alkalmazást, majd a már meglévő adatbázis kapcsolatra kattintva, nyisson egy `psql` konzolt, mely az imént telepített adatbázishoz kapcsolódik.
+3. Másolja be a `run_dev.bat` fájl által generált `csengo-ts/assets/initdb_bat_local.sql` fájl tartalmát a `psql` konzolba.
+
 
 Miután a Postgres telepítése sikeresen befejeződött, a `run_dev.bat` fájl automatikusan elindítja a szerver és a kliens alkalmazást.
 
