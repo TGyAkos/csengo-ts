@@ -50,8 +50,11 @@ echo Starting Docker Compose and the build process...
 docker-compose -f docker-compose.dev.v2.yml up -d
 
 echo Docker Compose started.
+
 echo The website is available at http://localhost:8080
 echo Swagger UI is available at http://localhost:3300/swagger
 echo The API is available at http://localhost:3300
+
+echo You can safely close this window now.
 
 pause

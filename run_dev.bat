@@ -6,6 +6,12 @@ set "search=/data/audio/"
 set "replace=%current_dir:/=\%\assets\audio\"
 powershell -Command "(Get-Content assets\initdb_bat.sql) -replace [regex]::Escape('%search%'), '%replace%' | Set-Content assets\initdb_bat_local.sql"
 
+echo Checking if PostgreSQL is installed...
+if exist "C:\Program Files\PostgreSQL\16\bin\" (
+  echo PostgreSQL found at C:\Program Files\PostgreSQL\16\bin\.
+  goto database_setup
+)
+
 set installer_url="https://sbp.enterprisedb.com/getfile.jsp?fileid=1259408"
 set installer_path="./postgresql-16.8-1-windows-x64.exe"
 set exe_name="postgresql-16.8-1-windows-x64.exe"
@@ -20,6 +26,8 @@ if not exist %installer_path% (
 echo Running the installer...
 start /wait %installer_path% %exe_name%
 echo Installation completed.
+
+:database_setup
 
 echo Setting up the database...
 setlocal
@@ -37,6 +45,16 @@ set "replace=%current_dir:/=\%\assets\audio\"
 powershell -Command "(Get-Content assets\initdb_bat.sql) -replace [regex]::Escape('%search%'), '%replace%' | Set-Content assets\initdb_bat_local.sql"
 
 echo Connecting to the PostgreSQL database...
+echo Using username: %PGUSER%
+echo Using database: %PGDATABASE%
+
+psql >nul 2>&1
+if %ERRORLEVEL% NEQ 0 (
+  echo psql not found. Please run this file again, and install PostgreSQL.
+  pause
+  exit
+)
+
 psql -U %PGUSER% -d %PGDATABASE% -f assets\initdb_bat_local.sql
 
 echo Done setting up the database.
@@ -65,3 +83,11 @@ start cmd /k "echo Starting the server... & cd /d \"./csengo-ts-server-v2\" & ec
 :: npm run dev
 
 start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
+
+echo The website will be available at http://localhost:3000
+echo Swagger UI will be available at http://localhost:3300/swagger
+echo The API will be available at http://localhost:3300
+
+echo You can safely close this window now.
+
+pause
