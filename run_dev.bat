@@ -48,7 +48,7 @@ echo Connecting to the PostgreSQL database...
 echo Using username: %PGUSER%
 echo Using database: %PGDATABASE%
 
-psql >nul 2>&1
+psql --version >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
   echo psql not found. Please run this file again, and install PostgreSQL.
   pause
