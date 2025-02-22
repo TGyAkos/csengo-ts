@@ -763,6 +763,3915 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
 - *tsconfig.build.json*: A TypeScript build konfigurációs fájlja, amely meghatározza a build folyamat során használt beállításokat.
 - *tsconfig.json*: A TypeScript projekt alapértelmezett konfigurációs fájlja, amely meghatározza a fordító beállításait.
 
+#### Backend Tesztelés
+
+#### Controller Tesztelés
+
+##### `app.controller.spec`
+
+- **`uploadDirect`**: A `uploadDirect` teszteset ellenőrzi, hogy az adminisztrátor közvetlenül feltölthet-e egy dalt.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **file**:
+          ```json
+          {
+            "mimetype": "audio/mpeg"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **`renameById`**: A `renameById` teszteset ellenőrzi, hogy az adminisztrátor átnevezhet-e egy dalt azonosító alapján.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+          
+
+
+- **`deleteById`**: A `deleteById` teszteset ellenőrzi, hogy az adminisztrátor törölhet-e egy dalt azonosító alapján.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+
+
+##### `auth.controller.spec`
+
+- **AuthController -> should be defined**: This test case verifies that the `authController` is properly defined and instantiated within the test module.
+    - **Mocked input data**:
+        - **None**:
+          ```json 
+          {}
+          ```
+    - **Return value**:
+        - **None**:
+          ```json 
+          {}
+          ```
+
+- **AuthController -> login -> should return a valid JWT token**: This test case verifies that the `login` method of the `authController` returns a valid JWT token when provided with valid credentials.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "body": {
+              "username": "testUser",
+              "password": "testPassword"
+            }
+          }
+          ```
+        - **mockUser**:
+          ```json 
+          {
+            "id": "1",
+            "username": "testUser",
+            "password": "hashedPassword"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "access_token": "mockedJwtToken"
+          }
+          ```
+
+- **AuthController -> register -> should create a new user**: This test case verifies that the `register` method of the `authController` creates a new user when provided with valid registration data.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "body": {
+              "username": "newUser",
+              "password": "newPassword"
+            }
+          }
+          ```
+        - **mockUser**:
+          ```json 
+          {
+            "id": "2",
+            "username": "newUser",
+            "password": "hashedNewPassword"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "id": "2",
+            "username": "newUser"
+          }
+          ```
+
+- **AuthController -> validateUser -> should validate a user with correct credentials**: This test case verifies that the `validateUser` method of the `authController` validates a user when provided with correct credentials.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "body": {
+              "username": "validUser",
+              "password": "validPassword"
+            }
+          }
+          ```
+        - **mockUser**:
+          ```json 
+          {
+            "id": "3",
+            "username": "validUser",
+            "password": "hashedValidPassword"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "id": "3",
+            "username": "validUser"
+          }
+          ```
+
+- **AuthController -> validateUser -> should return null for invalid credentials**: This test case verifies that the `validateUser` method of the `authController` returns null when provided with invalid credentials.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "body": {
+              "username": "invalidUser",
+              "password": "invalidPassword"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          null
+          ```
+
+##### `pending.songs.controller.spec.ts`
+
+- **PendingSongsController -> getAllPendingSongs -> should return all pending songs**: This test case verifies that the `getAllPendingSongs` method of the `PendingSongsController` returns all pending songs correctly. It mocks the request and the service method to return a list of pending songs and checks if the controller method returns the expected result.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "token": { "sub": "mockedId", "username": "mockedUser", "roles": ["Admin"], "hashedPassword": "mocked-password" }
+          }
+          ```
+        - **mockPendingSongs**:
+          ```json 
+          [
+            { "id": "song1", "title": "Song 1" },
+            { "id": "song2", "title": "Song 2" }
+          ]
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          [
+            { "id": "song1", "title": "Song 1" },
+            { "id": "song2", "title": "Song 2" }
+          ]
+          ```
+
+- **PendingSongsController -> approvePendingSong -> should approve a pending song**: This test case verifies that the `approvePendingSong` method of the `PendingSongsController` approves a pending song correctly. It mocks the request and the service method to approve a song and checks if the controller method returns the expected result.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "token": { "sub": "mockedId", "username": "mockedUser", "roles": ["Admin"], "hashedPassword": "mocked-password" }
+          }
+          ```
+        - **mockSongId**:
+          ```json 
+          "song1"
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          { "success": true }
+          ```
+
+- **PendingSongsController -> rejectPendingSong -> should reject a pending song**: This test case verifies that the `rejectPendingSong` method of the `PendingSongsController` rejects a pending song correctly. It mocks the request and the service method to reject a song and checks if the controller method returns the expected result.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json 
+          {
+            "token": { "sub": "mockedId", "username": "mockedUser", "roles": ["Admin"], "hashedPassword": "mocked-password" }
+          }
+          ```
+        - **mockSongId**:
+          ```json 
+          "song1"
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          { "success": true }
+          ```
+
+##### `songs.controller.spec.ts`
+
+- **SongsController -> getAllAudioInSession -> should return all audio in session for public access**: Ez a teszteset ellenőrzi, hogy a `getAllAudioInSession` metódus visszaadja-e az összes hanganyagot a nyilvános hozzáféréshez. A `songsService.getAllAudioInSession` metódust mockolja, hogy egy üres hanganyag listát adjon vissza, és ellenőrzi, hogy a `songsController.getAllAudioInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "audios": []
+          }
+          ```
+
+- **SongsController -> getAllInSession -> should return all songs in session**: Ez a teszteset ellenőrzi, hogy a `getAllInSession` metódus visszaadja-e az összes dalt a szekcióban. A `songsService.getAllInSession` metódust mockolja, hogy egy üres dal listát adjon vissza, és ellenőrzi, hogy a `songsController.getAllInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "songs": []
+          }
+          ```
+
+- **SongsController -> getAll -> should return all songs for admin**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus visszaadja-e az összes dalt az admin számára. A `songsService.getAll` metódust mockolja, hogy egy üres dal listát adjon vissza, és ellenőrzi, hogy a `songsController.getAll` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "songs": []
+          }
+          ```
+
+- **SongsController -> getWinner -> should return the winner song**: Ez a teszteset ellenőrzi, hogy a `getWinner` metódus visszaadja-e a nyertes dalt. A `songsService.getWinner` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.getWinner` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> getWinnerAudio -> should return winner audio**: Ez a teszteset ellenőrzi, hogy a `getWinnerAudio` metódus visszaadja-e a nyertes hanganyagot. A `songsService.getWinnerAudio` metódust mockolja, hogy egy `StreamableFile` objektumot adjon vissza, és ellenőrzi, hogy a `songsController.getWinnerAudio` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "type": "StreamableFile",
+            "data": "audio"
+          }
+          ```
+
+- **SongsController -> getAudioById -> should return audio by ID**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus visszaadja-e a hanganyagot azonosító alapján. A `songsService.getAudioById` metódust mockolja, hogy egy `StreamableFile` objektumot adjon vissza, és ellenőrzi, hogy a `songsController.getAudioById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "type": "StreamableFile",
+            "data": "audio"
+          }
+          ```
+
+- **SongsController -> updateAudioById -> should update audio for admin**: Ez a teszteset ellenőrzi, hogy a `updateAudioById` metódus frissíti-e a hanganyagot az admin számára. A `songsService.updateAudio` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.updateAudio` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> startAudio -> should start audio for admin**: Ez a teszteset ellenőrzi, hogy a `startAudio` metódus elindítja-e a hanganyagot az admin számára. A `songsService.startAudio` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.startAudio` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> stopAudio -> should stop audio for admin**: Ez a teszteset ellenőrzi, hogy a `stopAudio` metódus leállítja-e a hanganyagot az admin számára. A `songsService.stopAudio` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.stopAudio` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> upload -> should upload a song**: Ez a teszteset ellenőrzi, hogy a `upload` metódus feltölt-e egy dalt. A `songsService.upload` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.upload` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **file**:
+          ```json
+          {
+            "mimetype": "audio/mpeg"
+          }
+          ```
+        - **createSongDto**:
+          ```json
+          {
+            "title": "mocked-title"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> uploadDirect -> should upload a song directly for admin**: Ez a teszteset ellenőrzi, hogy a `uploadDirect` metódus közvetlenül feltölt-e egy dalt az admin számára. A `songsService.uploadDirect` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.uploadDirect` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **file**:
+          ```json
+          {
+            "mimetype": "audio/mpeg"
+          }
+          ```
+        - **createSongDto**:
+          ```json
+          {
+            "title": "mocked-title"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> renameById -> should rename a song for admin**: Ez a teszteset ellenőrzi, hogy a `renameById` metódus átnevez-e egy dalt az admin számára. A `songsService.renameById` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.renameById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **SongsController -> deleteById -> should delete a song for admin**: Ez a teszteset ellenőrzi, hogy a `deleteById` metódus töröl-e egy dalt az admin számára. A `songsService.deleteById` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `songsController.deleteById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+##### `tv.controller.spec.ts`
+
+- **TvController -> getAll -> should return summary of votes in session**: Ez a teszteset ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus visszaadja-e a szavazatok összegzését a szekcióban. A `tvService.getSummaryOfVotesInSession` metódust mockolja, hogy egy szavazatok összegzését adjon vissza, és ellenőrzi, hogy a `tvController.getSummaryOfVotesInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "summary": "Summary of votes"
+          }
+          ```
+
+##### `user.controller.spec.ts`
+
+- **UserController -> getRealNameById -> should return real name**: Ez a teszteset ellenőrzi, hogy a `getRealNameById` metódus visszaadja-e a felhasználó valódi nevét. A `userService.getRealNameById` metódust mockolja, hogy egy valódi nevet adjon vissza, és ellenőrzi, hogy a `userController.getRealNameById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "realName": "mocked-name"
+          }
+          ```
+
+- **UserController -> getAll -> should return all users**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus visszaadja-e az összes felhasználót. A `userService.getAll` metódust mockolja, hogy egy üres felhasználó listát adjon vissza, és ellenőrzi, hogy a `userController.getAll` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "users": []
+          }
+          ```
+
+- **UserController -> updateUserPassword -> should return success when updating user password**: Ez a teszteset ellenőrzi, hogy a `updateUserPassword` metódus sikeresen frissíti-e a felhasználó jelszavát. A `userService.updateUserPassword` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `userController.updateUserPassword` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockPassword**:
+          ```json
+          {
+            "userId": "1",
+            "password": "asd"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **UserController -> updateUserRole -> should return success when updating user role**: Ez a teszteset ellenőrzi, hogy a `updateUserRole` metódus sikeresen frissíti-e a felhasználó szerepkörét. A `userService.updateUserRole` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `userController.updateUserRole` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockRole**:
+          ```json
+          {
+            "userId": "1",
+            "role": "Admin"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+##### `view.controller.spec.ts`
+
+- **ViewController -> renderSummaryOfVotesInSession -> should render summary of votes in session**: Ez a teszteset ellenőrzi, hogy a `renderSummaryOfVotesInSession` metódus visszaadja-e a szavazatok összegzését a szekcióban. A `viewService.getSummaryOfVotesInSessionData` metódust mockolja, hogy egy szavazatok összegzését adjon vissza, és ellenőrzi, hogy a `viewController.renderSummaryOfVotesInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          "Rendered summary of votes"
+          ```
+
+- **ViewController -> renderPendingSongs -> should render pending songs**: Ez a teszteset ellenőrzi, hogy a `renderPendingSongs` metódus visszaadja-e a függőben lévő dalokat. A `viewService.getPendingSongsData` metódust mockolja, hogy egy függőben lévő dalokat adjon vissza, és ellenőrzi, hogy a `viewController.renderPendingSongs` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          "Rendered pending songs"
+          ```
+
+##### `votes.controller.spec.ts`
+
+- **VotesController -> getSummrayOfVotesInSession -> should return summary of votes in session**: Ez a teszteset ellenőrzi, hogy a `getSummrayOfVotesInSession` metódus visszaadja-e a szavazatok összegzését a szekcióban. A `votesService.getSummaryOfVotesInSession` metódust mockolja, hogy egy szavazatok összegzését adjon vissza, és ellenőrzi, hogy a `votesController.getSummrayOfVotesInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "votes": []
+          }
+          ```
+
+- **VotesController -> getVotedSongsByUserId -> should return votes songs by user id**: Ez a teszteset ellenőrzi, hogy a `getVotedSongsByUserId` metódus visszaadja-e a felhasználó által szavazott dalokat. A `votesService.getVotedSongsByUserId` metódust mockolja, hogy egy dal listát adjon vissza, és ellenőrzi, hogy a `votesController.getVotedSongsByUserId` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "songs": ["Song 1", "Song 2"]
+          }
+          ```
+
+- **VotesController -> voteUp -> should return success when voted up**: Ez a teszteset ellenőrzi, hogy a `voteUp` metódus sikeresen végrehajtja-e a szavazat felfelé történő leadását. A `votesService.voteUp` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `votesController.voteUp` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **VotesController -> voteDown -> should return success when voted down**: Ez a teszteset ellenőrzi, hogy a `voteDown` metódus sikeresen végrehajtja-e a szavazat lefelé történő leadását. A `votesService.voteDown` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `votesController.voteDown` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+##### `voting.sessions.controller.spec.ts`
+
+- **VotingSessionController -> should return summary of votes in session**: Ez a teszteset ellenőrzi, hogy a `getAllSessions` metódus visszaadja-e a szavazatok összegzését a szekcióban. A `votingSessionService.getAllSessions` metódust mockolja, hogy egy üres szavazatok összegzését adjon vissza, és ellenőrzi, hogy a `votingSessionController.getAllSessions` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "sessions": []
+          }
+          ```
+
+- **VotingSessionController -> should return votes songs by user id**: Ez a teszteset ellenőrzi, hogy a `createSession` metódus visszaadja-e a felhasználó által szavazott dalokat. A `votingSessionService.createSession` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `votingSessionController.createSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockSession**:
+          ```json
+          {
+            "songIds": ["1", "2"],
+            "start": "2020-01-01",
+            "end": "2021-01-01"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **VotingSessionController -> should return success when voted up**: Ez a teszteset ellenőrzi, hogy a `updateSessionById` metódus sikeresen frissíti-e a szavazat felfelé történő leadását. A `votingSessionService.updateSessionById` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `votingSessionController.updateSessionById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockSession**:
+          ```json
+          {
+            "songIds": ["1", "2"],
+            "start": "2020-01-01",
+            "end": "2021-01-01"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+- **VotingSessionController -> should return success when voted down**: Ez a teszteset ellenőrzi, hogy a `deleteSessionById` metódus sikeresen végrehajtja-e a szavazat lefelé történő leadását. A `votingSessionService.deleteSessionById` metódust mockolja, hogy egy sikeres üzenetet adjon vissza, és ellenőrzi, hogy a `votingSessionController.deleteSessionById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "success": true
+          }
+          ```
+
+#### Service Tesztelés
+
+##### `app.service.spec.ts`
+
+- **AppService -> should be defined**: Ez a teszteset ellenőrzi, hogy az `AppService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **N/A**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **AppService -> getHello -> should return "Hello World!" when getHello is called**: Ez a teszteset ellenőrzi, hogy a `getHello` metódus visszaadja-e a "Hello World!" szöveget, amikor meghívják.
+    - **Mocked input data**:
+        - **N/A**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Hello World!"
+          }
+          ```
+
+##### `auth.service.spec.ts`
+
+- **AuthService -> should be defined**: Ez a teszteset ellenőrzi, hogy az `AuthService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **N/A**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **AuthService -> login -> should return JWT token upon successfull login**: Ez a teszteset ellenőrzi, hogy a `login` metódus visszaadja-e a JWT tokent sikeres bejelentkezés esetén. A `prisma.user.findFirstOrThrow` metódust mockolja, hogy egy felhasználói adatot adjon vissza, és ellenőrzi, hogy a `authService.login` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockedLoginDto**:
+          ```json
+          {
+            "username": "mocked-user",
+            "password": "mocked-password"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "access_token": "test-token"
+          }
+          ```
+
+- **AuthService -> login -> should throw FORBIDDEN if invalid username or password**: Ez a teszteset ellenőrzi, hogy a `login` metódus `FORBIDDEN` hibát dob-e érvénytelen felhasználónév vagy jelszó esetén. A `prisma.user.findFirstOrThrow` metódust mockolja, hogy egy felhasználói adatot adjon vissza, és ellenőrzi, hogy a `authService.login` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedLoginDto**:
+          ```json
+          {
+            "username": "mocked-user",
+            "password": "mocked-password"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 403,
+            "message": "Invalid username or password"
+          }
+          ```
+
+- **AuthService -> login -> should throw NOT_FOUND if user not found**: Ez a teszteset ellenőrzi, hogy a `login` metódus `NOT_FOUND` hibát dob-e, ha a felhasználó nem található. A `prisma.user.findFirstOrThrow` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `authService.login` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedLoginDto**:
+          ```json
+          {
+            "username": "mocked-user",
+            "password": "mocked-password"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 404,
+            "message": "Failed to find user or invalid authentication data"
+          }
+          ```
+
+- **AuthService -> register -> should return JWT token upon successful register**: Ez a teszteset ellenőrzi, hogy a `register` metódus visszaadja-e a JWT tokent sikeres regisztráció esetén. A `prisma.user.findFirst`, `prisma.kreta.findFirstOrThrow`, és `prisma.user.create` metódusokat mockolja, hogy felhasználói adatokat adjon vissza, és ellenőrzi, hogy a `authService.register` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockedRegisterDto**:
+          ```json
+          {
+            "username": "new-user",
+            "password": "new-password",
+            "email": "new-email@test.com",
+            "om": "72548167135"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "access_token": "test-token"
+          }
+          ```
+
+- **AuthService -> register -> should return INTERNAL_SERVER_ERROR if checking existing user fails**: Ez a teszteset ellenőrzi, hogy a `register` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha a meglévő felhasználó ellenőrzése sikertelen. A `prisma.user.findFirst` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `authService.register` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedRegisterDto**:
+          ```json
+          {
+            "username": "new-user",
+            "password": "new-password",
+            "email": "new-email@test.com",
+            "om": "72548167135"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Something went wrong"
+          }
+          ```
+
+- **AuthService -> register -> should return INTERNAL_SERVER_ERROR if someone has already registered under those information**: Ez a teszteset ellenőrzi, hogy a `register` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha valaki már regisztrált ezekkel az adatokkal. A `prisma.user.findFirst` metódust mockolja, hogy felhasználói adatot adjon vissza, és ellenőrzi, hogy a `authService.register` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedRegisterDto**:
+          ```json
+          {
+            "username": "existing-user",
+            "password": "password",
+            "email": "existing-email@test.com",
+            "om": "72548167135"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Seems like someone has already registered under this information"
+          }
+          ```
+
+- **AuthService -> register -> should return INTERNAL_SERVER_ERROR if prisma cannot find the OM in the database**: Ez a teszteset ellenőrzi, hogy a `register` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha a prisma nem találja az OM azonosítót az adatbázisban. A `prisma.kreta.findFirstOrThrow` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `authService.register` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedRegisterDto**:
+          ```json
+          {
+            "username": "new-user",
+            "password": "new-password",
+            "email": "new-email@test.com",
+            "om": "72548167135"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Can't find this OM id in the database"
+          }
+          ```
+
+- **AuthService -> register -> should return INTERNAL_SERVER_ERROR if prisma fails to create user**: Ez a teszteset ellenőrzi, hogy a `register` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha a prisma nem tudja létrehozni a felhasználót. A `prisma.user.create` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `authService.register` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockedRegisterDto**:
+          ```json
+          {
+            "username": "new-user",
+            "password": "new-password",
+            "email": "new-email@test.com",
+            "om": "72578167135"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Failed to register user bad OM"
+          }
+          ```
+
+##### `pending.songs.service.spec.ts`
+
+- **PendingSongsService -> should be defined**: Ez a teszteset ellenőrzi, hogy a `PendingSongsService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **N/A**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **PendingSongsService -> getAll -> should return all pending songs**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus visszaadja-e az összes függőben lévő dalt. A `prisma.pendingSong.findMany` metódust mockolja, hogy egy listát adjon vissza a függőben lévő dalokról, és ellenőrzi, hogy a `service.getAll` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          [
+            {
+              "id": "1",
+              "title": "Song 1",
+              "uploadedBy": {
+                "kreta": {
+                  "name": "John Doe"
+                }
+              }
+            }
+          ]
+          ```
+
+- **PendingSongsService -> getAll -> should throw an error when no pending songs are found**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus hibát dob-e, ha nem találhatóak függőben lévő dalok. A `prisma.pendingSong.findMany` metódust mockolja, hogy egy üres listát adjon vissza, és ellenőrzi, hogy a `service.getAll` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 404,
+            "message": "No pending songs found"
+          }
+          ```
+
+- **PendingSongsService -> getAll -> should throw an error when an internal error occurs**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus hibát dob-e, ha belső hiba történik. A `prisma.pendingSong.findMany` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.getAll` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Error fetching pending songs: Database error"
+          }
+          ```
+
+- **PendingSongsService -> getAudioById -> should return a streamable file**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus visszaad-e egy streamelhető fájlt. A `prisma.pendingSong.findUnique` metódust mockolja, hogy egy dalt adjon vissza, és ellenőrzi, hogy a `service.getAudioById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "type": "StreamableFile"
+          }
+          ```
+
+- **PendingSongsService -> getAudioById -> should throw an error when song is not found**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus hibát dob-e, ha a dal nem található. A `prisma.pendingSong.findUnique` metódust mockolja, hogy null értéket adjon vissza, és ellenőrzi, hogy a `service.getAudioById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 404,
+            "message": "Song not found"
+          }
+          ```
+
+- **PendingSongsService -> getAudioById -> should throw an error when an internal error occurs**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus hibát dob-e, ha belső hiba történik. A `prisma.pendingSong.findUnique` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.getAudioById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Error fetching song: Database error"
+          }
+          ```
+
+- **PendingSongsService -> approveById -> should approve a pending song**: Ez a teszteset ellenőrzi, hogy az `approveById` metódus jóváhagyja-e a függőben lévő dalt. A `prisma.pendingSong.findUnique`, `prisma.song.create`, és `prisma.pendingSong.delete` metódusokat mockolja, hogy egy dalt adjon vissza, és ellenőrzi, hogy a `service.approveById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Peding song with id 1 sucessfully approved"
+          }
+          ```
+
+- **PendingSongsService -> approveById -> should throw an error when pending song is not found**: Ez a teszteset ellenőrzi, hogy az `approveById` metódus hibát dob-e, ha a függőben lévő dal nem található. A `prisma.pendingSong.findUnique` metódust mockolja, hogy null értéket adjon vissza, és ellenőrzi, hogy a `service.approveById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 404,
+            "message": "Pending song not found"
+          }
+          ```
+
+- **PendingSongsService -> approveById -> should throw an error when an internal error occurs**: Ez a teszteset ellenőrzi, hogy az `approveById` metódus hibát dob-e, ha belső hiba történik. A `prisma.pendingSong.findUnique` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.approveById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Error fetching pending song: Database error"
+          }
+          ```
+
+- **PendingSongsService -> disapproveById -> should disapprove a pending song**: Ez a teszteset ellenőrzi, hogy a `disapproveById` metódus elutasítja-e a függőben lévő dalt. A `prisma.pendingSong.findFirstOrThrow` és `prisma.pendingSong.delete` metódusokat mockolja, hogy egy dalt adjon vissza, és ellenőrzi, hogy a `service.disapproveById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Peding song with id 1 sucessfully disapproved"
+          }
+          ```
+
+- **PendingSongsService -> disapproveById -> should throw an error when pending song is not found**: Ez a teszteset ellenőrzi, hogy a `disapproveById` metódus hibát dob-e, ha a függőben lévő dal nem található. A `prisma.pendingSong.findFirstOrThrow` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.disapproveById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 404,
+            "message": "Error fetching pending song: Record not found"
+          }
+          ```
+
+- **PendingSongsService -> disapproveById -> should throw an error when an internal error occurs**: Ez a teszteset ellenőrzi, hogy a `disapproveById` metódus hibát dob-e, ha belső hiba történik. A `prisma.pendingSong.findFirstOrThrow` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.disapproveById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "status": 500,
+            "message": "Error fetching pending song: Database error"
+          }
+          ```
+
+##### `songs.service.spec.ts`
+
+- **SongsService -> should be defined**: Ez a teszteset ellenőrzi, hogy a `SongsService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **service**:
+          ```json 
+          {
+            "defined": true
+          }
+          ```
+
+- **SongsService -> getAllAudioInSession -> should return a zip file of songs in session**: Ez a teszteset ellenőrzi, hogy a `getAllAudioInSession` metódus visszaadja-e a szekcióban lévő dalok zip fájlját.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockResponse**:
+          ```json 
+          {
+            "attachment": "songs.zip",
+            "pipe": true
+          }
+          ```
+        - **mockVotingSession**:
+          ```json 
+          {
+            "id": "sessionId",
+            "songs": [
+              {
+                "id": "songId",
+                "title": "Test Song",
+                "songBucket": {
+                  "path": "path/to/song.mp3"
+                }
+              }
+            ]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "truthy": true
+          }
+          ```
+
+- **SongsService -> getAllAudioInSession -> should throw an error when no active voting session is found**: Ez a teszteset ellenőrzi, hogy a `getAllAudioInSession` metódus hibát dob-e, ha nincs aktív szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockResponse**:
+          ```json 
+          {
+            "attachment": "songs.zip",
+            "pipe": true
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "No active voting session found",
+            "status": 404
+          }
+          ```
+
+- **SongsService -> getAllInSession -> should return a list of songs in session**: Ez a teszteset ellenőrzi, hogy a `getAllInSession` metódus visszaadja-e a szekcióban lévő dalok listáját.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json 
+          {
+            "id": "sessionId",
+            "songs": [
+              {
+                "id": "songId",
+                "title": "Test Song",
+                "songBucket": {
+                  "path": "path/to/song.mp3"
+                }
+              }
+            ]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "sessionId": "sessionId",
+            "songs": [
+              {
+                "songId": "songId",
+                "songTitle": "Test Song"
+              }
+            ]
+          }
+          ```
+
+- **SongsService -> getAllInSession -> should throw an error when no active voting session is found**: Ez a teszteset ellenőrzi, hogy a `getAllInSession` metódus hibát dob-e, ha nincs aktív szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "No active voting session found",
+            "status": 404
+          }
+          ```
+
+- **SongsService -> getAll -> should return a list of all songs**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus visszaadja-e az összes dalt.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          [
+            {
+              "id": "songId",
+              "title": "Test Song"
+            }
+          ]
+          ```
+
+- **SongsService -> getAll -> should throw an error when no songs are found**: Ez a teszteset ellenőrzi, hogy a `getAll` metódus hibát dob-e, ha nem találhatóak dalok.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "No songs found",
+            "status": 404
+          }
+          ```
+
+- **SongsService -> getWinner -> should return the winner song**: Ez a teszteset ellenőrzi, hogy a `getWinner` metódus visszaadja-e a nyertes dalt.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json 
+          {
+            "id": "sessionId",
+            "songs": [
+              {
+                "id": "songId",
+                "title": "Test Song",
+                "songBucket": {
+                  "path": "path/to/song.mp3"
+                }
+              }
+            ]
+          }
+          ```
+        - **mockSong**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+
+- **SongsService -> getWinner -> should throw an error when no finished voting session is found**: Ez a teszteset ellenőrzi, hogy a `getWinner` metódus hibát dob-e, ha nincs befejezett szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "No finished voting session found",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> getWinnerAudio -> should return winner audio**: Ez a teszteset ellenőrzi, hogy a `getWinnerAudio` metódus visszaadja-e a nyertes hanganyagot.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json 
+          {
+            "id": "sessionId",
+            "songs": [
+              {
+                "id": "songId",
+                "title": "Test Song",
+                "songBucket": {
+                  "path": "path/to/song.mp3"
+                }
+              }
+            ]
+          }
+          ```
+        - **mockSong**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "type": "StreamableFile"
+          }
+          ```
+
+- **SongsService -> getWinnerAudio -> should throw an error when no finished voting session is found**: Ez a teszteset ellenőrzi, hogy a `getWinnerAudio` metódus hibát dob-e, ha nincs befejezett szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "No finished voting session found",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> getAudioById -> should return a StreamableFile for the given song id**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus visszaad-e egy streamelhető fájlt a megadott dal azonosító alapján.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "type": "StreamableFile"
+          }
+          ```
+
+- **SongsService -> getAudioById -> should throw an error when song is not found**: Ez a teszteset ellenőrzi, hogy a `getAudioById` metódus hibát dob-e, ha a dal nem található.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "Song not found",
+            "status": 404
+          }
+          ```
+
+- **SongsService -> updateAudio -> should update audio**: Ez a teszteset ellenőrzi, hogy a `updateAudio` metódus frissíti-e a hanganyagot.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockResult**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+
+- **SongsService -> updateAudio -> should throw an error when update fails**: Ez a teszteset ellenőrzi, hogy a `updateAudio` metódus hibát dob-e, ha a frissítés sikertelen.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "Error updating audio: Update failed",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> startAudio -> should start audio**: Ez a teszteset ellenőrzi, hogy a `startAudio` metódus elindítja-e a hanganyagot.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockResult**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+
+- **SongsService -> startAudio -> should throw an error when start fails**: Ez a teszteset ellenőrzi, hogy a `startAudio` metódus hibát dob-e, ha az indítás sikertelen.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "Error starting audio: Start failed",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> stopAudio -> should stop audio**: Ez a teszteset ellenőrzi, hogy a `stopAudio` metódus leállítja-e a hanganyagot.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockResult**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "message": "Success"
+          }
+          ```
+
+- **SongsService -> stopAudio -> should throw an error when stop fails**: Ez a teszteset ellenőrzi, hogy a `stopAudio` metódus hibát dob-e, ha a leállítás sikertelen.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "Error stopping audio: Stop failed",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> upload -> should upload a song**: Ez a teszteset ellenőrzi, hogy a `upload` metódus feltölt-e egy dalt.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockFile**:
+          ```json 
+          {
+            "path": "path/to/song.mp3"
+          }
+          ```
+        - **mockCreateSongDto**:
+          ```json 
+          {
+            "title": "Test Song"
+          }
+          ```
+        - **mockResult**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song"
+          }
+          ```
+
+- **SongsService -> upload -> should throw an error when upload fails**: Ez a teszteset ellenőrzi, hogy a `upload` metódus hibát dob-e, ha a feltöltés sikertelen.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockFile**:
+          ```json 
+          {
+            "path": "path/to/song.mp3"
+          }
+          ```
+        - **mockCreateSongDto**:
+          ```json 
+          {
+            "title": "Test Song"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json 
+          {
+            "message": "Error uploading song into pending songs: Upload failed",
+            "status": 500
+          }
+          ```
+
+- **SongsService -> uploadDirect -> should upload a song directly**: Ez a teszteset ellenőrzi, hogy a `uploadDirect` metódus közvetlenül feltölt-e egy dalt.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json 
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockFile**:
+          ```json 
+          {
+            "path": "path/to/song.mp3"
+          }
+          ```
+        - **mockCreateSongDto**:
+          ```json 
+          {
+            "title": "Test Song"
+          }
+          ```
+        - **mockResult**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json 
+          {
+            "id": "songId",
+            "title": "Test Song"
+          }
+          ```
+
+- **SongsService -> uploadDirect -> should throw an error when direct upload fails**: Ez a teszteset ellenőrzi, hogy a `uploadDirect` metódus hibát dob-e, ha a közvetlen feltöltés sikertelen. A `prisma.song.create` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.uploadDirect` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockFile**:
+          ```json
+          {
+            "path": "path/to/song.mp3"
+          }
+          ```
+        - **mockCreateSongDto**:
+          ```json
+          {
+            "title": "Test Song"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error uploading song directly into songs: Upload failed",
+            "statusCode": 500
+          }
+          ```
+
+- **SongsService -> renameById -> should rename a song**: Ez a teszteset ellenőrzi, hogy a `renameById` metódus átnevez-e egy dalt az admin számára. A `prisma.song.findUnique` és `prisma.song.update` metódusokat mockolja, hogy egy dalt adjon vissza, és ellenőrzi, hogy a `service.renameById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Song renamed successfully to New Title"
+          }
+          ```
+
+- **SongsService -> renameById -> should throw an error when rename fails**: Ez a teszteset ellenőrzi, hogy a `renameById` metódus hibát dob-e, ha az átnevezés sikertelen. A `prisma.song.findUnique` és `prisma.song.update` metódusokat mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.renameById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error renaming song: Rename failed",
+            "statusCode": 500
+          }
+          ```
+
+- **SongsService -> deleteById -> should delete a song**: Ez a teszteset ellenőrzi, hogy a `deleteById` metódus töröl-e egy dalt az admin számára. A `prisma.song.findUnique` és `prisma.song.delete` metódusokat mockolja, hogy egy dalt adjon vissza, és ellenőrzi, hogy a `service.deleteById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Song deleted successfully"
+          }
+          ```
+
+- **SongsService -> deleteById -> should throw an error when delete fails**: Ez a teszteset ellenőrzi, hogy a `deleteById` metódus hibát dob-e, ha a törlés sikertelen. A `prisma.song.findUnique` és `prisma.song.delete` metódusokat mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.deleteById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockSong**:
+          ```json
+          {
+            "id": "songId",
+            "title": "Test Song",
+            "songBucket": {
+              "path": "path/to/song.mp3"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error deleting song: Delete failed",
+            "statusCode": 500
+          }
+          ```
+
+##### `tv.service.spec.ts`
+
+- **TvService -> should be defined**: Ez a teszteset ellenőrzi, hogy a `TvService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **service**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **TvService -> getSummaryOfVotesInSession -> should return summary of votes when a session is active**: Ez a teszteset ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus visszaadja-e a szavazatok összegzését, amikor egy szekció aktív.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **prisma.votingSession.findFirst**:
+          ```json
+          {
+            "id": 1,
+            "start": "2023-01-01T00:00:00.000Z",
+            "end": "2023-01-01T00:00:00.000Z",
+            "songs": [
+              {"id": 1, "title": "Song A"},
+              {"id": 2, "title": "Song B"}
+            ],
+            "Vote": [
+              {"songId": 1},
+              {"songId": 1},
+              {"songId": 2}
+            ]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "sessionId": 1,
+            "songs": [
+              {"songId": 1, "songTitle": "Song A", "voteCount": 2},
+              {"songId": 2, "songTitle": "Song B", "voteCount": 1}
+            ]
+          }
+          ```
+
+- **TvService -> getSummaryOfVotesInSession -> should throw NOT_FOUND if no active session exists**: Ez a teszteset ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus `NOT_FOUND` hibát dob-e, ha nincs aktív szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **prisma.votingSession.findFirst**:
+          ```json
+          null
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No active voting session found",
+            "status": 404
+          }
+          ```
+
+- **TvService -> getSummaryOfVotesInSession -> should throw INTERNAL_SERVER_ERROR if database query fails**: Ez a teszteset ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha az adatbázis lekérdezés sikertelen.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **prisma.votingSession.findFirst**:
+          ```json
+          {
+            "error": "Database error"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching currently running voting session: Database error",
+            "status": 500
+          }
+          ```
+
+- **TvService -> getSummaryOfVotesInSession -> should throw INTERNAL_SERVER_ERROR if vote counting fails**: Ez a teszteset ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus `INTERNAL_SERVER_ERROR` hibát dob-e, ha a szavazatok számlálása sikertelen.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **prisma.votingSession.findFirst**:
+          ```json
+          {
+            "id": 1,
+            "start": "2023-01-01T00:00:00.000Z",
+            "end": "2023-01-01T00:00:00.000Z",
+            "songs": [
+              {"id": 1, "title": "Song A"}
+            ],
+            "Vote": null
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error counting votes:",
+            "status": 500
+          }
+          ```
+
+##### `user.service.spec.ts`
+
+- **UserService -> should be defined**: Ellenőrzi, hogy a `UserService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **module**:
+          ```json
+          {
+            "providers": [
+              "UserService",
+              {
+                "provide": "PrismaConfigService",
+                "useValue": {
+                  "user": {
+                    "findUnique": "jest.fn()",
+                    "findMany": "jest.fn",
+                    "findFirstOrThrow": "jest.fn()",
+                    "update": "jest.fn()"
+                  }
+                }
+              }
+            ]
+          }
+          ```
+    - **Return value**:
+        - **service**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **UserService -> getRealNameById -> should return real name when user is found**: Ellenőrzi, hogy a `getRealNameById` metódus visszaadja-e a felhasználó valódi nevét, ha a felhasználó megtalálható.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUser**:
+          ```json
+          {
+            "kreta": {
+              "name": "John Doe"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "realName": "John Doe"
+          }
+          ```
+
+- **UserService -> getRealNameById -> should throw an error when userId is missing**: Ellenőrzi, hogy a `getRealNameById` metódus hibát dob-e, ha a felhasználói azonosító hiányzik.
+    - **Mocked input data**:
+        - **requestUserWithoutId**:
+          ```json
+          {
+            "token": {
+              "username": "testUser"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Missing userId",
+            "status": 400
+          }
+          ```
+
+- **UserService -> getRealNameById -> should throw an error when no user is found**: Ellenőrzi, hogy a `getRealNameById` metódus hibát dob-e, ha a felhasználó nem található.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No real name found by this user's OM",
+            "status": 204
+          }
+          ```
+
+- **UserService -> getRealNameById -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `getRealNameById` metódus hibát dob-e, ha belső hiba történik.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching real name of user: Database error",
+            "status": 500
+          }
+          ```
+
+- **UserService -> getAll -> should return all users**: Ellenőrzi, hogy a `getAll` metódus visszaadja-e az összes felhasználót.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUsers**:
+          ```json
+          [
+            {
+              "id": "1",
+              "username": "user1",
+              "email": "user1@example.com",
+              "roles": [
+                {
+                  "role": "admin"
+                }
+              ],
+              "kreta": {
+                "name": "User One",
+                "om": "12345"
+              }
+            },
+            {
+              "id": "2",
+              "username": "user2",
+              "email": "user2@example.com",
+              "roles": [
+                {
+                  "role": "user"
+                }
+              ],
+              "kreta": {
+                "name": "User Two",
+                "om": "67890"
+              }
+            }
+          ]
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          [
+            {
+              "id": "1",
+              "username": "user1",
+              "email": "user1@example.com",
+              "role": "admin",
+              "kreta": {
+                "name": "User One",
+                "om": "12345"
+              }
+            },
+            {
+              "id": "2",
+              "username": "user2",
+              "email": "user2@example.com",
+              "role": "user",
+              "kreta": {
+                "name": "User Two",
+                "om": "67890"
+              }
+            }
+          ]
+          ```
+
+- **UserService -> getAll -> should throw an error when no users are found**: Ellenőrzi, hogy a `getAll` metódus hibát dob-e, ha nem találhatóak felhasználók.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No users found",
+            "status": 204
+          }
+          ```
+
+- **UserService -> getAll -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `getAll` metódus hibát dob-e, ha belső hiba történik.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching all users: Database error",
+            "status": 500
+          }
+          ```
+
+- **UserService -> updateUserPassword -> should update user password**: Ellenőrzi, hogy a `updateUserPassword` metódus frissíti-e a felhasználó jelszavát.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdatePassDto**:
+          ```json
+          {
+            "userId": "123",
+            "password": "newPassword123"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Password updated for user: testUser"
+          }
+          ```
+
+- **UserService -> updateUserPassword -> should throw an error when user is not found**: Ellenőrzi, hogy a `updateUserPassword` metódus hibát dob-e, ha a felhasználó nem található.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdatePassDto**:
+          ```json
+          {
+            "userId": "123",
+            "password": "newPassword123"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "User not found: User not found",
+            "status": 500
+          }
+          ```
+
+- **UserService -> updateUserPassword -> should throw an error when an internal error while finding user**: Ellenőrzi, hogy a `updateUserPassword` metódus hibát dob-e, ha belső hiba történik a felhasználó keresése közben.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdatePassDto**:
+          ```json
+          {
+            "userId": "123",
+            "password": "newPassword123"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "User not found: Database error",
+            "status": 500
+          }
+          ```
+
+- **UserService -> updateUserRole -> should update user role**: Ellenőrzi, hogy a `updateUserRole` metódus frissíti-e a felhasználó szerepkörét.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdateRoleDto**:
+          ```json
+          {
+            "userId": "123",
+            "role": "Admin"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Role updated for user: testUser"
+          }
+          ```
+
+- **UserService -> updateUserRole -> should throw an error when user is not found**: Ellenőrzi, hogy a `updateUserRole` metódus hibát dob-e, ha a felhasználó nem található.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdateRoleDto**:
+          ```json
+          {
+            "userId": "123",
+            "role": "Admin"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "User not found: User not found",
+            "status": 500
+          }
+          ```
+
+- **UserService -> updateUserRole -> should throw an error when an internal error while finding user**: Ellenőrzi, hogy a `updateUserRole` metódus hibát dob-e, ha belső hiba történik a felhasználó keresése közben.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockUpdateRoleDto**:
+          ```json
+          {
+            "userId": "123",
+            "role": "Admin"
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "User not found: Database error",
+            "status": 500
+          }
+          ```
+
+##### `view.service.spec.ts`
+
+- **ViewService -> should be defined**: Ellenőrzi, hogy a `ViewService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockPrismaService**:
+          ```json
+          {
+            "votingSession": {
+              "findFirst": "jest.fn()"
+            },
+            "pendingSong": {
+              "findMany": "jest.fn()"
+            }
+          }
+          ```
+    - **Return value**:
+        - **service**:
+          ```json
+          {
+            "defined": true
+          }
+          ```
+
+- **ViewService -> getSummaryOfVotesInSessionData -> should return summary of votes in session**: Ellenőrzi, hogy a `getSummaryOfVotesInSessionData` metódus visszaadja-e a szavazatok összegzését a szekcióban.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "mockedSessionId",
+            "songs": [
+              { "id": "song1", "title": "Song 1" },
+              { "id": "song2", "title": "Song 2" }
+            ],
+            "Vote": [
+              { "songId": "song1" },
+              { "songId": "song1" },
+              { "songId": "song2" }
+            ]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "sessionId": "mockedSessionId",
+            "songs": [
+              { "songId": "song1", "songTitle": "Song 1", "voteCount": 2 },
+              { "songId": "song2", "songTitle": "Song 2", "voteCount": 1 }
+            ]
+          }
+          ```
+
+- **ViewService -> getSummaryOfVotesInSessionData -> should throw error if no active voting session is found**: Ellenőrzi, hogy a `getSummaryOfVotesInSessionData` metódus hibát dob-e, ha nincs aktív szavazási szekció.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No active voting session found"
+          }
+          ```
+
+- **ViewService -> getPendingSongsData -> should return pending songs data**: Ellenőrzi, hogy a `getPendingSongsData` metódus visszaadja-e a függőben lévő dalokat.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+        - **mockPendingSongs**:
+          ```json
+          [
+            { "id": "song1", "title": "Song 1" },
+            { "id": "song2", "title": "Song 2" }
+          ]
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "pendingSongs": [
+              { "id": "song1", "title": "Song 1" },
+              { "id": "song2", "title": "Song 2" }
+            ]
+          }
+          ```
+
+- **ViewService -> getPendingSongsData -> should throw error if no pending songs are found**: Ellenőrzi, hogy a `getPendingSongsData` metódus hibát dob-e, ha nem találhatóak függőben lévő dalok.
+    - **Mocked input data**:
+        - **mockRequest**:
+          ```json
+          {
+            "token": {
+              "sub": "mockedId",
+              "username": "mockedUser",
+              "roles": ["Admin"],
+              "hashedPassword": "mocked-password"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No pending songs found"
+          }
+          ```
+
+##### `votes.service.spec.ts`
+
+- **VotesService -> should be defined**: Ellenőrzi, hogy a `VotesService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {}
+          ```
+
+- **VotesService -> getSummaryOfVotesInSession -> should return summary of votes in session**: Ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus visszaadja-e a szavazatok összegzését a szekcióban. A `prisma.votingSession.findFirst` metódust mockolja, hogy egy szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.getSummaryOfVotesInSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "sessionId": "1",
+            "songs": []
+          }
+          ```
+
+- **VotesService -> getSummaryOfVotesInSession -> should throw an error when no active voting session is found**: Ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus hibát dob-e, ha nincs aktív szavazási szekció. A `prisma.votingSession.findFirst` metódust mockolja, hogy null értéket adjon vissza, és ellenőrzi, hogy a `service.getSummaryOfVotesInSession` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No active voting session found",
+            "status": 404
+          }
+          ```
+
+- **VotesService -> getSummaryOfVotesInSession -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `getSummaryOfVotesInSession` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findFirst` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.getSummaryOfVotesInSession` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching currently running voting session: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotesService -> getVotedSongsByUserId -> should return voted songs by user id**: Ellenőrzi, hogy a `getVotedSongsByUserId` metódus visszaadja-e a felhasználó által szavazott dalokat. A `prisma.votingSession.findFirst` és `prisma.vote.findMany` metódusokat mockolja, hogy egy szavazási szekciót és szavazatokat adjon vissza, és ellenőrzi, hogy a `service.getVotedSongsByUserId` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+        - **mockVotes**:
+          ```json
+          [
+            { "songId": "1" },
+            { "songId": "2" }
+          ]
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          ["1", "2"]
+          ```
+
+- **VotesService -> getVotedSongsByUserId -> should throw an error when no votes are found**: Ellenőrzi, hogy a `getVotedSongsByUserId` metódus hibát dob-e, ha nem találhatóak szavazatok. A `prisma.vote.findMany` metódust mockolja, hogy üres listát adjon vissza, és ellenőrzi, hogy a `service.getVotedSongsByUserId` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No active voting session found",
+            "status": 404
+          }
+          ```
+
+- **VotesService -> getVotedSongsByUserId -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `getVotedSongsByUserId` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findFirst` és `prisma.vote.findMany` metódusokat mockolja, hogy egy szavazási szekciót és hibát dobjon, és ellenőrzi, hogy a `service.getVotedSongsByUserId` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching votes: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotesService -> voteUp -> should create a vote for a song**: Ellenőrzi, hogy a `voteUp` metódus létrehoz-e egy szavazatot egy dalra. A `prisma.votingSession.findFirst`, `prisma.vote.findFirst`, és `prisma.vote.create` metódusokat mockolja, hogy egy szavazási szekciót és szavazatot adjon vissza, és ellenőrzi, hogy a `service.voteUp` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Vote successfully created for song: 1"
+          }
+          ```
+
+- **VotesService -> voteUp -> should throw an error when user already voted for the song**: Ellenőrzi, hogy a `voteUp` metódus hibát dob-e, ha a felhasználó már szavazott a dalra. A `prisma.votingSession.findFirst` és `prisma.vote.findFirst` metódusokat mockolja, hogy egy szavazási szekciót és szavazatot adjon vissza, és ellenőrzi, hogy a `service.voteUp` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "User already voted for song: 1",
+            "status": 400
+          }
+          ```
+
+- **VotesService -> voteUp -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `voteUp` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findFirst`, `prisma.vote.findFirst`, és `prisma.vote.create` metódusokat mockolja, hogy egy szavazási szekciót és hibát dobjon, és ellenőrzi, hogy a `service.voteUp` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error creating vote: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotesService -> voteDown -> should delete a vote for a song**: Ellenőrzi, hogy a `voteDown` metódus töröl-e egy szavazatot egy dalra. A `prisma.votingSession.findFirst`, `prisma.vote.findFirst`, és `prisma.vote.delete` metódusokat mockolja, hogy egy szavazási szekciót és szavazatot adjon vissza, és ellenőrzi, hogy a `service.voteDown` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Sucessfully deleted vote for song: 1"
+          }
+          ```
+
+- **VotesService -> voteDown -> should throw an error when no existing vote is found**: Ellenőrzi, hogy a `voteDown` metódus hibát dob-e, ha nem található meglévő szavazat. A `prisma.votingSession.findFirst` és `prisma.vote.findFirst` metódusokat mockolja, hogy egy szavazási szekciót és null értéket adjon vissza, és ellenőrzi, hogy a `service.voteDown` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No existing vote found",
+            "status": 404
+          }
+          ```
+
+- **VotesService -> voteDown -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `voteDown` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findFirst`, `prisma.vote.findFirst`, és `prisma.vote.delete` metódusokat mockolja, hogy egy szavazási szekciót és hibát dobjon, és ellenőrzi, hogy a `service.voteDown` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+        - **mockVotingSession**:
+          ```json
+          {
+            "id": "1",
+            "start": "2022-11-30T00:00:00.000Z",
+            "end": "2024-11-30T00:00:00.000Z",
+            "songs": [],
+            "Vote": []
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error deleting vote for vote down: Database error",
+            "status": 500
+          }
+          ```
+
+##### `voting.sessions.service.spec.ts`
+
+- **VotingSessionService -> should be defined**: Ellenőrzi, hogy a `VotingSessionService` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {}
+          ```
+
+- **VotingSessionService -> getAllSessions -> should return all sessions**: Ellenőrzi, hogy a `getAllSessions` metódus visszaadja-e az összes szavazási szekciót. A `prisma.votingSession.findMany` metódust mockolja, hogy egy szavazási szekció listát adjon vissza, és ellenőrzi, hogy a `service.getAllSessions` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          [
+            {
+              "id": "1",
+              "start": "2020-01-01",
+              "end": "2021-01-01",
+              "songs": [],
+              "Vote": []
+            }
+          ]
+          ```
+
+- **VotingSessionService -> getAllSessions -> should throw an error when no sessions are found**: Ellenőrzi, hogy a `getAllSessions` metódus hibát dob-e, ha nem találhatóak szavazási szekciók. A `prisma.votingSession.findMany` metódust mockolja, hogy üres listát adjon vissza, és ellenőrzi, hogy a `service.getAllSessions` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "No sessions found",
+            "status": 404
+          }
+          ```
+
+- **VotingSessionService -> getAllSessions -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `getAllSessions` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findMany` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `service.getAllSessions` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error fetching sessions: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotingSessionService -> createSession -> should create a new session**: Ellenőrzi, hogy a `createSession` metódus létrehoz-e egy új szavazási szekciót. A `prisma.song.findMany`, `prisma.votingSession.findFirst`, és `prisma.votingSession.create` metódusokat mockolja, hogy dalokat és szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.createSession` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Successfully created new session: {\"id\":\"1\",\"start\":\"2020-01-01\",\"end\":\"2021-01-01\",\"songs\":[],\"Vote\":[]}"
+          }
+          ```
+
+- **VotingSessionService -> createSession -> should throw an error when start time is later than end time**: Ellenőrzi, hogy a `createSession` metódus hibát dob-e, ha a kezdési idő későbbi, mint a befejezési idő. A `service.createSession` metódust hívja meg egy érvénytelen időtartammal, és ellenőrzi, hogy a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **invalidSessionDto**:
+          ```json
+          {
+            "start": "2022-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "The start time cannot be later than the end time",
+            "status": 400
+          }
+          ```
+
+- **VotingSessionService -> createSession -> should throw an error when overlapping session is found**: Ellenőrzi, hogy a `createSession` metódus hibát dob-e, ha átfedő szavazási szekció található. A `prisma.votingSession.findFirst` metódust mockolja, hogy egy meglévő szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.createSession` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "The duration of the voting session overlaps with an existing voting session",
+            "status": 409
+          }
+          ```
+
+- **VotingSessionService -> createSession -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `createSession` metódus hibát dob-e, ha belső hiba történik. A `prisma.song.findMany`, `prisma.votingSession.findFirst`, és `prisma.votingSession.create` metódusokat mockolja, hogy dalokat és hibát dobjon, és ellenőrzi, hogy a `service.createSession` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error creating voting session: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotingSessionService -> updateSessionById -> should update a session by id**: Ellenőrzi, hogy a `updateSessionById` metódus frissíti-e a szavazási szekciót azonosító alapján. A `prisma.votingSession.findFirst`, `prisma.song.findMany`, és `prisma.votingSession.update` metódusokat mockolja, hogy dalokat és szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.updateSessionById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Successfully updated session: {\"id\":\"1\",\"start\":\"2020-01-01\",\"end\":\"2021-01-01\",\"songs\":[],\"Vote\":[]}"
+          }
+          ```
+
+- **VotingSessionService -> updateSessionById -> should throw an error when start time is later than end time**: Ellenőrzi, hogy a `updateSessionById` metódus hibát dob-e, ha a kezdési idő későbbi, mint a befejezési idő. A `service.updateSessionById` metódust hívja meg egy érvénytelen időtartammal, és ellenőrzi, hogy a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **invalidSessionDto**:
+          ```json
+          {
+            "start": "2022-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "The start time cannot be later than the end time",
+            "status": 400
+          }
+          ```
+
+- **VotingSessionService -> updateSessionById -> should throw an error when overlapping session is found**: Ellenőrzi, hogy a `updateSessionById` metódus hibát dob-e, ha átfedő szavazási szekció található. A `prisma.votingSession.findFirst` metódust mockolja, hogy egy meglévő szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.updateSessionById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "The duration of the voting session overlaps with an existing voting session",
+            "status": 409
+          }
+          ```
+
+- **VotingSessionService -> updateSessionById -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `updateSessionById` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findFirst`, `prisma.song.findMany`, és `prisma.votingSession.update` metódusokat mockolja, hogy dalokat és hibát dobjon, és ellenőrzi, hogy a `service.updateSessionById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockSessionDto**:
+          ```json
+          {
+            "start": "2020-01-01",
+            "end": "2021-01-01",
+            "songIds": ["1", "2"]
+          }
+          ```
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error updating voting session: Database error",
+            "status": 500
+          }
+          ```
+
+- **VotingSessionService -> deleteSessionById -> should delete a session by id**: Ellenőrzi, hogy a `deleteSessionById` metódus törli-e a szavazási szekciót azonosító alapján. A `prisma.votingSession.findUnique` és `prisma.votingSession.delete` metódusokat mockolja, hogy egy szavazási szekciót adjon vissza, és ellenőrzi, hogy a `service.deleteSessionById` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {
+            "message": "Successfully deleted session: 1"
+          }
+          ```
+
+- **VotingSessionService -> deleteSessionById -> should throw an error when session is not found**: Ellenőrzi, hogy a `deleteSessionById` metódus hibát dob-e, ha a szavazási szekció nem található. A `prisma.votingSession.findUnique` metódust mockolja, hogy null értéket adjon vissza, és ellenőrzi, hogy a `service.deleteSessionById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Voting session not found",
+            "status": 404
+          }
+          ```
+
+- **VotingSessionService -> deleteSessionById -> should throw an error when an internal error occurs**: Ellenőrzi, hogy a `deleteSessionById` metódus hibát dob-e, ha belső hiba történik. A `prisma.votingSession.findUnique` és `prisma.votingSession.delete` metódusokat mockolja, hogy egy szavazási szekciót és hibát dobjon, és ellenőrzi, hogy a `service.deleteSessionById` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **mockRequestUser**:
+          ```json
+          {
+            "token": {
+              "username": "testUser",
+              "sub": "123"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "message": "Error deleting voting session: Database error",
+            "status": 500
+          }
+          ```
+
+#### Pipe Tesztelés
+
+##### `audio.length.validation.pipe.service.spec.ts`
+
+- **AudioLengthValidatorPipe -> should be defined**: Ellenőrzi, hogy az `AudioLengthValidatorPipe` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **mockMetadataParser**:
+          ```json
+          {
+            "parseFile": {}
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {}
+          ```
+
+- **AudioLengthValidatorPipe -> should return true if file duration is within limit**: Ellenőrzi, hogy az `isValid` metódus igaz értéket ad-e vissza, ha a fájl hossza a megadott határon belül van. A `mockMetadataParser.parseFile` metódust mockolja, hogy egy 8 másodperces fájl hosszt adjon vissza, és ellenőrzi, hogy a `pipe.isValid` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **file**:
+          ```json
+          {
+            "originalname": "test.mp3",
+            "path": "/path/to/file.mp3"
+          }
+          ```
+        - **mockMetadataParser**:
+          ```json
+          {
+            "parseFile": {
+              "format": {
+                "duration": 8
+              }
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          true
+          ```
+
+- **AudioLengthValidatorPipe -> should return false if file duration exceeds limit**: Ellenőrzi, hogy az `isValid` metódus hamis értéket ad-e vissza, ha a fájl hossza meghaladja a megadott határt. A `mockMetadataParser.parseFile` metódust mockolja, hogy egy 20 másodperces fájl hosszt adjon vissza, és ellenőrzi, hogy a `pipe.isValid` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **file**:
+          ```json
+          {
+            "originalname": "test.mp3",
+            "path": "/path/to/file.mp3"
+          }
+          ```
+        - **mockMetadataParser**:
+          ```json
+          {
+            "parseFile": {
+              "format": {
+                "duration": 20
+              }
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          false
+          ```
+
+- **AudioLengthValidatorPipe -> should return false if file has no path**: Ellenőrzi, hogy az `isValid` metódus hamis értéket ad-e vissza, ha a fájlnak nincs elérési útja. A `pipe.isValid` metódust hívja meg egy elérési út nélküli fájllal, és ellenőrzi, hogy a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **file**:
+          ```json
+          {
+            "originalname": "test.mp3"
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          false
+          ```
+
+- **AudioLengthValidatorPipe -> should return false if an error occurs during parsing**: Ellenőrzi, hogy az `isValid` metódus hamis értéket ad-e vissza, ha hiba történik a fájl elemzése során. A `mockMetadataParser.parseFile` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy a `pipe.isValid` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **file**:
+          ```json
+          {
+            "originalname": "test.mp3",
+            "path": "/path/to/file.mp3"
+          }
+          ```
+        - **mockMetadataParser**:
+          ```json
+          {
+            "parseFile": {
+              "error": "Parsing error"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          false
+          ```
+
+- **AudioLengthValidatorPipe -> should return proper error message**: Ellenőrzi, hogy a `buildErrorMessage` metódus a megfelelő hibaüzenetet adja-e vissza. A `pipe.buildErrorMessage` metódust hívja meg egy fájllal, és ellenőrzi, hogy a várt hibaüzenetet adja-e vissza.
+    - **Mocked input data**:
+        - **file**:
+          ```json
+          {
+            "originalname": "test.mp3"
+          }
+          ```
+    - **Return value**:
+        - **errorMessage**:
+          ```json
+          "The audio file test.mp3 exceeds the maximum allowed length of 15 seconds."
+          ```
+
+#### Guard Tesztelés
+
+##### `auth.guard.spec.ts`
+
+- **AuthGuard -> should be defined**: Ellenőrzi, hogy az `AuthGuard` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **jwtService**:
+          ```json
+          {}
+          ```
+        - **reflector**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {}
+          ```
+
+- **AuthGuard -> should allow access to public endpoints**: Ellenőrzi, hogy az `AuthGuard` hozzáférést enged-e a nyilvános végpontokhoz. A `reflector.getAllAndOverride` metódust mockolja, hogy igaz értéket adjon vissza, és ellenőrzi, hogy az `authGuard.canActivate` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "cookies": {}
+              }
+            },
+            "getHandler": {},
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": true
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          true
+          ```
+
+- **AuthGuard -> should throw UnauthorizedException if token is missing**: Ellenőrzi, hogy az `AuthGuard` `UnauthorizedException` hibát dob-e, ha a token hiányzik. A `reflector.getAllAndOverride` metódust mockolja, hogy hamis értéket adjon vissza, és ellenőrzi, hogy az `authGuard.canActivate` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "cookies": {}
+              }
+            },
+            "getHandler": {},
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": false
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "name": "UnauthorizedException"
+          }
+          ```
+
+- **AuthGuard -> should throw HttpException if token is invalid**: Ellenőrzi, hogy az `AuthGuard` `HttpException` hibát dob-e, ha a token érvénytelen. A `reflector.getAllAndOverride` metódust mockolja, hogy hamis értéket adjon vissza, és a `jwtService.verifyAsync` metódust mockolja, hogy hibát dobjon, és ellenőrzi, hogy az `authGuard.canActivate` metódus a várt hibát dobja-e.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "cookies": {
+                  "token": "invalid-token"
+                }
+              }
+            },
+            "getHandler": {},
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": false
+          }
+          ```
+        - **jwtService**:
+          ```json
+          {
+            "verifyAsync": {
+              "error": "Invalid token"
+            }
+          }
+          ```
+    - **Return value**:
+        - **error**:
+          ```json
+          {
+            "name": "HttpException"
+          }
+          ```
+
+- **AuthGuard -> should allow access if token is valid**: Ellenőrzi, hogy az `AuthGuard` hozzáférést enged-e, ha a token érvényes. A `reflector.getAllAndOverride` metódust mockolja, hogy hamis értéket adjon vissza, és a `jwtService.verifyAsync` metódust mockolja, hogy egy felhasználói adatot adjon vissza, és ellenőrzi, hogy az `authGuard.canActivate` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "cookies": {
+                  "token": "valid-token"
+                },
+                "token": {}
+              }
+            },
+            "getHandler": {},
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": false
+          }
+          ```
+        - **jwtService**:
+          ```json
+          {
+            "verifyAsync": {
+              "username": "testuser"
+            }
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          true
+          ```
+
+##### `role.guard.spec.ts`
+
+- **RolesGuard -> should be defined**: Ellenőrzi, hogy a `RolesGuard` megfelelően definiálva van-e és példányosítva van-e a teszt modulban.
+    - **Mocked input data**:
+        - **reflector**:
+          ```json
+          {}
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          {}
+          ```
+
+- **RolesGuard -> should allow access if no roles are required**: Ellenőrzi, hogy a `RolesGuard` hozzáférést enged-e, ha nincs szükség szerepkörökre. A `reflector.getAllAndOverride` metódust mockolja, hogy undefined értéket adjon vissza, és ellenőrzi, hogy a `rolesGuard.canActivate` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "token": {
+                  "roles": []
+                }
+              }
+            },
+            "getHandler": {
+              "name": "Handler"
+            },
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": null
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          true
+          ```
+
+- **RolesGuard -> should allow access if user has required roles**: Ellenőrzi, hogy a `RolesGuard` hozzáférést enged-e, ha a felhasználónak megvannak a szükséges szerepkörök. A `reflector.getAllAndOverride` metódust mockolja, hogy az `Admin` szerepkört adja vissza, és ellenőrzi, hogy a `rolesGuard.canActivate` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "token": {
+                  "roles": ["Admin"]
+                }
+              }
+            },
+            "getHandler": {
+              "name": "Handler"
+            },
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": ["Admin"]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          true
+          ```
+
+- **RolesGuard -> should deny access if user does not have required roles**: Ellenőrzi, hogy a `RolesGuard` megtagadja-e a hozzáférést, ha a felhasználónak nincsenek meg a szükséges szerepkörök. A `reflector.getAllAndOverride` metódust mockolja, hogy az `Admin` szerepkört adja vissza, és ellenőrzi, hogy a `rolesGuard.canActivate` metódus a várt eredményt adja-e vissza.
+    - **Mocked input data**:
+        - **context**:
+          ```json
+          {
+            "switchToHttp": {
+              "getRequest": {
+                "token": {
+                  "roles": ["User"]
+                }
+              }
+            },
+            "getHandler": {
+              "name": "Handler"
+            },
+            "getClass": {}
+          }
+          ```
+        - **reflector**:
+          ```json
+          {
+            "getAllAndOverride": ["Admin"]
+          }
+          ```
+    - **Return value**:
+        - **result**:
+          ```json
+          false
+          ```
+
 # Adatbázis
 A PostgreSQL-t választottuk más adatbázisok, mint például a MySQL helyett számos előnye miatt. Először is, a PostgreSQL egy rendkívül robusztus és megbízható adatbázis-kezelő rendszer, amely hosszú évek óta bizonyítja megbízhatóságát és stabilitását. Az ACID (Atomicity, Consistency, Isolation, Durability) tulajdonságok támogatása garantálja az adatok integritását és konzisztenciáját.
 
