@@ -55,10 +55,22 @@ if %ERRORLEVEL% NEQ 0 (
   exit
 )
 
+psql -U %PGUSER% -d %PGDATABASE% -c "DROP DATABASE IF EXISTS csengo WITH (FORCE);"
 psql -U %PGUSER% -d %PGDATABASE% -f assets\initdb_bat_local.sql
 
 echo Done setting up the database.
 endlocal
+
+:: echo Starting the client...
+:: cd "./csengo-ts-client-v2"
+:: echo Setting up .env file...
+:: copy .env.example .env
+:: echo Installing dependencies...
+:: call npm install
+:: echo Starting the client in dev mode...
+:: npm run dev
+
+start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
 
 :: echo Starting the server...
 :: cd "./csengo-ts-server-v2"
@@ -73,21 +85,17 @@ endlocal
 
 start cmd /k "echo Starting the server... & cd /d \"./csengo-ts-server-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Migrating prisma schema... & call npm run prisma:update:prod & echo Starting the server... & npm run start:dev"
 
-:: echo Starting the client...
-:: cd "./csengo-ts-client-v2"
-:: echo Setting up .env file...
-:: copy .env.example .env
-:: echo Installing dependencies...
-:: call npm install
-:: echo Starting the client in dev mode...
-:: npm run dev
-
-start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
-
 echo The website will be available at http://localhost:3000
 echo Swagger UI will be available at http://localhost:3300/swagger
 echo The API will be available at http://localhost:3300
 
-echo You can safely close this window now.
+echo Waiting 20 seconds for the application to start...
 
+timeout /t 20 >nul
+echo Opening the website and Swagger UI in the default browser...
+start http://localhost:3300/swagger
+timeout /t 1 >nul
+start http://localhost:3000
+
+echo You can safely close this window now.
 pause

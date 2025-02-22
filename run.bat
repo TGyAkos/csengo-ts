@@ -36,12 +36,11 @@ if %ERRORLEVEL% EQU 0 (
 :: )
 
 
-echo Docker Desktop is not yet running, waiting...
 :wait_for_docker_after_install
-timeout /t 5 >nul
-docker version >nul 2>&1
+docker ps >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
   echo Docker Desktop is not yet running, waiting...
+  timeout /t 5 >nul
   goto wait_for_docker_after_install
 )
 echo Docker Desktop started.
@@ -55,6 +54,13 @@ echo The website is available at http://localhost:8080
 echo Swagger UI is available at http://localhost:3300/swagger
 echo The API is available at http://localhost:3300
 
-echo You can safely close this window now.
+echo Waiting 5 seconds for the website and Swagger UI to start...
 
+timeout /t 5 >nul
+echo Opening the website and Swagger UI in the default browser...
+start http://localhost:3300/swagger
+timeout /t 1 >nul
+start http://localhost:8080
+
+echo You can safely close this window now.
 pause

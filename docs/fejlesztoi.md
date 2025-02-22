@@ -344,6 +344,10 @@ Az alábbi képeken láthatóak a Postgres telepítő ablakai, amelyeket a fenti
 ![ready-page](./fejlesztoikepek/postgres-install-9-ready.png)  
 ![last-page](./fejlesztoikepek/postgres-install-10-last-page.png)  
 
+Miután a Postgres telepítése sikeresen befejeződött, a `run_dev.bat` fájl automatikusan elindítja a szerver és a kliens alkalmazást.
+
+Az alkalmazás fejlesztése/tesztelése után, a `run_clean.bat` fájl segítségével törölheti PostgreSQL alkalmazást és az adatbázist. Ehhez kövesse a Batch fájl futtatásakor látható utasításokat.
+
 
 
 ## Strukturális felépítés
