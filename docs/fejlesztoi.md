@@ -4754,3 +4754,14 @@ A `Vote` mező kapcsolódik a `Vote` táblához, jelezve, hogy minden szavazási
 A `Role` tábla a felhasználói szerepeket tárolja. Minden szerep egyedi, és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. A `role` mező egy egyedi szöveges érték, amely magát a szerepkört jelöli.
 
 A `users` mező kapcsolódik a `User` táblához, jelezve, hogy minden szerephez tartozhatnak felhasználók.
+
+## Kapcsolótáblák
+
+### _SongToVotingSession tábla
+A `_SongToVotingSession` tábla a `Song` és a `VotingSession` táblák közötti kapcsolatot reprezentálja. Minden rekord egyedi és az `A` és `B` mezőkkel van azonosítva, amelyek UUID-ként vannak megadva. Az `A` mező a `Song` tábla azonosítóját, míg a `B` mező a `VotingSession` tábla azonosítóját tárolja. Ez a tábla biztosítja, hogy egy dal több szavazási üléshez is kapcsolódhasson, és egy szavazási ülés több dalt is tartalmazhasson.
+
+### _RoleToUser tábla
+A `_RoleToUser` tábla a `Role` és a `User` táblák közötti kapcsolatot reprezentálja. Minden rekord egyedi és az `A` és `B` mezőkkel van azonosítva, amelyek UUID-ként vannak megadva. Az `A` mező a `Role` tábla azonosítóját, míg a `B` mező a `User` tábla azonosítóját tárolja. Ez a tábla biztosítja, hogy egy felhasználó több szerepkörrel is rendelkezhet, és egy szerepkör több felhasználóhoz is kapcsolódhat.
+
+### _prisma_migrations tábla
+A `_prisma_migrations` tábla a Prisma migrációkat tárolja. Minden rekord egyedi és az `id` mezővel van azonosítva, amely egy varchar típusú érték. A `checksum` mező a migráció ellenőrző összegét tárolja, míg a `finished_at`, `rolled_back_at`, és `started_at` mezők időbélyegek, amelyek rögzítik, hogy mikor fejeződött be, mikor lett visszavonva, és mikor kezdődött el a migráció. A `migration_name` mező a migráció nevét tárolja, a `logs` mező pedig a migráció naplóit tartalmazza. Az `applied_steps_count` mező egy egész szám, amely a végrehajtott lépések számát tárolja.
