@@ -170,7 +170,7 @@ Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgál
 
 Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
 
-### Elindítás Docker segítsége nélkül:
+### Elindítás Docker segítsége nélkül
 
 #### Futtatási szoftver követelmények
 
