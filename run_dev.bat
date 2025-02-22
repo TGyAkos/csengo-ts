@@ -70,7 +70,7 @@ endlocal
 :: echo Starting the client in dev mode...
 :: npm run dev
 
-start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
+start cmd /k "echo Starting the client... & cd ./csengo-ts-client-v2 & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Starting the client in dev mode... & npm run dev"
 
 :: echo Starting the server...
 :: cd "./csengo-ts-server-v2"
@@ -83,7 +83,7 @@ start cmd /k "echo Starting the client... & cd /d \"./csengo-ts-client-v2\" & ec
 :: echo Starting the server...
 :: npm run start:dev
 
-start cmd /k "echo Starting the server... & cd /d \"./csengo-ts-server-v2\" & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Migrating prisma schema... & call npm run prisma:update:prod & echo Starting the server... & npm run start:dev"
+start cmd /k "echo Starting the server... & cd ./csengo-ts-server-v2 & echo Setting up .env file... & copy .env.example .env & echo Installing dependencies... & call npm install & echo Migrating prisma schema... & call npm run prisma:update:prod & echo Starting the server... & npm run start:dev"
 
 echo The website will be available at http://localhost:3000
 echo Swagger UI will be available at http://localhost:3300/swagger
