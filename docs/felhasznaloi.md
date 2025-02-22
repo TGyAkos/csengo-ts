@@ -126,10 +126,6 @@ Bármely más szoftver verzió használatával a Pollák Csengő alkalmazás fut
 
 ## Letöltés, Telepítés és Elindítás
 
-### Futtatási szoftver követelmények
-
-- **Docker Desktop**
-
 ### Letöltés
 
 A Pollák Csengő webalkalmazás letölthető a GitHub repository-ból a következő linken: [Pollák Csengő GitHub Repository](https://github.com/Pollak-Projects/csengo-mono)
@@ -147,6 +143,10 @@ git clone https://github.com/Pollak-Projects/csengo-mono.git
 ```
 
 ### Elindítás Docker segítségével
+
+#### Futtatási szoftver követelmények
+
+- **Docker Desktop**
 
 Windows-on, telepítse a `Docker Desktop` alkalmazást, majd indítsa el azt.
 
@@ -170,7 +170,13 @@ Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgál
 
 Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
 
-####  Elindítás Docker segítsége nélkül:
+### Elindítás Docker segítsége nélkül:
+
+#### Futtatási szoftver követelmények
+
+- **Microsoft Windows 11 Pro 10.0.26100 Build 26100**
+- **Node.js v22.12.0**
+- **npm 11.0.0**
 
 > A `run_dev.bat` fájl, minden lefutásnál, vissza fogja állítani az adatbázist a `./assets/initdb_bat_local.sql` tartalmára, amennyiben ez nem kívánatos, futtassa manuálisan az alkalmazást, melynek lépéseit a fejlesztői dokumentációban találhatja.
 
