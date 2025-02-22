@@ -310,7 +310,7 @@ npm run dev
 
 ## Strukturális felépítés
 
-### Frontend
+### Frontend felépítése
 
 A Pollák Csengő frontend alkalmazásának metodológiája a következő: minden komponens egyedi felelősségű, és egyedi funkcionalitással rendelkezik. A komponensek egymásra épülnek, és a kisebb komponensek nagyobb komponensekbe vannak beágyazva. A komponensek egymással kommunikálnak a Pinia állapotkezelő segítségével, valamint egy egyedi event busz használatával, és a komponensek közötti navigáció a Vue Router segítségével történik. Minden lekérdezés egy Pinia store-ban történik, hogy a komponensek egyszerű és konzisztens állapotot tarthassanak. A komponensek a Vuetify keretrendszer segítségével vannak stilizálva, és a Vite build eszköz segítségével kerülnek összeállításra.
 A frontend strukturális felépítése a következő:
@@ -605,7 +605,7 @@ A frontend tesztelési folyamatok a következők:
 - **should display call to action when no session is active**: Ellenőrzi, hogy ha nincs aktív szavazási szekció, akkor megjelenik-e a cselekvési hívás.
 - **should display correct data when a session is active**: Ellenőrzi, hogy ha aktív szavazási szekció van, akkor helyesen jelenik-e meg az adat.
 
-### Backend
+### Backend felépítése
 
 A Pollák Csengő backend alkalmazásának metodológiája a következő: a backend alkalmazás moduláris felépítésű, a különböző funkciókat külön modulokba szervezi. A modulok egymással kommunikálnak a NestJS Dependency Injection segítségével, és a különböző modulok közötti navigáció a NestJS Router segítségével történik. Minden lekérdezés egy Prisma ORM segítségével történik, hogy a modulok egyszerű és konzisztens adatbázis hozzáférést tarthassanak. A modulok a NestJS keretrendszer segítségével vannak összeállítva és futtatva.
 
@@ -763,9 +763,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
 - *tsconfig.build.json*: A TypeScript build konfigurációs fájlja, amely meghatározza a build folyamat során használt beállításokat.
 - *tsconfig.json*: A TypeScript projekt alapértelmezett konfigurációs fájlja, amely meghatározza a fordító beállításait.
 
-#### Backend Tesztelés
-
-#### Controller Tesztelés
+#### Backend Controller Tesztelés
 
 ##### `app.controller.spec`
 
@@ -816,8 +814,6 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
             "success": true
           }
           ```
-          
-
 
 - **`deleteById`**: A `deleteById` teszteset ellenőrzi, hogy az adminisztrátor törölhet-e egy dalt azonosító alapján.
     - **Mocked input data**:
@@ -1670,7 +1666,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           }
           ```
 
-#### Service Tesztelés
+#### Backend Service Tesztelés
 
 ##### `app.service.spec.ts`
 
@@ -4300,7 +4296,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           }
           ```
 
-#### Pipe Tesztelés
+#### Backend Pipe Tesztelés
 
 ##### `audio.length.validation.pipe.service.spec.ts`
 
@@ -4419,7 +4415,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           "The audio file test.mp3 exceeds the maximum allowed length of 15 seconds."
           ```
 
-#### Guard Tesztelés
+#### Backend Guard Tesztelés
 
 ##### `auth.guard.spec.ts`
 
@@ -4705,7 +4701,7 @@ Az eredmény egy tiszta, jól szervezett adatbázis lett, amelyben minimális vo
 
 # Táblák
 
-### Kreta tábla
+## Kreta tábla
 A `Kreta` tábla egy olyan entitást reprezentál, amely felhasználókhoz kapcsolódik. Minden rekord egyedi és az `id` mezővel van azonosítva, amely egy alapértelmezettként generált UUID. Az `om` mező egy egyedi BigInt érték, amely valószínűleg jelentős azonosítóként szolgál minden Kreta entitás számára. A `name` mező a Kreta entitás nevét tárolja, legfeljebb 255 karakter hosszúságú szövegként.
 
 A `user` mező egy egy-egy lehetséges kapcsolatot alakít ki a `User` táblával, jelezve, hogy minden Kreta entitás egyetlen felhasználóhoz kapcsolható. A `createdAt` és `updatedAt` mezők időbélyegek, amelyek rögzítik, hogy mikor hozták létre és mikor frissítették utoljára a Kreta entitást. Ezek a mezők alapértelmezés szerint az aktuális időbélyeget kapják a létrehozás időpontjában.
