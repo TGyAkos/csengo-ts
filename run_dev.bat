@@ -40,7 +40,7 @@ echo Connecting to the PostgreSQL database...
 psql -U %PGUSER% -d %PGDATABASE% -f assets\initdb_bat_local.sql
 
 echo Done setting up the database.
-endlocalK
+endlocal
 
 :: echo Starting the server...
 :: cd "./csengo-ts-server-v2"
