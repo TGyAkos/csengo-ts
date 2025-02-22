@@ -168,12 +168,54 @@ docker-compose -f docker-compose.dev.v2.yml up -d
 
 Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgáltatásokkal, hálózatokkal és kötetekkel. A `-d` kapcsolóval a konténerek háttérben futnak, és a parancs végrehajtása után visszatér a parancssorhoz.
 
+Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
+
+####  Elindítás Docker segítsége nélkül:
+
+> A `run_dev.bat` fájl, minden lefutásnál, vissza fogja állítani az adatbázist a `./assets/initdb_bat_local.sql` tartalmára, amennyiben ez nem kívánatos, futtassa manuálisan az alkalmazást, melynek lépéseit a fejlesztői dokumentációban találhatja.
+
+1. Nyissa meg a `csengo-ts` mappát.
+2. Futtassa a `run_dev.bat` nevű batch file-t a szerver és a klines elindításához.
+
+3. Töltse ki az alábbi adatokkal a megjelenő Postgres telepítőt:
+  - Location: `C:\Program Files\PostgreSQL\16`
+  - Port: `5582`
+  - Password: `csengo`
+  - Locale: `Default locale`
+  - Az utolsó ablakban kapcsolja ki a `Stack Builder` opciót.
+
+Amennyiben a batch fájl nem tudja letölteni a Postgres telepítőt, a következő lépéseket kell követni:
+1. Erről a weboldalról töltse le a Postgres 16.8-as verzióját: [https://www.enterprisedb.com/downloads/postgres-postgresql-downloads](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+2. Nevezze át a letöltött fájlt `postgresql-16.8-1-windows-x64.exe`-re.
+3. Majd helyezze az átnevezett fájlt a `csengo-ts` mappába.
+4. Futtassa a `run_dev.bat` fájlt újra.
+
+Amennyiben a batch fálj nem tud csatlakozni az adatbázishoz, a következő lépéseket kell követni:
+1. Ha nem sikerült a Postgres telepítése, a `run_dev.bat` fájlal, telepítse azt manuális módon a `postgresql-16.8-1-windows-x64.exe` fájl segítségével, a fentebb lévő adatokkal.
+2. Nyissa meg a `pgAdmin 4` nevű alkalmazást, majd a már meglévő adatbázis kapcsolatra kattintva, nyisson egy `psql` konzolt, mely az imént telepített adatbázishoz kapcsolódik.
+3. Másolja be a `run_dev.bat` fájl által generált `csengo-ts/assets/initdb_bat_local.sql` fájl tartalmát a `psql` konzolba.
+
+
+Az alábbi képeken láthatóak a Postgres telepítő ablakai, amelyeket a fenti adatokkal kell kitölteni:  
+![first-page](./fejlesztoikepek/postgres-install-1-first-page.png)  
+![location-page](./fejlesztoikepek/postgres-install-2-location.png)  
+![components-page](./fejlesztoikepek/postgres-install-3-components.png)  
+![data-directory-page](./fejlesztoikepek/postgres-install-4-data-directory.png)  
+![password-page](./fejlesztoikepek/postgres-install-5-password.png)  
+![port-page](./fejlesztoikepek/postgres-install-6-port.png)  
+![locale-page](./fejlesztoikepek/postgres-install-7-locale.png)  
+![summary-page](./fejlesztoikepek/postgres-install-8-summary.png)  
+![ready-page](./fejlesztoikepek/postgres-install-9-ready.png)  
+![last-page](./fejlesztoikepek/postgres-install-10-last-page.png)
+
+Miután a Postgres telepítése sikeresen befejeződött, a `run_dev.bat` fájl automatikusan elindítja a szerver és a kliens alkalmazást.
+
+Az alkalmazás fejlesztése/tesztelése után, a `run_clean.bat` fájl segítségével törölheti PostgreSQL alkalmazást és az adatbázist. Ehhez kövesse a Batch fájl futtatásakor látható utasításokat.
+
 A Pollák Csengő alkalmazás futtatása után a következő URL-eken érhető el:
 - pgAdmin adatbázis kezelő: [http://localhost:8081](http://localhost:8081)
 - Csengő szerver: [http://localhost:3300](http://localhost:3300)
 - Csengő weboldal: [http://localhost:8080](http://localhost:8080)
-
-Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
 
 A következő felhasználói adatokkal tud belépni a Csengő weboldalra a tesztelés elvégzéséhez:
 - Admin jogosultságú felhasználó:
