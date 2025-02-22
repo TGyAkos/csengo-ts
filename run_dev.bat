@@ -1,4 +1,11 @@
 @echo off
+
+echo Replacing /data/audio with the current working directory + /assets/audio in initdb_bat_local.sql...
+set "current_dir=%cd%"
+set "search=/data/audio/"
+set "replace=%current_dir:/=\%\assets\audio\"
+powershell -Command "(Get-Content assets\initdb_bat.sql) -replace [regex]::Escape('%search%'), '%replace%' | Set-Content assets\initdb_bat_local.sql"
+
 set installer_url="https://sbp.enterprisedb.com/getfile.jsp?fileid=1259408"
 set installer_path="./postgresql-16.8-1-windows-x64.exe"
 set exe_name="postgresql-16.8-1-windows-x64.exe"
