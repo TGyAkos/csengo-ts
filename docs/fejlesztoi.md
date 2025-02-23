@@ -103,11 +103,11 @@ A Pollák Csengő alkalmazásban hasznosított technológiák és eszközök a k
 
 - **MDI icons**: A Material Design Icons (MDI) egy átfogó ikonkönyvtár, amely a Google Material Design irányelveit követve készült. Széles körű, kiváló minőségű ikonokat biztosít, amelyek könnyen integrálhatók a webalkalmazásokba. Más ikonkönyvtárakhoz, például a Font Awesome-hoz képest az MDI konzisztens és vizuálisan vonzóbb ikonokat kínál, amelyek megfelelnek a modern tervezési elveknek.
 
-### Docker Compose fájl dokumentáció
+## Docker Compose fájl dokumentáció
 
 Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatásához szükséges szolgáltatásokat, hálózatokat és köteteket. Az alábbiakban részletes magyarázat található a fájl minden soráról.
 
-#### Szolgáltatások
+### Szolgáltatások
 
 1. **csengo-v2-postgres**:
     - `container_name: csengo-v2-postgres`: Beállítja a konténer nevét `csengo-v2-postgres`-ra.
@@ -182,11 +182,11 @@ Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatá
     - `networks`: 
       - `csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
 
-#### Hálózatok
+### Hálózatok
 
 - `csengo-v2`: Meghatároz egy egyedi hálózatot `csengo-v2` néven, amelyen a szolgáltatások kommunikálhatnak egymással.
 
-#### Kötetek
+### Kötetek
 
 - `csengo-v2_db`: Meghatároz egy kötetet `csengo-v2_db` néven a PostgreSQL adatok megőrzéséhez.
 - `csengo-v2_sounds`: Meghatároz egy kötetet `csengo-v2_sounds` néven a hangadatok megőrzéséhez.
@@ -4662,12 +4662,657 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           false
           ```
 
-## Nevezetes Algoritmusok
+## Nevezetes algoritmusok
 
-[//]: # (TODO: valamennyi algoritmus nem tudni meg mennyi kell)
-### TODO: valamennyi algoritmus
+A nevezetes algoritmusok hangsúlyozzák a projekt kulcsfontosságú algoritmusait, amelyek kulcsfontosságú szerepet játszanak a projekt működésében és teljesítményében. Az algoritmusok leírása és kódja segít megérteni azok működését és hatását a projektre. Az alábbi algoritmusok, ahol lehetséges backend-frontend párokat képezve, a projekt kulcsfontosságú részeit mutatják be.
+
+### Regisztrációs algoritmus
+
+#### Backenden
+
+Az `AuthService` osztály `register` metódusa egy új felhasználó regisztrációját végzi el. A metódus első lépésként naplózza a regisztrációs kísérletet a kapott `registerDto` objektum JSON formátumú adataival. Ezután a `prisma.user` szolgáltatás segítségével ellenőrzi, hogy létezik-e már felhasználó a megadott felhasználónévvel vagy OM azonosítóval. Ha létezik ilyen felhasználó, akkor egy `HttpException` kivételt dob, jelezve, hogy a felhasználó már regisztrálva van. Ha nem található ilyen felhasználó, akkor a `prisma.kreta` szolgáltatás segítségével ellenőrzi, hogy az OM azonosító megtalálható-e az adatbázisban. Ha nem található, akkor egy másik `HttpException` kivételt dob, jelezve, hogy az OM azonosító nem található az adatbázisban. Ha az OM azonosító megtalálható, akkor a `bcrypt` könyvtár segítségével hasheli a felhasználó jelszavát, majd létrehozza az új felhasználót a `prisma.user` szolgáltatás segítségével. Az új felhasználó létrehozása során a felhasználónév, jelszó, email és az OM azonosító is mentésre kerül, valamint a felhasználó szerepköre is beállításra kerül. Ha a felhasználó létrehozása sikeres, akkor egy JWT token generálódik a felhasználó adataival, és ez a token beállításra kerül a válasz sütiében. Végül a metódus naplózza a sikeres regisztrációt és visszaadja az access token-t. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje az új felhasználók regisztrációját, ellenőrizve a meglévő felhasználókat és az OM azonosítókat, valamint biztosítva a jelszavak biztonságos tárolását és a felhasználók hitelesítését.
+
+Maga a kód:
+```typescript
+/**
+* Registers a new user.
+* @param {RegisterDto} registerDto - The registration data transfer object.
+* @param {RequestUser} request - The request user object.
+* @param {Response} response - The response object to set cookies.
+* @returns {Promise<object>} The access token.
+* @throws {HttpException} If the user already exists or registration fails.
+*/
+async register(registerDto: RegisterDto, request: RequestUser, response: Response): Promise<object> {
+this.logger.verbose(`Register attempt by ${JSON.stringify(registerDto)}`);
+
+    const user = await this.prisma.user
+        .findFirst({
+            where: {
+                OR: [
+                    {
+                        username: registerDto.username,
+                    },
+                    {
+                        kreta: {
+                            om: BigInt(registerDto.om),
+                        },
+                    },
+                ],
+            },
+        })
+        .catch((e) => {
+            this.logger.error(`Something went wrong when checking the new users username and OM ${JSON.stringify(registerDto)}`, e);
+            throw new HttpException(`Something went wrong`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    if (user) {
+        this.logger.error(`User already registered ${JSON.stringify(registerDto)}`);
+        throw new HttpException(`Seems like someone has already registered under this information`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    await this.prisma.kreta
+        .findFirstOrThrow({
+            where: {
+                om: BigInt(registerDto.om),
+            },
+        })
+        .catch((e) => {
+            this.logger.error(`Failed to register user ${JSON.stringify(registerDto)}`, e);
+            throw new HttpException(`Can't find this OM id in the database`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+
+    const newUser = await this.prisma.user
+        .create({
+            data: {
+                username: registerDto.username,
+                password: hashedPassword,
+                email: registerDto.email,
+                kreta: {
+                    connect: {
+                        om: BigInt(registerDto.om),
+                    },
+                },
+                roles: {
+                    connectOrCreate: {
+                        where: {
+                            role: RoleEnum.User,
+                        },
+                        create: {
+                            role: RoleEnum.User,
+                        },
+                    },
+                },
+            },
+        })
+        .catch((e) => {
+            this.logger.error(`Failed to register user ${JSON.stringify(registerDto)}`, e);
+            throw new HttpException(`Failed to register user bad OM`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    const payload: JwtPayload = {
+        sub: newUser.id,
+        username: newUser.username,
+        hashedPassword: newUser.password,
+        roles: [RoleEnum.User],
+    };
+
+    const token = await this.jwtService.signAsync(payload);
+
+    response.cookie('token', token, {
+        httpOnly: false,
+        secure: !process.env.DEV,
+        domain: process.env.CORS_DOMAIN,
+        sameSite: 'none',
+    });
+
+    this.logger.verbose(`Successfully registered user ${JSON.stringify(newUser)}`);
+
+    return { access_token: token };
+}
+```
+
+#### Frontenden
+
+A `useRegisterStore` egy Pinia store, amely a felhasználói regisztráció kezelésére szolgál egy Vue.js alkalmazásban. Az algoritmus célja, hogy a felhasználó által megadott regisztrációs adatokat elküldje a szervernek, és a sikeres regisztráció után beállítsa a hitelesítési sütit, majd átirányítsa a felhasználót a főoldalra. A `fetchRegister` függvény először ellenőrzi, hogy a megadott jelszó és a jelszó megerősítése megegyeznek-e. Ha nem, akkor hibát dob. Ezután egy HTTP POST kérést küld a szervernek a regisztrációs adatokkal, és a válaszból JSON formátumban kapja meg az adatokat. Ha a válasz nem sikeres, akkor a szerver által küldött hibaüzenetet dobja. Ha a válasz sikeres, akkor a kapott hozzáférési tokent beállítja egy sütiben, amely egy hétig érvényes, és a sütit a megadott domainre és biztonsági beállításokkal állítja be. Végül a felhasználót átirányítja a főoldalra. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a felhasználói regisztrációt, ellenőrizve a jelszavak egyezését, és biztosítva a felhasználó hitelesítését a sütik segítségével.
+
+Maga a kód:
+```typescript
+export const useRegisterStore = defineStore('register', () => {
+  const url = import.meta.env.VITE_API_URL
+  const isTestEnvironment = import.meta.env.VITE_TEST === 'true';
+  const domain = import.meta.env.VITE_COOKIE_DOMAIN;
+  const logger = serviceLogger('useRegisterStore');
+
+  const cookies = useCookies()
+  const router = useRouter()
+
+  async function fetchRegister(credentials: { username: string, password: string, email: string, om: string }, passwordConfirmation: string) {
+    try {
+      if (credentials.password !== passwordConfirmation) {
+        throw new Error('A jelszavak nem egyeznek meg!')
+      }
+
+      const response = await fetch(`${url}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+
+      logger.debug('Response:', data)
+
+      cookies.set('token', data.access_token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        secure: !isTestEnvironment,
+        domain,
+        sameSite: 'none'
+      })
+      await router.push('/')
+    } catch (error) {
+      throw new Error((error as Error).message)
+    }
+  }
+
+  return {
+    fetchRegister
+  }
+})
+```
+
+### Zenefeltöltési algoritmus
+
+#### Backenden
+
+Az `upload` metódus a `SongsController` osztályban egy új dal feltöltését kezeli egy adott felhasználó által. A metódus a `POST` HTTP metódust használja, és a `@HttpCode(HttpStatus.OK)` annotációval jelzi, hogy a sikeres válasz státuszkódja 200 lesz. A `@UseFilters(DeleteFileOnErrorFilter)` annotáció biztosítja, hogy ha hiba történik a fájl feltöltése közben, akkor a feltöltött fájl törlésre kerül. A `@UseInterceptors(FileInterceptor('file'))` annotáció a fájl feltöltését kezeli, és a `@UploadedFile` paraméterrel kapja meg a feltöltött fájlt. A `ParseFilePipe` validátorokkal ellenőrzi, hogy a fájl típusának `audio/mpeg`-nek kell lennie, és a fájl hossza nem haladhatja meg a 15 másodpercet. A metódus először naplózza a feltöltött fájlt és a felhasználói tokent. Ezután meghívja a `SongsService` osztály `upload` metódusát, amely a feltöltött fájlt a `pendingSong` adatbázis táblába menti. A `SongsService` osztály `upload` metódusa először naplózza a feltöltési kísérletet, majd a `prisma.pendingSong.create` metódussal létrehozza az új bejegyzést az adatbázisban. Ha hiba történik, akkor naplózza a hibát és `HttpException` kivételt dob. Ha a feltöltés sikeres, akkor naplózza a sikeres feltöltést és visszaadja az új fájl adatait. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a dalok feltöltését, ellenőrizve a fájl típusát és hosszát, valamint biztosítva a fájlok megfelelő tárolását az adatbázisban.
+
+Maga a kód:
+```typescript
+@Post('audio')
+@HttpCode(HttpStatus.OK)
+@UseFilters(DeleteFileOnErrorFilter)
+@UseInterceptors(FileInterceptor('file'))
+async upload(
+    @Body() createSongDto: CreateSongDto,
+    @Req() request: RequestUser,
+    @UploadedFile(
+        new ParseFilePipe({
+            validators: [new FileTypeValidator({ fileType: 'audio/mpeg' }), new AudioLengthValidatorPipe({ length: 15 })],
+        }),
+    )
+    file: Express.Multer.File,
+): Promise<Prisma.Args<typeof this.prisma.pendingSong, 'create'>['data']> {
+    this.logger.debug(`File uploaded successfully: ${JSON.stringify(file)}, ${JSON.stringify(request.token)}`);
+    return this.appService.upload(createSongDto, request, file);
+}
+
+async upload(
+    createSongDto: CreateSongDto,
+    request: RequestUser,
+    file: Express.Multer.File,
+): Promise<Prisma.Args<typeof this.prisma.pendingSong, 'create'>['data']> {
+    this.logger.verbose(`Uploading song into pending songs by user: ${JSON.stringify(request.token.username)}`);
+
+    const newFile = await this.prisma.pendingSong
+        .create({
+            data: {
+                title: createSongDto.title,
+                uploadedBy: {
+                    connect: {
+                        id: request.token.sub,
+                    },
+                },
+                songBucket: {
+                    create: {
+                        path: file.path,
+                    },
+                },
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error uploading song into pending songs by user: ${JSON.stringify(request.token.username)}`);
+            throw new HttpException(`Error uploading song into pending songs: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    this.logger.verbose(`Successfully uploaded song into pending songs by user: ${JSON.stringify(request.token.username)}`);
+
+    return newFile;
+}
+```
+
+#### Frontenden
+
+A `useUploadInputStore` egy Pinia store, amely a fájlok feltöltésének kezelésére szolgál egy Vue.js alkalmazásban. Az algoritmus célja, hogy a felhasználó által kiválasztott fájlt elküldje a szervernek, és a sikeres feltöltés után naplózza az eredményt. A store négy fő funkciót tartalmaz: `setUrl`, `setFile`, `uploadFile`, és a fájl és URL állapotának kezelésére szolgáló reaktív változókat. A `setUrl` függvény beállítja a feltöltési URL-t, míg a `setFile` függvény beállítja a feltöltendő fájlt. Az `uploadFile` függvény egy `FormData` objektumot hoz létre, amely tartalmazza a fájlt és annak nevét. Ezután egy HTTP POST kérést küld a megadott URL-re, a fájl adataival a kérés törzsében. A válasz JSON formátumban érkezik, és ha a válasz nem sikeres, akkor a szerver által küldött hibaüzenetet dobja. Ha a válasz sikeres, a fájl változó nullára állítódik, és a sikeres feltöltést naplózza. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a fájlok feltöltését, ellenőrizve a válasz sikerességét, és biztosítva a megfelelő naplózást a hibák és sikeres feltöltések esetén.
+
+Maga a kód:
+```typescript
+export const useUploadInputStore = defineStore('uploadInput', () => {
+  const logger = serviceLogger('uploadInputStore')
+
+  const url = ref<string>('')
+
+  const file = ref<File | null>(null)
+
+  function setUrl(newUrl: string) {
+    url.value = newUrl
+  }
+
+  function setFile(newFile: File) {
+    file.value = newFile
+  }
+
+  async function uploadFile() {
+    const body = new FormData()
+    body.append('file', file.value as Blob)
+    body.append('title', file.value?.name as string)
+
+    try {
+      const response = await fetch(url.value, {
+        method: 'POST',
+        body,
+        credentials: 'include'
+      })
+      file.value = null
+      const data = await response.json()
+      logger.debug(`File uploaded: ${JSON.stringify(response)}`)
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      const err = error as Error
+      throw new Error(`Failed to upload file: ${err.message}`)
+    }
+
+  }
+
+  return {
+    file,
+    uploadFile,
+    setUrl,
+    setFile
+  }
+})
+```
+
+### Szavazási algoritmus
+
+#### Backenden
+
+A `voteUp` és `voteDown` metódusok a `VotesService` osztályban a felhasználói szavazatok kezelésére szolgálnak egy adott dalra vonatkozóan. A `voteUp` metódus célja, hogy egy felhasználó szavazatát hozzáadja egy dalhoz. Először naplózza a szavazási kísérletet, majd ellenőrzi, hogy a felhasználói azonosító (`userId`) jelen van-e a kérésben. Ha hiányzik, `HttpException` kivételt dob. Ezután ellenőrzi, hogy a felhasználó már szavazott-e az adott dalra az aktuális szavazási szekcióban. Ha már szavazott, újabb `HttpException` kivételt dob. Ha még nem szavazott, létrehoz egy új szavazatot a `prisma.vote.create` metódussal, és naplózza a sikeres szavazást. A `voteDown` metódus célja, hogy egy felhasználó szavazatát eltávolítsa egy dalról. Először naplózza a szavazat eltávolítási kísérletet, majd ellenőrzi, hogy a felhasználói azonosító jelen van-e a kérésben. Ezután ellenőrzi, hogy létezik-e már szavazat az adott dalra az aktuális szavazási szekcióban. Ha nem található szavazat, `HttpException` kivételt dob. Ha található szavazat, törli azt a `prisma.vote.delete` metódussal, és naplózza a sikeres törlést. Mindkét metódus célja, hogy biztonságosan és hatékonyan kezelje a felhasználói szavazatokat, ellenőrizve a meglévő szavazatokat és biztosítva a megfelelő naplózást a hibák és sikeres műveletek esetén.
+
+Maga a kód:
+```typescript
+/**
+ * Vote up on song
+ * @param id - id of the song
+ * @param request - user request
+ * @returns
+ */
+async voteUp(id: string, request: RequestUser): Promise<string> {
+    this.logger.verbose(`Voteing up on song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+
+    const userId = request.token.sub;
+
+    if (!userId) throw new HttpException(`Missing userId`, HttpStatus.BAD_REQUEST);
+
+    const existingVote = await this.prisma.vote
+        .findFirst({
+            where: {
+                userId,
+                songId: id,
+                sessionId: await this.getCurrentVotingSessionId(),
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error fetching existing vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+            throw new HttpException(`Error fetching existing vote ${error}`, HttpStatus.BAD_REQUEST);
+        });
+
+    if (existingVote) throw new HttpException(`User already voted for song: ${id}`, HttpStatus.BAD_REQUEST);
+
+    await this.prisma.vote
+        .create({
+            data: {
+                userId,
+                songId: id,
+                sessionId: await this.getCurrentVotingSessionId(),
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error creating vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+            throw new HttpException(`Error creating vote: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    this.logger.verbose(`Successfully created vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+
+    return JSON.stringify({ message: `Vote successfully created for song: ${id}` });
+}
+
+async voteDown(id: string, request: RequestUser): Promise<string> {
+    this.logger.verbose(`Voteing down on song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+
+    const userId = request.token.sub;
+
+    const existingVote = await this.prisma.vote
+        .findFirst({
+            where: {
+                userId,
+                songId: id,
+                sessionId: await this.getCurrentVotingSessionId(),
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error fetching existing vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+            throw new HttpException(`Error fetching existing vote for vote down: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    if (!existingVote) throw new HttpException(`No existing vote found`, HttpStatus.NOT_FOUND);
+
+    await this.prisma.vote
+        .delete({
+            where: {
+                id: existingVote.id,
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error deleting vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+            throw new HttpException(`Error deleting vote for vote down: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    this.logger.verbose(`Successfully deleted vote for song with id: ${id} by user: ${JSON.stringify(request.token.username)}`);
+
+    return JSON.stringify({ message: `Sucessfully deleted vote for song: ${id}` });
+}
+```
+
+#### Frontenden
+
+A `useVoteSongStore` egy Pinia store, amely a felhasználói szavazatok kezelésére szolgál egy Vue.js alkalmazásban. Az algoritmus célja, hogy a felhasználók szavazatait kezelje dalokra vonatkozóan, lehetővé téve számukra, hogy szavazzanak egy dalra (voteUp) vagy visszavonják a szavazatukat (voteDown). A store négy fő funkciót tartalmaz: `fetchVotesByUser`, `voteUp`, `voteDown`, valamint a szavazatok és a szavazási állapot (`hasVotes`) kezelésére szolgáló reaktív változókat. A `fetchVotesByUser` függvény HTTP GET kérést küld a szervernek, hogy lekérje a felhasználó aktuális szavazatait. Ha a válasz státuszkódja 404, akkor a `hasVotes` értéke hamisra áll, és a `votes` üres tömbre állítódik. Ha a válasz sikeres, a `hasVotes` igazra áll, és a `votes` változó a kapott adatokat tartalmazza. A `voteUp` függvény HTTP POST kérést küld a szervernek, hogy egy új szavazatot hozzon létre egy adott dalra. Ha a válasz nem sikeres, hibát dob. A `voteDown` függvény HTTP DELETE kérést küld a szervernek, hogy törölje a felhasználó szavazatát egy adott dalról. Ha a válasz nem sikeres, hibát dob. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a felhasználói szavazatokat, ellenőrizve a válaszok sikerességét, és biztosítva a megfelelő naplózást a hibák és sikeres műveletek esetén.
+
+Maga a kód:
+```typescript
+export const useVoteSongStore = defineStore('voteSong', () => {
+    const logger = serviceLogger('voteSongStore');
+    const url = import.meta.env.VITE_API_URL;
+
+    const hasVotes = ref(false);
+
+    const votes = ref<string[]>(['']);
+
+    async function fetchVotesByUser() {
+        try {
+            const response = await fetch(`${url}/api/votes/current-user`, {
+                credentials: 'include',
+            });
+            const data = await response.json();
+            logger.debug(`Votes: ${JSON.stringify(data)}`);
+            logger.debug(`Response status ${response.status}`);
+            if (response.status === 404) {
+                logger.debug(`Recieved ${response.status} status`);
+                hasVotes.value = false;
+                votes.value = [''];
+                logger.debug(`Has votes: ${hasVotes.value}`);
+                return;
+            }
+            if (!response.ok) {
+                throw new Error(`Failed to fetch votes ${data.message}`);
+            }
+            hasVotes.value = true;
+            votes.value = data;
+            logger.debug(`Has votes: ${hasVotes.value}`);
+        } catch (err) {
+            const error = err as Error;
+            logger.error(`Error fetching votes: ${error.message}`);
+            throw new Error(`Error fetching votes: ${error.message}`);
+        }
+    }
+
+    async function voteUp(id: string) {
+        try {
+            // Optional. Only put this to use if you want to limit every users ability to only vote for 1 song in each session.
+            // if (hasVotes.value) {
+            //   votes.value.map(songId => voteDown(songId))
+            // }
+            const response = await fetch(`${url}/api/votes?id=${id}`, {
+                method: 'POST',
+                credentials: 'include',
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`Failed to vote up ${data.message}`);
+            }
+            logger.debug(`Has votes ${hasVotes.value}`);
+        } catch (err) {
+            const error = err as Error;
+            logger.error(`Error voting up: ${error.message}`);
+            throw new Error(`Error voting up: ${error.message}`);
+        }
+    }
+
+    async function voteDown(id: string) {
+        try {
+            const response = await fetch(`${url}/api/votes?id=${id}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`Failed to vote up ${data.message}`);
+            }
+        } catch (err) {
+            const error = err as Error;
+            logger.error(`Error voting up: ${error.message}`);
+            throw new Error(`Error voting up: ${error.message}`);
+        }
+    }
+
+    return {
+        votes,
+        hasVotes,
+        fetchVotesByUser,
+        voteUp,
+        voteDown,
+    };
+});
+```
+
+### Statisztikáző algoritmus
+
+#### Backenden
+
+A `getSummaryOfVotesInSession` metódus a `TvService` osztályban a jelenlegi szavazási szekció összesített szavazatainak lekérésére szolgál. Az algoritmus célja, hogy összegyűjtse és visszaadja a szavazatok számát minden egyes dalra vonatkozóan az aktuális szavazási szekcióban. A metódus először naplózza a szavazatok összegzésének lekérési kísérletét, majd lekéri az aktuális dátumot és időt. Ezután a `prisma.votingSession.findFirst` metódussal megkeresi az aktuális szavazási szekciót, amelynek kezdete kisebb vagy egyenlő az aktuális dátummal és vége nagyobb vagy egyenlő az aktuális dátummal. Ha hiba történik a szekció lekérése közben, naplózza a hibát és `HttpException` kivételt dob. Ha nem található aktív szavazási szekció, `HttpException` kivételt dob. Ha sikeresen lekérte a szavazási szekciót, a metódus megpróbálja összeszámolni a szavazatokat minden egyes dalra vonatkozóan. A `votingSession.songs.map` metódussal végigmegy a dalokon, és megszámolja, hogy hány szavazat érkezett minden egyes dalra a `votingSession.Vote.filter` metódussal. Az eredményeket egy objektumba rendezi, amely tartalmazza a dal azonosítóját, címét és a szavazatok számát. Ezután a dalokat a szavazatok száma szerint csökkenő sorrendbe rendezi. Ha hiba történik a szavazatok összeszámolása közben, naplózza a hibát és `HttpException` kivételt dob. Ha sikeresen összeszámolta a szavazatokat, naplózza a sikeres műveletet, és visszaadja az összesített szavazatok JSON formátumú eredményét, amely tartalmazza a szavazási szekció azonosítóját és a dalok szavazatainak összegzését. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a szavazatok összesítését, ellenőrizve a szavazási szekció érvényességét és biztosítva a megfelelő naplózást a hibák és sikeres műveletek esetén.
+
+Maga a kód:
+```typescript
+/**
+ * Get summary of votes in session
+ * @param request - user request
+ */
+async getSummaryOfVotesInSession(request: RequestUser): Promise<string> {
+    this.logger.verbose(`Fetching summary of votes in session by user: ${JSON.stringify(request.token ?? 'unknown user')}`);
+
+    const currentDateTime = new Date();
+    const votingSession = await this.prisma.votingSession
+        .findFirst({
+            where: {
+                start: {
+                    lte: currentDateTime,
+                },
+                end: {
+                    gte: currentDateTime,
+                },
+            },
+            include: {
+                songs: true,
+                Vote: true,
+            },
+        })
+        .catch((error) => {
+            this.logger.error(`Error fetching current voting session by user: ${JSON.stringify(request.token?.username)}`);
+            throw new HttpException(`Error fetching currently running voting session: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+
+    if (!votingSession) {
+        throw new HttpException('No active voting session found', HttpStatus.NOT_FOUND);
+    }
+
+    try {
+        const songVotes = votingSession.songs.map((song) => {
+            const voteCount = votingSession.Vote.filter((vote) => vote.songId === song.id).length;
+            return {
+                songId: song.id,
+                songTitle: song.title,
+                voteCount,
+            };
+        });
+
+        songVotes.sort((a, b) => b.voteCount - a.voteCount);
+
+        this.logger.verbose(`Successfully fetched summary of votes in session by user: ${JSON.stringify(request.token?.username)}`);
+
+        return JSON.stringify({
+            sessionId: votingSession.id,
+            songs: songVotes,
+        });
+    } catch (error) {
+        this.logger.error(`Error counting votes in current voting session by user: ${JSON.stringify(request.token?.username)}`);
+        throw new HttpException(`Error counting votes: ${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+```
+#### Frontenden
+
+A `useTvStore` egy Pinia store, amely a TV szavazási szekció összefoglalójának kezelésére szolgál egy Vue.js alkalmazásban. Az algoritmus célja, hogy a felhasználók számára megjelenítse az aktuális szavazási szekcióban lévő dalok listáját és azok szavazatszámát, valamint minden dalhoz egy véletlenszerű színt rendeljen. A store négy fő elemet tartalmaz: a `songs` és `colors` reaktív változókat, a `getRandomColor` függvényt, valamint a `fetchSummaryOfVotesInSession` aszinkron függvényt. A `songs` változó egy tömböt tartalmaz, amely az egyes dalok azonosítóját, címét és szavazatszámát tárolja. A `getRandomColor` függvény egy véletlenszerű színt generál minden dalhoz, amelyet a `colors` változó tárol. A `fetchSummaryOfVotesInSession` függvény HTTP GET kérést küld a szervernek, hogy lekérje az aktuális szavazási szekció összefoglalóját. Ha a válasz státuszkódja 404, akkor a `songs` változó üres tömbre állítódik, és a `logger` naplózza a hibát. Ha a válasz sikeres, a `songs` változó a kapott adatokat tartalmazza, és a `colors` változó minden dalhoz egy véletlenszerű színt rendel. Az algoritmus célja, hogy biztonságosan és hatékonyan kezelje a szavazási szekció összefoglalójának lekérését, ellenőrizve a válaszok sikerességét, és biztosítva a megfelelő naplózást a hibák és sikeres műveletek esetén.
+
+Maga a kód:
+```typescript
+export const useTvStore = defineStore('tv', () => {
+  const logger = serviceLogger('songVoteListStore');
+  const url = import.meta.env.VITE_API_URL;
+  const songs = ref([
+    { songId: '', songTitle: '', voteCount: 0 }
+  ])
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF'
+    let color = '#'
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)]
+
+    }
+    return color
+  }
+
+  const colors = ref(songs.value.map(() => getRandomColor()))
+
+  async function fetchSummaryOfVotesInSession() {
+    try {
+      const response = await fetch(`${url}/api/tv/session`, {
+        method: 'GET',
+        credentials: 'include',
+      })
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 404) songs.value = []
+        logger.error(`Failed to fetch summary of votes in session: ${data.message}`)
+        throw new Error(data.message)
+      }
+      songs.value = data.songs
+      colors.value = songs.value.map(() => getRandomColor())
+    } catch (error) {
+      logger.error(`Failed to fetch summary of votes in session: ${error}`)
+    }
+  }
 
 
+  return {
+    songs,
+    colors,
+    fetchSummaryOfVotesInSession
+  }
+})
+```
+
+### Event Bus algoritmus
+
+Az Event Bus egy olyan kommunikációs minta, amely lehetővé teszi az alkalmazás különböző komponensei közötti események továbbítását és kezelését. Az Event Bus központi szerepet játszik az események küldésében és fogadásában, így a komponensek közvetlen kommunikáció nélkül is tudnak egymással interakcióba lépni. Az események küldésekor az Event Bus értesíti az összes feliratkozott komponenst, amelyek reagálhatnak az adott eseményre. Ez a minta segít a laza csatolás megvalósításában és az alkalmazás modularitásának növelésében.
+
+Maga a kód:
+```typescript
+const eventBus = ref(new Map<string, Set<Function>>())
+
+export function on(event: string, callback: Function) {
+  console.log('Registering event', event)
+  if (!eventBus.value.has(event)) {
+    eventBus.value.set(event, new Set())
+  }
+  eventBus.value.get(event)?.add(callback)
+}
+
+export function emit(event: string, ...args: any[]) {
+  console.log('Emitting event', event, args)
+  const callbacks = eventBus.value.get(event)
+  if (callbacks) {
+    callbacks.forEach(callback => callback(...args))
+  }
+}
+```
+
+## Fejlesztési lehetőségek
+
+### Python alapú lejátszó alkalmazás
+
+A Python alapú lejátszó alkalmazás egy olyan szoftver, amely lehetővé fogja tenni a felhasználók számára, hogy különböző hangfájlokat játsszanak le meghatározott időpontokban. Az alkalmazás célja, hogy dinamikusabbá és élvezetesebbé tegye az iskolai szüneteket, valamint interaktív módon bevonja a diákokat a csengőhangok kiválasztásába.
+
+Az alkalmazás főbb funkciói közé fog tartozni a hangfájlok lejátszása, a csengőidők ütemezése, valamint a nyertes dalok letöltése és frissítése a szerverről. A rendszer WebSocket kapcsolaton keresztül kommunikál a szerverrel, amely lehetővé teszi a valós idejű frissítéseket és vezérlést.
+
+A fejlesztés során a következő technológiákat és könyvtárakat fogjuk használni:
+- `pygame` a hangfájlok lejátszásához
+- `schedule` az ütemezett feladatok kezeléséhez
+- `requests` a szerverrel való kommunikációhoz
+- `socketio` a WebSocket kapcsolatok kezeléséhez
+- `dotenv` a környezeti változók kezeléséhez
+
+Az alkalmazás egy Python szkript formájában valósul meg, amely folyamatosan fut és figyeli az ütemezett időpontokat, valamint a szerverről érkező frissítéseket. A felhasználók könnyedén konfigurálhatják az alkalmazást a `.env` fájl segítségével, ahol meg fogják tudni adni a szerver URL-jét, a WebSocket útvonalát és az API kulcsot.
+
+Az alkalmazás fejlesztése során kiemelt fogunk figyelmet fordítani a kód tisztaságára és olvashatóságára, valamint a hibakezelésre és a robusztus működésre. Az alkalmazás célja, hogy megbízhatóan és hatékonyan működjön, és hozzájáruljon az iskolai környezet javításához.
+
+Az alábbiakban bemutatjuk az végpontokat melyeket a python szkript fog használni, melyek az adminisztrátorok számára elérhetők. A végpontok lehetővé teszik a hangfájlok frissítését, lejátszásának elindítását és leállítását a szerveren.
+
+Az `/api/server/update` végpont a hangfájl frissítésére szolgál a szerveren. Amikor egy adminisztrátor GET kérést küld erre a végpontra, a szerver elindítja a hangfájl frissítésének folyamatát. Ez magában foglalja a WebSocket átjáróval való kommunikációt annak biztosítása érdekében, hogy az új hangfájl helyesen frissüljön és lejátszásra kész legyen. A végpont egy választ ad, amely jelzi a frissítési művelet sikerességét vagy kudarcát.
+
+Az `/api/server/start` végpont a hangfájl lejátszásának elindítására szolgál a szerveren. Amikor egy adminisztrátor GET kérést küld erre a végpontra, a szerver elindítja a hang lejátszási folyamatát. Ez magában foglalja a megfelelő hangerő beállítását és annak biztosítását, hogy a hangfájl az elejétől kezdve lejátszásra kerüljön. A végpont egy választ ad, amely jelzi, hogy a hang lejátszása sikeresen elindult-e.
+
+Az `/api/server/stop` végpont a hangfájl lejátszásának leállítására szolgál a szerveren. Amikor egy adminisztrátor GET kérést küld erre a végpontra, a szerver leállítja a hang lejátszási folyamatát. Ez magában foglalja a hangerő elnémítását és a hangfájl lejátszásának leállítását. A végpont egy választ ad, amely jelzi, hogy a hang lejátszása sikeresen leállt-e.
+
+### Integrált YouTube csengőhang feltöltő és vágó
+
+Ez a fejlesztési lehetőség egy olyan alkalmazás, amely lehetővé teszi a felhasználók számára, hogy YouTube videókat vágjanak meg és töltsenek fel. Az alkalmazás célja, hogy egyszerű és hatékony módon segítse a felhasználókat a YouTube videók letöltésében és vágásában, anélkül, hogy bonyolult szoftvereket kellene használniuk. Az alkalmazás különösen hasznos lehet azok számára, akik gyorsan és könnyedén szeretnének a YouTube weboldalról csengőhangot szerkeszteni. Az egyszerű felhasználói felület és a könnyen használható eszközök révén az alkalmazás mindenki számára elérhetővé teszi a videószerkesztést, függetlenül a technikai tudástól.
+
+A felhasználók által látható feltöltési gomb mellett kapna helyet, ahol a felhasználók a YouTube videó URL-jét adhatják meg. Az alkalmazás letölti a videót a megadott URL-ről, majd lehetőséget ad a felhasználóknak a videó vágására. A vágás funkció lehetővé teszi a felhasználók számára, hogy kiválasszák a videó kezdeti és végpontját. Ezek után az alkalmazás fel fogja tölteni a vágott videó hanganyagát, az ő nevükben, az elfogadásra váró csengőhangok közé.
+
+### Keycloak integráció
+
+A Keycloak egy nyílt forráskódú azonosítás- és hozzáféréskezelő rendszer, amely lehetővé fogja tenni a felhasználók nem csak autentikációját hanem autorizációját is. Az integráció során a Keycloak-ot fogjuk használi az autentikáció és autorizáció kezelésére a Pollák Csengő. Ez lehetővé teszi a felhasználók számára, hogy biztonságosan és egyszerűen jelentkezzenek be az alkalmazásba, valamint hogy hozzáférjenek a megfelelő funkciókhoz és adatokhoz.
+
+A fejlesztés a következő okok miatt fogja javítani a felhasználói élményt és a biztonságot:
+
+1. **Egyszerű használat**: Az alkalmazás felhasználóbarát felülete és intuitív funkciói lehetővé teszik a felhasználók számára, hogy könnyedén navigáljanak és végezzék el a szükséges műveleteket, anélkül, hogy bonyolult szoftvereket kellene használniuk.
+
+2. **Gyors hozzáférés**: Az alkalmazás gyors és hatékony letöltési és vágási funkciói révén a felhasználók időt takaríthatnak meg, és azonnal hozzáférhetnek a kívánt tartalomhoz.
+
+3. **Biztonságos adatkezelés**: Az alkalmazás fejlesztése során kiemelt figyelmet fordítanak a biztonságos adatkezelésre, beleértve a felhasználói adatok védelmét és a biztonságos kommunikációs csatornák használatát.
+
+4. **Valós idejű frissítések**: A WebSocket technológia használatával az alkalmazás valós idejű frissítéseket és értesítéseket biztosít, így a felhasználók mindig naprakészek lehetnek a legújabb változásokkal kapcsolatban.
+
+5. **Hibakezelés és robusztus működés**: A fejlesztés során nagy hangsúlyt fektetnek a hibakezelésre és a robusztus működésre, hogy az alkalmazás megbízhatóan és zökkenőmentesen működjön minden körülmények között.
 
 ## Adatbázis
 A PostgreSQL-t választottuk más adatbázisok, mint például a MySQL helyett számos előnye miatt. Először is, a PostgreSQL egy rendkívül robusztus és megbízható adatbázis-kezelő rendszer, amely hosszú évek óta bizonyítja megbízhatóságát és stabilitását. Az ACID (Atomicity, Consistency, Isolation, Durability) tulajdonságok támogatása garantálja az adatok integritását és konzisztenciáját.
