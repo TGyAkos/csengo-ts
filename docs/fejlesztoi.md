@@ -834,7 +834,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
 
 ##### `auth.controller.spec`
 
-- **AuthController -> should be defined**: This test case verifies that the `authController` is properly defined and instantiated within the test module.
+- **AuthController -> should be defined**: Ez a teszteset ellenőrzi, hogy az `authController` megfelelően definiálva és példányosítva van-e a teszt modulban.
     - **Mocked input data**:
         - **None**:
           ```json 
@@ -846,7 +846,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           {}
           ```
 
-- **AuthController -> login -> should return a valid JWT token**: This test case verifies that the `login` method of the `authController` returns a valid JWT token when provided with valid credentials.
+- **AuthController -> login -> should return a valid JWT token**: Ez a teszteset ellenőrzi, hogy az `authController` `login` metódusa érvényes JWT tokent ad vissza, ha érvényes hitelesítő adatokkal látják el.
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -873,7 +873,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           }
           ```
 
-- **AuthController -> register -> should create a new user**: This test case verifies that the `register` method of the `authController` creates a new user when provided with valid registration data.
+- **AuthController -> register -> should create a new user**: Ez a teszteset ellenőrzi, hogy az `authController` `register` metódusa új felhasználót hoz létre, ha érvényes regisztrációs adatokkal látják el.
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -901,7 +901,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           }
           ```
 
-- **AuthController -> validateUser -> should validate a user with correct credentials**: This test case verifies that the `validateUser` method of the `authController` validates a user when provided with correct credentials.
+- **AuthController -> validateUser -> should validate a user with correct credentials**: Ez a teszteset ellenőrzi, hogy az `authController` `validateUser` metódusa érvényesíti-e a felhasználót, ha helyes hitelesítő adatokkal látják el.
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -929,7 +929,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           }
           ```
 
-- **AuthController -> validateUser -> should return null for invalid credentials**: This test case verifies that the `validateUser` method of the `authController` returns null when provided with invalid credentials.
+- **AuthController -> validateUser -> should return null for invalid credentials**: Ez a teszteset ellenőrzi, hogy az `authController` `validateUser` metódusa null értéket ad vissza, ha érvénytelen hitelesítő adatokkal látják el.
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -948,7 +948,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
 
 ##### `pending.songs.controller.spec.ts`
 
-- **PendingSongsController -> getAllPendingSongs -> should return all pending songs**: This test case verifies that the `getAllPendingSongs` method of the `PendingSongsController` returns all pending songs correctly. It mocks the request and the service method to return a list of pending songs and checks if the controller method returns the expected result.
+- **PendingSongsController -> getAllPendingSongs -> should return all pending songs**: Ez a teszteset ellenőrzi, hogy a `PendingSongsController` `getAllPendingSongs` metódusa helyesen adja vissza az összes függőben lévő dalt. A kérést és a szolgáltatás metódusát mock-olja, hogy egy listát adjon vissza a függőben lévő dalokról, és ellenőrzi, hogy a vezérlő metódusa a várt eredményt adja-e vissza.    - **Mocked input data**:
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -972,7 +972,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           ]
           ```
 
-- **PendingSongsController -> approvePendingSong -> should approve a pending song**: This test case verifies that the `approvePendingSong` method of the `PendingSongsController` approves a pending song correctly. It mocks the request and the service method to approve a song and checks if the controller method returns the expected result.
+- **PendingSongsController -> approvePendingSong -> should approve a pending song**: Ez a teszteset ellenőrzi, hogy a `PendingSongsController` `approvePendingSong` metódusa helyesen hagy jóvá egy függőben lévő dalt. A kérést és a szolgáltatás metódusát mock-olja, hogy jóváhagyjon egy dalt, és ellenőrzi, hogy a vezérlő metódusa a várt eredményt adja-e vissza.    - **Mocked input data**:
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
@@ -990,7 +990,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
           { "success": true }
           ```
 
-- **PendingSongsController -> rejectPendingSong -> should reject a pending song**: This test case verifies that the `rejectPendingSong` method of the `PendingSongsController` rejects a pending song correctly. It mocks the request and the service method to reject a song and checks if the controller method returns the expected result.
+- **PendingSongsController -> rejectPendingSong -> should reject a pending song**: Ez a teszteset ellenőrzi, hogy a `PendingSongsController` `rejectPendingSong` metódusa helyesen utasít-e el egy függőben lévő dalt. A kérést és a szolgáltatás metódusát mock-olja, hogy elutasítson egy dalt, és ellenőrzi, hogy a vezérlő metódusa a várt eredményt adja-e vissza.    - **Mocked input data**:
     - **Mocked input data**:
         - **mockRequest**:
           ```json 
