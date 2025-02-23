@@ -117,8 +117,10 @@ Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatá
         - `POSTGRES_USER: csengo`: Beállítja a PostgreSQL felhasználót `csengo`-ra.
         - `POSTGRES_PASSWORD: csengo`: Beállítja a PostgreSQL jelszót `csengo`-ra.
         - `POSTGRES_DB: csengo`: Beállítja a PostgreSQL adatbázis nevét `csengo`-ra.
-    - `volumes: - csengo-v2_db:/var/lib/postgresql/data`: Csatolja a `csengo-v2_db` kötetet a PostgreSQL adatainak megőrzéséhez.
-    - `networks: - csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
+    - `volumes`: 
+      - `csengo-v2_db:/var/lib/postgresql/data`: Csatolja a `csengo-v2_db` kötetet a PostgreSQL adatainak megőrzéséhez.
+    - `networks`: 
+      - `csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
 
 2. **csengo-ts-server-v2**:
     - `container_name: csengo-ts-server-v2`: Beállítja a konténer nevét `csengo-ts-server-v2`-ra.
@@ -127,11 +129,14 @@ Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatá
         - `dockerfile: Dockerfile`: A Dockerfile elérési útja.
     - `image: csengo-ts-server-v2`: A konténer képének neve.
     - `restart: always`: Biztosítja, hogy a konténer mindig újrainduljon, ha leáll.
-    - `volumes: - csengo-v2_sounds:/data`: Csatolja a `csengo-v2_sounds` kötetet a konténer `/data` könyvtárához.
-    - `ports: - "3300:3300"`: A 3300-as portot a gazdagépen a 3300-as portra térképezi a konténerben.
+    - `volumes`: 
+      - `csengo-v2_sounds:/data`: Csatolja a `csengo-v2_sounds` kötetet a konténer `/data` könyvtárához.
+    - `ports`: 
+        - `"3300:3300"`: A 3300-as portot a gazdagépen a 3300-as portra térképezi a konténerben.
     - `depends_on`: Meghatározza a szolgáltatás függőségeit:
         - `csengo-v2-postgres`
-    - `networks: - csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
+    - `networks`: 
+      - `csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
     - `environment`: Környezeti változókat állít be a TypeScript szerverhez:
         - `PORT: 3300`: Beállítja a szerver portját 3300-ra.
         - `DATABASE_URL: "postgresql://csengo:csengo@csengo-v2-postgres:5432/csengo?schema=public"`: Beállítja az adatbázis kapcsolat URL-jét.
@@ -156,21 +161,26 @@ Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatá
             - `VITE_API_URL=http://localhost:3300`
             - `VITE_COOKIE_DOMAIN=localhost`
     - `image: csengo-ts-client-v2`: A konténer képének neve.
-    - `ports: - "8080:80"`: A 8080-as portot a gazdagépen a 80-as portra térképezi a konténerben.
-    - `networks: - csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
+    - `ports`: 
+        - `"8080:80"`: A 8080-as portot a gazdagépen a 80-as portra térképezi a konténerben.
+    - `networks`: 
+      - `csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz. 
 
 4. **csengo-v2-pgadmin**:
     - `container_name: csengo-v2-pgadmin`: Beállítja a konténer nevét `csengo-v2-pgadmin`-ra.
     - `image: dpage/pgadmin4`: A pgAdmin 4 képét használja.
     - `restart: always`: Biztosítja, hogy a konténer mindig újrainduljon, ha leáll.
-    - `ports: - "8081:80"`: A 8081-es portot a gazdagépen a 80-as portra térképezi a konténerben.
+    - `ports`: 
+        - `"8081:80"`: A 8081-es portot a gazdagépen a 80-as portra térképezi a konténerben.
     - `environment`: Környezeti változókat állít be a pgAdmin-hoz:
         - `PGADMIN_DEFAULT_EMAIL: csengo@csengo.dev`: Beállítja az alapértelmezett email címet a pgAdmin-hoz.
         - `PGADMIN_DEFAULT_USERNAME: admin`: Beállítja az alapértelmezett felhasználónevet a pgAdmin-hoz.
         - `PGADMIN_DEFAULT_PASSWORD: admin`: Beállítja az alapértelmezett jelszót a pgAdmin-hoz.
         - `PGADMIN_CONFIG_WTF_CSRF_ENABLED: "False"`: Letiltja a CSRF védelmet.
-    - `volumes: - csengo-v2_pgadmin:/var/lib/pgadmin`: Csatolja a `csengo-v2_pgadmin` kötetet a pgAdmin adatainak megőrzéséhez.
-    - `networks: - csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
+    - `volumes`: 
+      - `csengo-v2_pgadmin:/var/lib/pgadmin`: Csatolja a `csengo-v2_pgadmin` kötetet a pgAdmin adatainak megőrzéséhez.
+    - `networks`: 
+      - `csengo-v2`: Csatlakoztatja a konténert a `csengo-v2` hálózathoz.
 
 #### Hálózatok
 
@@ -182,30 +192,17 @@ Ez a `docker-compose` fájl meghatározza a Pollák Csengő alkalmazás futtatá
 - `csengo-v2_sounds`: Meghatároz egy kötetet `csengo-v2_sounds` néven a hangadatok megőrzéséhez.
 - `csengo-v2_pgadmin`: Meghatároz egy kötetet `csengo-v2_pgadmin` néven a pgAdmin adatok megőrzéséhez.
 
-#### Futtatás manuális teszteléshez
+## Adatbázis kezelő
 
-Windows-on, telepítse a `Docker-compose`-t és a `Docker Desktop` alkalmazást, majd indítsa el a `Docker Desktop` alkalmazást.
+Az adatbázis kezelő az alábbi alábbi módókon érhető el a futtatás környezetétől függően:
+- Dockerrel történő futtatás esetén: http://localhost:8081
+- Docker nélküli futtatás esetén: A telepitésre került PgAdmin alkalmazásban
 
-Linux-on és macOS-en, telepítse a `Docker`-t és a `Docker-compose`-t, majd nyissa meg a terminált a `docker-compose` fájl mappájában.
+### Kezelés Docker nélkül
+Amennyiben nem docker segítségével indította az alkalmazást, a lokálisan telepített PgAdmin alkalmazás segítsévégel tudja kezelni az adatbázist.
+Ennek a kinézete és a használatának módja is megegyezik a webfelületes kezelőpanellel, éltérést csak a lokálisan használt adatbázisok okozhatnak. Képes illusztrációkat is találhat az alábbi „Kezelés Dockerrel” részlegben.
 
-Nyisson meg egy parancssort git repository törzs mappájában, ahol a `docker-compose.dev.v2.yml` nevű fájl található.
-
-A `docker-compose` fájlban meghatározott szolgáltatásokat, hálózatokat és köteteket a következő paranccsal futtathatjuk:
-
-```bash
-docker-compose -f docker-compose.dev.v2.yml up -d
-```
-
-Ez a parancs elindítja a Pollák Csengő alkalmazást a meghatározott szolgáltatásokkal, hálózatokkal és kötetekkel. A `-d` kapcsolóval a konténerek háttérben futnak, és a parancs végrehajtása után visszatér a parancssorhoz.
-
-A Pollák Csengő alkalmazás futtatása után a következő URL-eken érhető el:
-- pgAdmin adatbázis kezelő: `http://localhost:8081`
-- Csengő szerver: `http://localhost:3300`
-- Csengő weboldal: `http://localhost:8080`
-
-Ezekkel a lépésekkel sikeresen futtathatja a Pollák Csengő alkalmazást a Docker segítségével, és hozzáférhet a szolgáltatásokhoz a megadott URL-eken.
-
-#### Adatbázis kezelő
+### Kezelés Dockerrel
 
 Az adatbázis kezelőhöz bejelentkezéshez használja az alábbi adatokat:
 - Email: `csengo@csengo.dev`
@@ -239,7 +236,9 @@ A következő módon lehet az adatbázisban tárolt táblákat megtekinteni:
 
 ![pgadmin-tables](./fejlesztoikepek/pgadmin-list-tables.png)
 
-#### Portainer-en keresztüli konténer kezelés
+## Portainer-en keresztüli konténer kezelés
+
+Ezt a technológiát használtuk a fejlesztés során. Ebben a részlegben megismerheti a működését és a használatának a céljét.
 
 A Portainer egy könnyen használható, webes felülettel rendelkező konténerkezelő eszköz, amely lehetővé teszi a konténerek kezelését, figyelését és felügyeletét. A Portainer segítségével egyszerűen létrehozhat, indíthat, leállíthat és törölhet konténereket, valamint ellenőrizheti a konténerek állapotát és naplóit.
 
@@ -259,13 +258,13 @@ Ez a dokumentáció feltételezi, hogy egy Portainer példány fut a localhost:9
 
 ![portainer-success](./fejlesztoikepek/portainer-successful-deploy.png)
 
-#### Futtatás fejlesztői módban
+## Futtatás fejlesztői módban
 
 A Pollák Csengő alkalmazás fejlesztői módban való futtatásához a következő lépéseket kell követni:
 
 0. Telepítse a Docker Desktop nevű alkalmzást és a Docker-compose nevű alkalmazást a számítógépére, majd indítsa el a Docker Desktop alkalmazást.
 
-##### Backend elindítása Docker segítségével
+### Backend elindítása
 
 1. Nyissa meg a terminált a `csengo-ts-server-v2` mappában.
 2. Windows operációs rendszeren futtassa a következő parancsokat a szerver indításához:
@@ -288,20 +287,15 @@ npm run start:dev
    - Swagger dokumentáció: [http://localhost:3300/swagger](http://localhost:3300/swagger)
    - REST API: [http://localhost:3300/api](http://localhost:3300/api)
 
-##### Frontend elindítása
+### Frontend elindítása
 
-1. Nyissa meg a terminált a `csengo-ts-client-v2` mappában.
-2. Windows operációs rendszeren futtassa a következő parancsokat a kliens indításához:
+1. Amennyiben szükséges, változtassa meg a `.env.example` fájlban a megfelelő környezeti változókat.
+2. Nyissa meg a terminált a `csengo-ts-client-v2` mappában.
+3. Windows operációs rendszeren futtassa a következő parancsokat a kliens indításához:
 
 ```bash
 copy .env.example .env
 npm install
-npm run dev
-```
-
-3. Amennyiben szükséges, változtassa meg a `.env` fájlban a megfelelő környezeti változókat, majd állítsa le a klienst a terminálban a `CTRL+C` billenyűkombinációval ezután indítsa újra a klienst a következő paranccsal:
-
-```bash
 npm run dev
 ```
 
