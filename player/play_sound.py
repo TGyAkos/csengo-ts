@@ -3,7 +3,6 @@
 # --- Imports --------------------------------
 
 import time
-from tkinter import BooleanVar
 
 from pygame import mixer
 import sys
