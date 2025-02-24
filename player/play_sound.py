@@ -3,6 +3,8 @@
 # --- Imports --------------------------------
 
 import time
+from tkinter import BooleanVar
+
 from pygame import mixer
 import sys
 import uuid
@@ -26,6 +28,16 @@ csengo_times = [
     '13:25', '14:10',
     '14:15', '15:00',
 ]
+#csengo_times = [
+#    '08:00', '08:30',
+#    '08:35', '09:05',
+#    '09:10', '09:40',
+#    '9:45',  '10:15',
+#    '10:20', '10:50',
+#    '10:55', '11:25',
+#    '11:30', '12:00',
+#    '12:05', '12:35',
+#]koszibazemg
 
 config = load_dotenv()
 
@@ -41,6 +53,8 @@ song = "song.mp3"
 sio = socketio.Client()
 
 retry_connection = False
+
+isUpdatingSchedule = False
 
 # --- Functions ------------------------------
 
@@ -70,12 +84,20 @@ def on_stopAudioOnServer(data):
     print(f"Received message: {data}")
     stop_audio()
 
+def on_updateScheduleOnServer(data):
+    global isUpdatingSchedule
+    print(f"Received message: {data}")
+    isUpdatingSchedule = True
+    update_schedule(data["schedule"])
+
+
 def connect_to_socketio():
     global retry_connection
     while True:
         try:
-            sio.disconnect()
-            print("Disconnected from previous connection")
+            if sio.connected:
+                sio.disconnect()
+                print("Disconnected from previous connection")
 
             sio.on('connect', on_connect)
             sio.on('disconnect', on_disconnect)
@@ -83,16 +105,23 @@ def connect_to_socketio():
             sio.on('updateAudioOnServer', on_updateAudioOnServer)
             sio.on('startAudioOnServer', on_startAudioOnServer)
             sio.on('stopAudioOnServer', on_stopAudioOnServer)
+            sio.on('updateScheduleOnServer', on_updateScheduleOnServer)
 
             sio.connect(url=wsUrl, headers=myobj, socketio_path=wsHandshakePath)
             sio.wait()
         except Exception as e:
             print(f"Connection failed: {e}. Retrying in 5 seconds...")
+            sio.disconnect()
+            reset_sio_client()
             time.sleep(5)
         if retry_connection:
             print(f"Connection failed after disconnect. Retrying in 5 seconds...")
             retry_connection = False
             continue
+
+def reset_sio_client():
+    global sio
+    sio = socketio.Client()
 
 def start_socketio_listener():
     socketio_thread = threading.Thread(target=connect_to_socketio)
@@ -114,7 +143,7 @@ def get_songs():
     #     print("Can't get data from server")
     #     return
 
-    # getting sound file from server    
+    # getting sound file from server
     # files = json.loads(r.text)
     # soundurl = os.getenv("API_URL")+"/sounds/"+ files["sounds"][0]["id"]
 
@@ -179,6 +208,44 @@ def stop_audio():
         print(f"Failed to set volume: {e}")
         sio.emit('stopAudioOnServer', {"status": "error", "message": f"Failed to stop audio: {e}"})
 
+def update_schedule(csengo_times):
+    global isUpdatingSchedule
+    try:
+        schedule.clear()
+
+        print("Updating csengo schedule")
+
+        for t in csengo_times:
+            schedule.every().monday.at(t).do(csengo)
+            schedule.every().tuesday.at(t).do(csengo)
+            schedule.every().wednesday.at(t).do(csengo)
+            schedule.every().thursday.at(t).do(csengo)
+            schedule.every().friday.at(t).do(csengo)
+
+        if sio.connected and sio is not None:
+            sio.emit('updateScheduleOnServer', {"status": "success", "message": "Successfully updated csengo schedule"})
+        else:
+            print("Socket.IO client is not connected. Cannot emit updateScheduleOnServer event.")
+
+        while not isUpdatingSchedule:
+            schedule.run_pending()
+            time.sleep(1)
+            if isUpdatingSchedule:
+                schedule.clear()
+                schedule.cancel_job()
+                break
+
+        isUpdatingSchedule = False
+
+        update_schedule(csengo_times)
+
+
+    except Exception as e:
+        print(f"Failed to update csengo schedule: {e}")
+        if sio.connected and sio is not None:
+            sio.emit('updateScheduleOnServer', {"status": "error", "message": f"Failed to update csengo schedule: {e}"})
+        else:
+            print("Socket.IO client is not connected. Cannot emit updateScheduleOnServer event.")
 
 def csengo():
     play_song(song)
@@ -198,24 +265,24 @@ start_socketio_listener()
 # Get filenames from server
 get_songs()
 
-play_song(song)
+# play_song(song)
 
 # Schedule times
 # schedule.every().day.at('00:01').do(get_songs) # Every night get the new music files (and delete the old ones)
 
+update_schedule(csengo_times)
 
-# TISZTA KOD ELVE!!!1111!!!!
-for t in csengo_times:
-    schedule.every().monday.at(t).do(csengo)
-    schedule.every().tuesday.at(t).do(csengo)
-    schedule.every().wednesday.at(t).do(csengo)
-    schedule.every().thursday.at(t).do(csengo)
-    schedule.every().friday.at(t).do(csengo)
-
-
-# Wait for schedules
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-
-
+# # TISZTA KOD ELVE!!!1111!!!!
+# for t in csengo_times:
+#     schedule.every().monday.at(t).do(csengo)
+#     schedule.every().tuesday.at(t).do(csengo)
+#     schedule.every().wednesday.at(t).do(csengo)
+#     schedule.every().thursday.at(t).do(csengo)
+#     schedule.every().friday.at(t).do(csengo)
+#
+#
+# # Wait for schedules
+# while not isUpdatingSchedule:
+#     schedule.run_pending()
+#     time.sleep(1)
+#     isUpdatingSchedule = False
