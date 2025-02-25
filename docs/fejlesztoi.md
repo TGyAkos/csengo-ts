@@ -302,6 +302,21 @@ npm run dev
 4. A kliens elindítása után a következő URL-eken érhető el:
    - Weboldal: [http://localhost:3000](http://localhost:3000)
 
+### Fejlesztői admin fiók regisztrálása
+
+Ha a backend szerver elindult, akkor a Swagger dokumentációban regisztrálhat egy új fejlesztői adminisztrátor fiókot a következő lépésekkel:
+
+1. Nyissa meg a Swagger dokumentációt a [http://localhost:3300/swagger](http://localhost:3300/swagger) URL-en.
+2. Kattintson a `POST /api/auth/register-dev` útvonalra.
+3. Kattintson a `Try it out` gombra.
+4. Adja meg a következő adatokat az adat testben:
+   - `username`: Az új fejlesztői adminisztrátor felhasználóneve.
+   - `email`: Az új fejlesztői adminisztrátor e-mail címe.
+   - `password`: Az új fejlesztői adminisztrátor jelszava. Legalább 6 karakter hosszú kell legyen.
+   - `om`: Egy egyedi OM azonosító a fejlesztői adminisztrátorhoz. Egy szám amely maximum 11 karakter hosszú lehet. Minden lekérdezéshez egyedinek kell lennie.
+5. Kattintson a `Execute` gombra.
+6. Jelentkezzen be az alkalmazásba a [http://localhost:3000/login](http://localhost:3000/login) úton, a regisztrált fejlesztői adminisztrátor fiókkal.
+
 ## Strukturális felépítés
 
 ### Frontend felépítése
