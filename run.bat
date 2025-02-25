@@ -54,9 +54,9 @@ echo The website is available at http://localhost:8080
 echo Swagger UI is available at http://localhost:3300/swagger
 echo The API is available at http://localhost:3300
 
-echo Waiting 5 seconds for the website and Swagger UI to start...
+echo Waiting 6 seconds for the website and Swagger UI to start...
 
-timeout /t 5 >nul
+timeout /t 6 >nul
 echo Opening the website and Swagger UI in the default browser...
 start http://localhost:3300/swagger
 timeout /t 1 >nul

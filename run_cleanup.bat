@@ -1,14 +1,8 @@
 @echo off
 
-echo Deleting PostgreSQL...
-start /wait "" "C:\Program Files\PostgreSQL\16\uninstall-postgresql.exe"
-echo After uninstallation is complete
-pause
-
-echo Deleting PostgreSQL data directory...
-rmdir /s /q "C:\Program Files\PostgreSQL\16\data"
-echo PostgreSQL data directory deleted.
+echo Shutting down Docker Compose...
+docker-compose -f docker-compose.dev.v2.yml down --rmi all -v
+echo Docker Compose shut down.
 
 echo You can safely close this window now.
 pause
-
