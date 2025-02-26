@@ -36,9 +36,6 @@ services:
       UPLOAD_PATH: "./data/audio"
       TOKEN_SECRET: "token-secret"
       JWT_SECRET: "jwt-secret"
-      SESSION_STORE_PASSWORD: "session-store-password"
-      SESSION_STORE_HOST: "csengo-v2-session-store"
-      SESSION_STORE_PORT: 6379
       CORS_ORIGIN: ".*[a-z0-9]*.4o1x5.dev"
       CORS_DOMAIN: "4o1x5.dev"
       DEV: true
