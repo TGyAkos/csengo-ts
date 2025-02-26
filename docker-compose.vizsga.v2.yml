@@ -17,10 +17,7 @@ services:
 
   csengo-ts-server-v2:
     container_name: csengo-ts-server-v2
-    build:
-      context: ./csengo-ts-server-v2
-      dockerfile: Dockerfile
-    image: csengo-ts-server-v2
+    image: ghcr.io/pollak-projects/csengo-ts/server-app:latest
     restart: always
     volumes:
       - csengo-v2_sounds:/data
@@ -39,18 +36,10 @@ services:
       CORS_ORIGIN: ".*[a-z0-9]*.4o1x5.dev"
       CORS_DOMAIN: "4o1x5.dev"
       DEV: true
-      WS_API_KEY: "ws-api-key"
 
   csengo-ts-client-v2:
     container_name: csengo-ts-client-v2
-    build:
-      context: ./csengo-ts-client-v2
-      dockerfile: Dockerfile
-      target: prod
-      args:
-        - VITE_API_URL=https://api.csengo.hirst.4ox5.dev
-        - VITE_COOKIE_DOMAIN=4ox5.dev
-    image: csengo-ts-client-v2
+    image: ghcr.io/pollak-projects/csengo-ts/client-app:latest
     ports:
       - "7665:80"
     networks:
