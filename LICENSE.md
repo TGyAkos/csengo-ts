@@ -78,7 +78,8 @@ The following individuals are the official developers of this software and hold 
 
 ## § 8. Copies with MIT License
 
-**There are no such copies as of now.**
+**Copies with MIT License (Github Repository URL):**
+- **https://github.com/Pollak-Projects/csengo-ts**
 
 ## § 9. Legal Notice
 
