@@ -5307,11 +5307,11 @@ Az `/api/server/start` végpont a hangfájl lejátszásának elindítására szo
 
 Az `/api/server/stop` végpont a hangfájl lejátszásának leállítására szolgál a szerveren. Amikor egy adminisztrátor GET kérést küld erre a végpontra, a szerver leállítja a hang lejátszási folyamatát. Ez magában foglalja a hangerő elnémítását és a hangfájl lejátszásának leállítását. A végpont egy választ ad, amely jelzi, hogy a hang lejátszása sikeresen leállt-e.
 
-### Integrált YouTube csengőhang feltöltő és vágó
+### Integrált csengőhang felvevő és vágó
 
-Ez a fejlesztési lehetőség egy olyan alkalmazás, amely lehetővé teszi a felhasználók számára, hogy YouTube videókat vágjanak meg és töltsenek fel. Az alkalmazás célja, hogy egyszerű és hatékony módon segítse a felhasználókat a YouTube videók letöltésében és vágásában, anélkül, hogy bonyolult szoftvereket kellene használniuk. Az alkalmazás különösen hasznos lehet azok számára, akik gyorsan és könnyedén szeretnének a YouTube weboldalról csengőhangot szerkeszteni. Az egyszerű felhasználói felület és a könnyen használható eszközök révén az alkalmazás mindenki számára elérhetővé teszi a videószerkesztést, függetlenül a technikai tudástól.
+Ez a fejlesztési lehetőség egy olyan alkalmazás, amely lehetővé teszi a felhasználók számára, hogy hangfelvételeket készítsenek és vágjanak meg. Az alkalmazás célja, hogy egyszerű és hatékony módon segítse a felhasználókat a hangfelvételek készítésében és vágásában, anélkül, hogy bonyolult szoftvereket kellene használniuk. Az alkalmazás különösen hasznos lehet azok számára, akik gyorsan és könnyedén szeretnének csengőhangot szerkeszteni. Az egyszerű felhasználói felület és a könnyen használható eszközök révén az alkalmazás mindenki számára elérhetővé teszi a hangfelvételek szerkesztését, függetlenül a technikai tudástól.
 
-A felhasználók által látható feltöltési gomb mellett kapna helyet, ahol a felhasználók a YouTube videó URL-jét adhatják meg. Az alkalmazás letölti a videót a megadott URL-ről, majd lehetőséget ad a felhasználóknak a videó vágására. A vágás funkció lehetővé teszi a felhasználók számára, hogy kiválasszák a videó kezdeti és végpontját. Ezek után az alkalmazás fel fogja tölteni a vágott videó hanganyagát, az ő nevükben, az elfogadásra váró csengőhangok közé.
+A felhasználók által látható felvételi gomb mellett kapna helyet, ahol a felhasználók elindíthatják a hangfelvételt. Az alkalmazás rögzíti a hangot a mikrofonról, majd lehetőséget ad a felhasználóknak a felvétel vágására. A vágás funkció lehetővé teszi a felhasználók számára, hogy kiválasszák a felvétel kezdeti és végpontját. Ezek után az alkalmazás fel fogja tölteni a vágott hanganyagot, az ő nevükben, az elfogadásra váró csengőhangok közé.
 
 ### Keycloak integráció
 
