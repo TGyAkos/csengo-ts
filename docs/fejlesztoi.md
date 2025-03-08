@@ -408,6 +408,8 @@ A frontend strukturális felépítése a következő:
                - *PlaySong.vue*: Zene lejátszása.
                - *SongSelection.vue*: Zene kiválasztása.
                - *VoteSong.vue*: Zene szavazása.
+      - **snipper**: YouTube vágó komponensek.
+         - *SnipperPanel.vue*: YouTube vágó komponens.
       - **__tests__**: Teszt komponensek.
          - *HelloWorld.spec.ts*: HelloWorld komponens tesztje.
          - *LoginCard.spec.ts*: LoginCard komponens tesztje.
@@ -418,6 +420,7 @@ A frontend strukturális felépítése a következő:
       - *logged-in.vue*: Bejelentkezett felhasználói elrendezés.
       - *README.md*: Elrendezések dokumentációja.
       - *user.vue*: Felhasználói elrendezés.
+      - *snipper.vue*: YouTube vágó oldal elrendezés.
    - **pages**: Oldalak.
       - *forbidden.vue*: Tiltott oldal.
       - *index.vue*: Főoldal.
@@ -427,6 +430,7 @@ A frontend strukturális felépítése a következő:
       - *required-pages-components.md*: Szükséges oldalak és komponensek listája.
       - *test.vue*: Teszt oldal.
       - *tv.vue*: TV oldal.
+      - *snipper.vue*: YouTube vágó oldal.
       - *[...slug].vue*: Dinamikus útvonalak kezelése.
       - **admin**: Adminisztrációs oldalak.
          - *index.vue*: Adminisztrációs főoldal.
@@ -440,6 +444,8 @@ A frontend strukturális felépítése a következő:
       - *index.ts*: Állapotkezelők regisztrálása.
       - *README.md*: Állapotkezelők dokumentációja.
       - *tv.ts*: TV állapotkezelő.
+      - *login.ts*: Bejelentkezés állapotkezelő.
+      - *register.ts*: Regisztráció állapotkezelő.
       - **admin**: Adminisztrációs állapotkezelők.
          - **pending-song**: Függő zenék állapotkezelői.
             - *pendingSong.ts*: Függő zene állapotkezelő.
@@ -454,6 +460,8 @@ A frontend strukturális felépítése a következő:
             - *song.ts*: Zene állapotkezelő.
             - *songList.ts*: Zenék listájának állapotkezelője.
             - *updateSongPopup.ts*: Zene frissítése állapotkezelő.
+         - **timetable**: Időbeosztás állapotkezelői.
+            - *timeList.ts*: Időbeosztás állapotkezelő.
          - **user**: Felhasználók állapotkezelői.
             - *updateUserPopup.ts*: Felhasználó frissítése állapotkezelő.
             - *user.ts*: Felhasználó állapotkezelő.
@@ -469,6 +477,8 @@ A frontend strukturális felépítése a következő:
             - **song-selection**: Zene kiválasztási állapotkezelők.
                - *playSong.ts*: Zene lejátszása állapotkezelő.
                - *voteSong.ts*: Zene szavazása állapotkezelő.
+         - **snipper**: YouTube vágó állapotkezelői.
+            - *uploadSong.ts*: YouTube vágó állapotkezelő.
    - **styles**: Stílusok.
       - *login.scss*: Bejelentkezési oldal stílusai.
       - *README.md*: Stílusok dokumentációja.
@@ -491,7 +501,9 @@ A frontend strukturális felépítése a következő:
    - *index.spec.ts*: Főoldal tesztje.
    - *login.spec.ts*: Bejelentkezési oldal tesztje.
    - *register.spec.ts*: Regisztrációs oldal tesztje.
+   - *snipper.spec.ts*: YouTube vágó oldal tesztje.
    - *tsconfig.json*: Teszt konfiguráció.
+   - *tv.spec.ts*: TV oldal tesztje.
 
 - *.browserslistrc*: A böngészők támogatásának konfigurációs fájlja.
 - *.dockerignore*: A Docker által figyelmen kívül hagyandó fájlok listája.
@@ -614,6 +626,18 @@ A frontend tesztelési folyamatok a következők:
 - **should display call to action when no session is active**: Ellenőrzi, hogy ha nincs aktív szavazási szekció, akkor megjelenik-e a cselekvési hívás.
 - **should display correct data when a session is active**: Ellenőrzi, hogy ha aktív szavazási szekció van, akkor helyesen jelenik-e meg az adat.
 
+##### `snipper.spec.ts`
+
+- **should display snipper page**: Ellenőrzi, hogy a Snipper oldal megjelenik-e.
+- **should display home button**: Ellenőrzi, hogy a kezdőlap gomb megjelenik-e.
+- **should display all elements**: Ellenőrzi, hogy az összes elem megjelenik-e az oldalon.
+- **should display warning message when no youtube link is given**: Ellenőrzi, hogy figyelmeztető üzenet jelenik-e meg, ha nincs megadva YouTube link.
+- **should display warning message when no section is given**: Ellenőrzi, hogy figyelmeztető üzenet jelenik-e meg, ha nincs megadva szekció a zenéből.
+- **should display warning message when no title is given**: Ellenőrzi, hogy figyelmeztető üzenet jelenik-e meg, ha nincs megadva cím.
+- **should not allow section to be more than 15 seconds**: Ellenőrzi, hogy a szekció hossza nem haladhatja meg a 15 másodpercet.
+- **should request upload when all data is given**: Ellenőrzi, hogy a feltöltési kérés elindul-e, ha minden adat meg van adva.
+- **should display error message when request fails**: Ellenőrzi, hogy hibaüzenet jelenik-e meg, ha a feltöltési kérés sikertelen.
+
 ### Backend felépítése
 
 A Pollák Csengő backend alkalmazásának metodológiája a következő: a backend alkalmazás moduláris felépítésű, a különböző funkciókat külön modulokba szervezi. A modulok egymással kommunikálnak a NestJS Dependency Injection segítségével, és a különböző modulok közötti navigáció a NestJS Router segítségével történik. Minden lekérdezés egy Prisma ORM segítségével történik, hogy a modulok egyszerű és konzisztens adatbázis hozzáférést tarthassanak. A modulok a NestJS keretrendszer segítségével vannak összeállítva és futtatva.
@@ -687,8 +711,10 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
          - *auth.controller.spec.ts*: Hitelesítési vezérlő tesztje.
          - *auth.controller.ts*: Hitelesítési vezérlő.
          - *auth.decorator.ts*: Hitelesítési dekorátor.
+         - *auth.guard.spec.ts*: Hitelesítési őr tesztje.
          - *auth.guard.ts*: Hitelesítési őr.
          - *auth.module.ts*: Hitelesítési modul.
+         - *auth.service.spec.ts*: Hitelesítési szolgáltatás tesztje.
          - *auth.service.ts*: Hitelesítési szolgáltatás.
          - **dto**: Adatátviteli objektumok.
             - *login.dto.ts*: Bejelentkezési DTO.
@@ -697,18 +723,30 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
          - *pending.songs.controller.spec.ts*: Függő zenék vezérlő tesztje.
          - *pending.songs.controller.ts*: Függő zenék vezérlő.
          - *pending.songs.module.ts*: Függő zenék modul.
+         - *pending.songs.service.spec.ts*: Függő zenék szolgáltatás tesztje.
          - *pending.songs.service.ts*: Függő zenék szolgáltatás.
       - **role**: Szerepkör modul.
          - *role.decorator.ts*: Szerepkör dekorátor.
          - *role.enum.ts*: Szerepkör enum.
+         - *role.guard.spec.ts*: Szerepkör őr tesztje.
          - *role.guard.ts*: Szerepkör őr.
+      - **snipper**: Snipper modul.
+         - *snipper.controller.spec.ts*: Snipper vezérlő tesztje.
+         - *snipper.controller.ts*: Snipper vezérlő.
+         - *snipper.module.ts*: Snipper modul.
+         - *snipper.service.ts*: Snipper szolgáltatás.
+         - *snipper.service.spec.ts*: Snipper szolgáltatás tesztje.
+         - **dto**: Adatátviteli objektumok.
+            - *add.song.dto.ts*: Snipper létrehozási DTO.
       - **songs**: Zenék modul.
          - *songs.controller.spec.ts*: Zenék vezérlő tesztje.
          - *songs.controller.ts*: Zenék vezérlő.
          - *songs.module.ts*: Zenék modul.
+         - *songs.service.spec.ts*: Zenék szolgáltatás tesztje.
          - *songs.service.ts*: Zenék szolgáltatás.
          - **dto**: Adatátviteli objektumok.
             - *create.song.dto.ts*: Zene létrehozási DTO.
+            - *update.schedule.dto.ts*: Ütemezés frissítési DTO.
       - **tv**: TV modul.
          - *tv.controller.spec.ts*: TV vezérlő tesztje.
          - *tv.controller.ts*: TV vezérlő.
@@ -724,15 +762,23 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
          - **dto**: Adatátviteli objektumok.
             - *update.pass.dto.ts*: Jelszó frissítési DTO.
             - *update.role.dto.ts*: Szerepkör frissítési DTO.
+      - **view**: Nézet modul.
+         - *view.controller.spec.ts*: Nézet vezérlő tesztje.
+         - *view.controller.ts*: Nézet vezérlő.
+         - *view.module.ts*: Nézet modul.
+         - *view.service.spec.ts*: Nézet szolgáltatás tesztje.
+         - *view.service.ts*: Nézet szolgáltatás.
       - **votes**: Szavazatok modul.
          - *votes.controller.spec.ts*: Szavazatok vezérlő tesztje.
          - *votes.controller.ts*: Szavazatok vezérlő.
          - *votes.module.ts*: Szavazatok modul.
+         - *votes.service.spec.ts*: Szavazatok szolgáltatás tesztje.
          - *votes.service.ts*: Szavazatok szolgáltatás.
       - **votingSessions**: Szavazási szekciók modul.
          - *voting.sessions.controller.spec.ts*: Szavazási szekciók vezérlő tesztje.
          - *voting.sessions.controller.ts*: Szavazási szekciók vezérlő.
          - *voting.sessions.module.ts*: Szavazási szekciók modul.
+         - *voting.sessions.service.spec.ts*: Szavazási szekciók szolgáltatás.
          - *voting.sessions.service.ts*: Szavazási szekciók szolgáltatás.
          - **dto**: Adatátviteli objektumok.
             - *voting.session.dto.ts*: Szavazási szekció DTO.
@@ -742,6 +788,7 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
          - *websocket.guard.ts*: Websocket őr.
          - *websocket.module.ts*: Websocket modul.
    - **pipe**: Pipe-ok.
+      - *audio.length.validation.pipe.service.spec.ts*: Audio hossz validációs pipe tesztje.
       - *audio.length.validation.pipe.service.ts*: Audio hossz validációs pipe.
       - *pipe.module.ts*: Pipe modul.
    - **type**: Típusdefiníciók.
@@ -749,6 +796,8 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
       - *jwt.d.ts*: JWT típusdefiníciók.
    - **util**: Segédfüggvények.
       - *logger.custom.util.ts*: Egyedi naplózó segédfüggvény.
+      - *hbs.helpers.util.ts*: Handlebars segédfüggvények.
+      - *time.parser.util.ts*: Időpont elemző segédfüggvény.
 
 - **test**
    - *app.e2e-spec.ts*: Végpontok közötti teszt.
@@ -1674,6 +1723,65 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
             "success": true
           }
           ```
+
+##### `snipper.controller.spec.ts`
+
+- **SnipperController -> should be defined**: A teszt ellenőrzi, hogy a `SnipperController` definiálva van-e.
+   - **Mocked input data**:
+      - **module**:
+        ```json
+        {
+          "controllers": ["SnipperController"],
+          "providers": [
+            {
+              "provide": "SnipperService",
+              "useValue": {
+                "addSong": "jest.fn().mockResolvedValue('')"
+              }
+            },
+            "PrismaConfigService",
+            "ConfigService",
+            "JwtService"
+          ]
+        }
+        ```
+   - **Return value**:
+      - **snipperController**:
+        ```json
+        {
+          "toBeDefined": true
+        }
+        ```
+
+- **SnipperController -> addSong -> should return an empty response when song is successfully added**: A teszt ellenőrzi, hogy a `SnipperController` üres választ ad vissza, amikor egy dal sikeresen hozzáadásra kerül.
+   - **Mocked input data**:
+      - **mockRequest**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+      - **mockRequestDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=8sgycukafqQ&list=RD6vNsAHxJXwE&index=3",
+          "from": 2,
+          "to": 10,
+          "title": "alma"
+        }
+        ```
+   - **Return value**:
+      - **result**:
+        ```json
+        {
+          "result": ""
+        }
+        ```
 
 #### Backend Service Tesztelés
 
@@ -4304,6 +4412,160 @@ A Pollák Csengő backend alkalmazásának metodológiája a következő: a back
             "status": 500
           }
           ```
+
+##### `snipper.service.spec.ts`
+
+- **SnipperService -> addSong -> should throw an error if time delta is less than 5 seconds**: Ez a teszteset azt ellenőrzi, hogy a `SnipperService` `addSong` metódusa hibát dob-e, ha a megadott időintervallum kevesebb, mint 5 másodperc.
+   - **Mocked input data**:
+      - **songDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=JVpTp8IHdEg&list=RD6vNsAHxJXwE&index=10",
+          "from": 0,
+          "to": 4,
+          "title": "Test Song"
+        }
+        ```
+      - **request**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+   - **Return value**:
+      - **error**:
+        ```json
+        {
+          "message": "From-to time delta cannot be greater than 15 seconds & cannot be less than 5",
+          "status": 400
+        }
+        ```
+
+- **SnipperService -> addSong -> should throw an error if time delta is greater than 15 seconds**: Ez a teszteset azt ellenőrzi, hogy a `SnipperService` `addSong` metódusa hibát dob-e, ha a megadott időintervallum nagyobb, mint 15 másodperc.
+   - **Mocked input data**:
+      - **songDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=JVpTp8IHdEg&list=RD6vNsAHxJXwE&index=10",
+          "from": 0,
+          "to": 18,
+          "title": "Test Song"
+        }
+        ```
+      - **request**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+   - **Return value**:
+      - **error**:
+        ```json
+        {
+          "message": "From-to time delta cannot be greater than 15 seconds & cannot be less than 5",
+          "status": 400
+        }
+        ```
+
+- **SnipperService -> addSong -> should throw an error if yt-dlp fails to get video info**: Ez a teszteset azt ellenőrzi, hogy a `SnipperService` `addSong` metódusa hibát dob-e, ha a `yt-dlp` parancs nem tudja lekérni a videó információit.
+   - **Mocked input data**:
+      - **songDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=JVpTp8IHdEg&list=RD6vNsAHxJXwE&index=10",
+          "from": 0,
+          "to": 10,
+          "title": "Test Song"
+        }
+        ```
+      - **request**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+   - **Return value**:
+      - **error**:
+        ```json
+        {
+          "message": "Failed to get details about the youtube video",
+          "status": 500
+        }
+        ```
+
+- **SnipperService -> addSong -> should throw an error if video duration is greater than 10 minutes**: Ez a teszteset azt ellenőrzi, hogy a `SnipperService` `addSong` metódusa hibát dob-e, ha a videó hossza nagyobb, mint 10 perc.
+   - **Mocked input data**:
+      - **songDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=JVpTp8IHdEg&list=RD6vNsAHxJXwE&index=10",
+          "from": 0,
+          "to": 10,
+          "title": "Test Song"
+        }
+        ```
+      - **request**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+   - **Return value**:
+      - **error**:
+        ```json
+        {
+          "message": "The maximum length ot the video cannot be greater than 10 minutes",
+          "status": 400
+        }
+        ```
+
+- **SnipperService -> addSong -> should download and convert the video to mp3**: Ez a teszteset azt ellenőrzi, hogy a `SnipperService` `addSong` metódusa sikeresen letölti és konvertálja a videót mp3 formátumba, majd hozzáadja az adatbázishoz.
+   - **Mocked input data**:
+      - **songDto**:
+        ```json
+        {
+          "ytUrl": "https://www.youtube.com/watch?v=JVpTp8IHdEg&list=RD6vNsAHxJXwE&index=10",
+          "from": 0,
+          "to": 10,
+          "title": "Test Song"
+        }
+        ```
+      - **request**:
+        ```json
+        {
+          "token": {
+            "sub": "mockedId",
+            "username": "mockedUser",
+            "roles": ["Admin"],
+            "hashedPassword": "mocked-password"
+          }
+        }
+        ```
+   - **Return value**:
+      - **result**:
+        ```json
+        {}
+        ```
 
 #### Backend Pipe Tesztelés
 
