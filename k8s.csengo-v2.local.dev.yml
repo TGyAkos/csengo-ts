@@ -1,5 +1,8 @@
+# minikube image load csengo-ts-server-v2:latest
+# minikube image load csengo-ts-client-v2:latest
 # kubectl cp .\assets\initdb.sql csengo-v2-postgres-869dcc45cb-t6cv8:/docker-entrypoint-initdb.d
 # kubectl cp .\assets\audio csengo-v2-server-7f9477d5ff-z9qjp:/data
+# minikube ssh
 # rm -rf /mnt/data/csengo-v2-db
 apiVersion: v1
 kind: PersistentVolume
