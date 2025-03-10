@@ -1,0 +1,308 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csengo-v2-db-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/csengo-v2-db
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csengo-v2-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csengo-v2-db-init-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/csengo-v2-db-init
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csengo-v2-db-init-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csengo-v2-sounds-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/csengo-v2-sounds
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csengo-v2-sounds-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csengo-v2-pgadmin-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/csengo-v2-pgadmin
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csengo-v2-pgadmin-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csengo-v2-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csengo-v2-postgres
+  template:
+    metadata:
+      labels:
+        app: csengo-v2-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.6
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "csengo"
+            - name: POSTGRES_PASSWORD
+              value: "csengo"
+            - name: POSTGRES_DB
+              value: "csengo"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: csengo-v2-db
+            - mountPath: /docker-entrypoint-initdb.d
+              name: csengo-v2-db-init
+      volumes:
+        - name: csengo-v2-db
+          persistentVolumeClaim:
+            claimName: csengo-v2-db-pvc
+        - name: csengo-v2-db-init
+          persistentVolumeClaim:
+            claimName: csengo-v2-db-init-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csengo-v2-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csengo-v2-server
+  template:
+    metadata:
+      labels:
+        app: csengo-v2-server
+    spec:
+      containers:
+        - name: server-app
+          image: csengo-ts-server-v2:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3300
+          env:
+            - name: PORT
+              value: "3300"
+            - name: DATABASE_URL
+              value: "postgresql://csengo:csengo@csengo-v2-postgres:5432/csengo?schema=public"
+            - name: UPLOAD_PATH
+              value: "./data/audio"
+            - name: UPLOAD_TEMP_PATH
+              value: "./data/temp"
+            - name: TOKEN_SECRET
+              value: "token-secret"
+            - name: JWT_SECRET
+              value: "jwt-secret"
+            - name: CORS_ORIGIN
+              value: ".*[a-z0-9]*.4o1x5.dev"
+            - name: CORS_DOMAIN
+              value: "4o1x5.dev"
+            - name: DEV
+              value: "true"
+          volumeMounts:
+            - mountPath: /data
+              name: csengo-v2-sounds
+      volumes:
+        - name: csengo-v2-sounds
+          persistentVolumeClaim:
+            claimName: csengo-v2-sounds-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csengo-v2-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csengo-v2-client
+  template:
+    metadata:
+      labels:
+        app: csengo-v2-client
+    spec:
+      containers:
+        - name: client-app
+          image: csengo-ts-client-v2:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csengo-v2-pgadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csengo-v2-pgadmin
+  template:
+    metadata:
+      labels:
+        app: csengo-v2-pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: dpage/pgadmin4
+          ports:
+            - containerPort: 80
+          env:
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: "admin@4o1x5.dev"
+            - name: PGADMIN_DEFAULT_USERNAME
+              value: "admin"
+            - name: PGADMIN_DEFAULT_PASSWORD
+              value: "admin"
+            - name: PGADMIN_CONFIG_WTF_CSRF_ENABLED
+              value: "False"
+          volumeMounts:
+            - mountPath: /var/lib/pgadmin
+              name: csengo-v2-pgadmin
+      volumes:
+        - name: csengo-v2-pgadmin
+          persistentVolumeClaim:
+            claimName: csengo-v2-pgadmin-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: csengo-v2-postgres
+spec:
+  selector:
+    app: csengo-v2-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30582
+  type: NodePort
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: csengo-v2-server
+spec:
+  selector:
+    app: csengo-v2-server
+  ports:
+    - protocol: TCP
+      port: 3300
+      targetPort: 3300
+      nodePort: 30666
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: csengo-v2-client
+spec:
+  selector:
+    app: csengo-v2-client
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30665
+  type: NodePort
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: csengo-v2-pgadmin
+spec:
+  selector:
+    app: csengo-v2-pgadmin
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30667
+  type: NodePort
+
