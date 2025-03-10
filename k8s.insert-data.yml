@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: insert-initdb-temp-pod
+spec:
+  containers:
+    - name: insert-initdb-temp-container
+      image: busybox
+      command: [ "sleep", "3600" ]
+      volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d
+          name: csengo-v2-db-init
+  volumes:
+    - name: csengo-v2-db-init
+      persistentVolumeClaim:
+        claimName: csengo-v2-db-init-pvc
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: insert-songs-temp-pod
+spec:
+  containers:
+    - name: insert-songs-temp-container
+      image: busybox
+      command: [ "sleep", "3600" ]
+      volumeMounts:
+        - mountPath: /data
+          name: csengo-v2-sounds
+  volumes:
+    - name: csengo-v2-sounds
+      persistentVolumeClaim:
+        claimName: csengo-v2-sounds-pvc
