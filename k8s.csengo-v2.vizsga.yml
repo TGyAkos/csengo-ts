@@ -1,104 +1,40 @@
 # kubectl cp .\assets\initdb.sql csengo-v2-dev-postgres-869dcc45cb-t6cv8:/docker-entrypoint-initdb.d
 # kubectl cp .\assets\audio csengo-v2-dev-server-7f9477d5ff-z9qjp:/data
-# rm -rf /mnt/data/csengo-v2-dev-db
-apiVersion: v1
-kind: PersistentVolume
+# rm -rf /mnt/data/csengo-v2-dev
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: csengo-v2-dev-db-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data/csengo-v2-dev-db
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: csengo-v2-dev-db-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+  name: csengo-v2-dev-scn
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: csengo-v2-dev-db-init-pv
+  name: csengo-v2-dev-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 4Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   hostPath:
-    path: /mnt/data/csengo-v2-dev-db-init
+    path: /mnt/data/csengo-v2
+  storageClassName: csengo-v2-dev-scn
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: csengo-v2-dev-db-init-pvc
+  name: csengo-v2-dev-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: csengo-v2-dev-sounds-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data/csengo-v2-dev-sounds
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: csengo-v2-dev-sounds-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: csengo-v2-dev-pgadmin-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data/csengo-v2-dev-pgadmin
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: csengo-v2-dev-pgadmin-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+      storage: 4Gi
+  volumeName: csengo-v2-dev-pv
+  storageClassName: csengo-v2-dev-scn
 
 ---
 apiVersion: apps/v1
@@ -129,16 +65,15 @@ spec:
               value: "csengo"
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: csengo-v2-dev-db
+              name: csengo-v2-dev
+              subPath: postgresql
             - mountPath: /docker-entrypoint-initdb.d
-              name: csengo-v2-dev-db-init
+              name: csengo-v2-dev
+              subPath: initdb
       volumes:
-        - name: csengo-v2-dev-db
+        - name: csengo-v2-dev
           persistentVolumeClaim:
-            claimName: csengo-v2-dev-db-pvc
-        - name: csengo-v2-dev-db-init
-          persistentVolumeClaim:
-            claimName: csengo-v2-dev-db-init-pvc
+            claimName: csengo-v2-dev-pvc
 
 ---
 apiVersion: apps/v1
@@ -181,11 +116,12 @@ spec:
               value: "true"
           volumeMounts:
             - mountPath: /data
-              name: csengo-v2-dev-sounds
+              name: csengo-v2-dev
+              subPath: data
       volumes:
-        - name: csengo-v2-dev-sounds
+        - name: csengo-v2-dev
           persistentVolumeClaim:
-            claimName: csengo-v2-dev-sounds-pvc
+            claimName: csengo-v2-dev-pvc
 
 ---
 apiVersion: apps/v1
@@ -240,10 +176,11 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/pgadmin
               name: csengo-v2-dev-pgadmin
+              subPath: pgadmin
       volumes:
-        - name: csengo-v2-dev-pgadmin
+        - name: csengo-v2-dev
           persistentVolumeClaim:
-            claimName: csengo-v2-dev-pgadmin-pvc
+            claimName: csengo-v2-dev-pvc
 
 ---
 apiVersion: v1

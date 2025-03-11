@@ -1,13 +1,13 @@
-# kubectl cp .\assets\initdb.sql temp-pod:/docker-entrypoint-initdb.d
-# kubectl cp .\assets\audio temp-pod:/data
-# kubectl exec -it temp-pod -- /bin/sh
+# kubectl cp .\assets\initdb.sql temp-dev-pod:/docker-entrypoint-initdb.d
+# kubectl cp .\assets\audio temp-dev-pod:/data
+# kubectl exec -it temp-dev-pod -- /bin/sh
 # minikube ssh
 # sudo rm -rf /mnt/data/csengo-v2
 
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: csengo-v2-scn
+  name: csengo-v2-dev-scn
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 
@@ -15,7 +15,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: csengo-v2-pv
+  name: csengo-v2-dev-pv
 spec:
   capacity:
     storage: 4Gi
@@ -23,43 +23,43 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /mnt/data/csengo-v2
-  storageClassName: csengo-v2-scn
+  storageClassName: csengo-v2-dev-scn
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: csengo-v2-pvc
+  name: csengo-v2-dev-pvc
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 4Gi
-  volumeName: csengo-v2-pv
-  storageClassName: csengo-v2-scn
+  volumeName: csengo-v2-dev-pv
+  storageClassName: csengo-v2-dev-scn
 
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: temp-pod
+  name: temp-dev-pod
 spec:
   containers:
-    - name: temp-container
+    - name: temp-dev-container
       image: busybox
       command: [ "sleep", "3600" ]
       volumeMounts:
         - mountPath: /docker-entrypoint-initdb.d
-          name: csengo-v2
+          name: csengo-v2-dev
           subPath: initdb
         - mountPath: /var/lib/postgresql/data
-          name: csengo-v2
+          name: csengo-v2-dev
           subPath: postgesql
         - mountPath: /data
-          name: csengo-v2
+          name: csengo-v2-dev
           subPath: data
   volumes:
-    - name: csengo-v2
+    - name: csengo-v2-dev
       persistentVolumeClaim:
-        claimName: csengo-v2-pvc
+        claimName: csengo-v2-dev-pvc
