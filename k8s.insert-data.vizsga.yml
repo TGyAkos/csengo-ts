@@ -22,7 +22,7 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: /mnt/data/csengo-v2
+    path: /mnt/data/csengo-v2-dev
   storageClassName: csengo-v2-dev-scn
 
 ---
